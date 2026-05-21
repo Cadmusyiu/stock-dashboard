@@ -172,7 +172,7 @@ var CMG = {
   buffett:{name:'Buffett (Berkshire Hathaway)',meta:'AUM: $263.10B',tags:['Value', 'Insurance', 'Consumer'],tk:['AAPL','AXP','KO','BAC','CVX','OXY','GOOGL','CB','MCO','KHC'],wt:{AAPL:24.2,AXP:19.1,KO:12.7,BAC:10.4,CVX:7.3,OXY:7.1,GOOGL:6.9,CB:4.6,MCO:4.5,KHC:3.1}},
   ackman:{name:'Ackman (Pershing Square)',meta:'AUM: $13.71B',tags:['Activist', 'Financials', 'Tech'],tk:['BN','AMZN','UBER','MSFT','QSR','META','HHC'],wt:{BN:18.0,AMZN:17.8,UBER:16.0,MSFT:15.6,QSR:12.4,META:11.3,HHC:8.9}},
   drucken:{name:'Druckenmiller (Duquesne)',meta:'AUM: $3M',tags:['Macro', 'Biotech', 'Cyclical'],tk:['NTRA','IWM','INSM','TSM','QQQ','YPF','TBBB','AA','NAMS','SE'],wt:{NTRA:31.0,IWM:14.9,INSM:9.6,TSM:8.6,QQQ:8.1,YPF:7.5,TBBB:5.7,AA:5.0,NAMS:5.0,SE:4.6}},
-  salp:{name:'SALP (Situational Awareness LP)',meta:'AUM: $5.22B',tags:['AI Infra', 'Power', 'Semicon'],tk:['SNDK','BE','CRWV','MU','IREN','CORZ','TSM','APLD','RIOT','CLSK'],wt:{SNDK:22.7,BE:19.1,CRWV:14.3,MU:8.8,IREN:8.2,CORZ:8.0,TSM:7.4,APLD:6.5,RIOT:2.9,CLSK:2.1}},
+  salp:{name:'SALP (Situational Awareness LP)',meta:'AUM: $5.22B',tags:['AI Infra', 'Power', 'Semicon'],tk:['SNDK','BE','CRWV','MU','IREN','CORZ','TSM','APLD','RIOT','CLSK'],wt:{SNDK:22.7,BE:19.1,CRWV:14.3,MU:8.8,IREN:8.2,CORZ:8.0,TSM:7.4,APLD:6.5,RIOT:2.9,CLSK:2.1},puts:{MU:1,TSM:1}},
   burry:{name:'Burry (Scion Asset Mgmt)',meta:'AUM: $283M',tags:['Value', 'Healthcare', 'Contrarian'],tk:['PFE','HAL','MOH','LULU','SLM','BRKR'],wt:{PFE:54.0,HAL:21.8,MOH:8.5,LULU:6.3,SLM:4.7,BRKR:4.7}},
   cathie:{name:'Cathie Wood (ARK Innovation)',meta:'ARKK Daily',tags:['Innovation','Genomics','Fintech'],tk:['TSLA', 'AMD', 'CRCL', 'TEM', 'CRSP', 'HOOD', 'COIN', 'ROKU', 'SHOP', 'PLTR'],wt:{TSLA:21.2,AMD:10.3,CRCL:9.5,TEM:9.4,CRSP:9.2,HOOD:8.9,COIN:8.6,ROKU:8.6,SHOP:8.3,PLTR:6.1}},
   trump:{name:'Trump (Media & Deals)',meta:'Speculative',tags:['Media','Crypto'],tk:['DJT', 'MSTR', 'TSLA'],wt:{DJT:40,MSTR:10,TSLA:5}},
@@ -252,11 +252,12 @@ function doSort(by){
   h.forEach(function(th){var arrow=th.querySelector('.sort-arrow');if(arrow){arrow.textContent=''}});
   var cur=document.querySelector('.portfolio-table th[data-sort="'+by+'"] .sort-arrow');
   if(cur)cur.textContent=sortAsc?'▲':'▼';
-  if(window._rows)renderTable(window._rows);
+  if(window._rows)renderTable(window._rows, window._puts);
 }
 
-function renderTable(rows){
+function renderTable(rows, puts){
   window._rows=rows;
+  window._puts=puts||{};
   var sRows=rows.slice().sort(function(a,b){
     if(sortBy==='wt')return sortAsc?b.wt-a.wt:a.wt-b.wt;
     return sortAsc?a.t.localeCompare(b.t):b.t.localeCompare(a.t);
@@ -267,7 +268,8 @@ function renderTable(rows){
     var cc=r.ch>=0?'var(--green)':'var(--red)';
     var rsi=typeof r.rsi==='number'?Math.round(r.rsi):'—';
     var sig=r.rsi<35?'BUY':r.rsi>65?'SELL':'NEUTRAL';
-    return '<tr><td class="ticker-cell">'+r.t+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span class="signal-badge '+(sig==='BUY'?'buy':sig==='SELL'?'sell':'neutral')+'">'+sig+'</span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
+    var hasPut=window._puts[r.t]?' <span class="put-badge">PUT</span>':'';
+    return '<tr><td class="ticker-cell">'+r.t+hasPut+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span class="signal-badge '+(sig==='BUY'?'buy':sig==='SELL'?'sell':'neutral')+'">'+sig+'</span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
   }).join('');
 }
 
@@ -303,7 +305,7 @@ window.loadManager = function(id){
       if(!d)return {t:t,ok:false,wt:w};
       return {t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,wt:w};
     });
-    renderTable(rows);
+    renderTable(rows, mgr.puts);
     if(window.Chart){
       setTimeout(function(){
         buildPie(mgr.tk,mgr.wt);
