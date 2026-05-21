@@ -180,6 +180,9 @@ var CMG = {
 
 var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
 var lChart=null,pChart=null,busy=false,loadSeq=0,sortBy='wt',sortAsc=false;
+var _chartSeed={}; // seeded random for stable chart lines
+function seededRand(seed){var x=(seed*9301+49297)%233280;return x/233280}
+function seedFor(ticker,day){return ((ticker.charCodeAt(0)*1000+ticker.charCodeAt(1||ticker.charCodeAt(0))*100+day*7)*9973)%233280}
 
 function $(id){return document.getElementById(id)}
 
@@ -239,7 +242,7 @@ function buildLine(tk,data,wt){
     var drift=((d.p1||0)+(d.p3||0))/6000;
     drift=Math.max(-0.003, Math.min(0.003, drift));
     var vs=[],p=close;
-    for(var i=0;i<days;i++){p*=(1+drift+(Math.random()-0.5)*pctVol*3);vs.push(p)}
+    for(var i=0;i<days;i++){var s=seededRand(seedFor(t,i));p*=(1+drift+(s-0.5)*pctVol*3);vs.push(p)}
     for(var i=0;i<days;i++)total[i]+=vs[i]*w/100;
   });
   var dss=[{label:'Portfolio',data:total,borderColor:'#7cff00',backgroundColor:'rgba(124,255,0,0.08)',fill:true,borderWidth:2.5,pointRadius:0,tension:0.3}];
