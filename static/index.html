@@ -33,9 +33,10 @@
   <div class="manager-tags" id="managerTags"></div>
   <div id="errMsg" style="color:#ff4757;font-size:12px;margin-top:8px;display:none;"></div>
 </div>
+<div style="text-align:right;font-size:10px;color:var(--text-muted);margin:-8px 0 8px;opacity:0.6;" id="updateTs"></div>
 <div class="glass portfolio-section fade-in fade-in-3">
   <div style="overflow-x:auto;">
-    <table class="portfolio-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th><th>RSI</th><th>Signal</th><th>Weight</th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
+    <table class="portfolio-table"><thead><tr><th data-sort="tk" onclick="doSort('tk')">Ticker <span class="sort-arrow"></span></th><th>Price</th><th>Chg%</th><th>RSI</th><th>Signal</th><th data-sort="wt" onclick="doSort('wt')">Weight <span class="sort-arrow"></span></th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
   </div>
 </div>
 <div class="charts-row fade-in fade-in-4">
@@ -178,7 +179,7 @@ var CMG = {
 };
 
 var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
-var lChart=null,pChart=null,busy=false,loadSeq=0;
+var lChart=null,pChart=null,busy=false,loadSeq=0,sortBy='wt',sortAsc=false;
 
 function $(id){return document.getElementById(id)}
 
@@ -245,9 +246,23 @@ function buildLine(tk,data,wt){
   lChart=new Chart(c.getContext('2d'),{type:'line',data:{labels:dates,datasets:dss},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:true,position:'top',labels:{color:'rgba(255,255,255,0.5)',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:12,boxWidth:8}},tooltip:{backgroundColor:'rgba(7,7,13,0.9)',titleColor:'rgba(255,255,255,0.6)',bodyColor:'#fff',borderColor:'rgba(124,255,0,0.2)',borderWidth:1,padding:10,cornerRadius:8,callbacks:{title:function(items){return items[0].label},label:function(item){return '  '+item.dataset.label+': $'+fmt(item.parsed.y)}}}},scales:{x:{display:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.2)',font:{size:9},maxTicksLimit:6}},y:{display:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.25)',font:{size:9},callback:function(v){return '$'+fmt(v)}}}}}});
 }
 
+function doSort(by){
+  if(sortBy===by){sortAsc=!sortAsc}else{sortBy=by;sortAsc=by==='wt'?true:false}
+  var h=document.querySelectorAll('.portfolio-table th[data-sort]');
+  h.forEach(function(th){var arrow=th.querySelector('.sort-arrow');if(arrow){arrow.textContent=''}});
+  var cur=document.querySelector('.portfolio-table th[data-sort="'+by+'"] .sort-arrow');
+  if(cur)cur.textContent=sortAsc?'▲':'▼';
+  if(window._rows)renderTable(window._rows);
+}
+
 function renderTable(rows){
+  window._rows=rows;
+  var sRows=rows.slice().sort(function(a,b){
+    if(sortBy==='wt')return sortAsc?b.wt-a.wt:a.wt-b.wt;
+    return sortAsc?a.t.localeCompare(b.t):b.t.localeCompare(a.t);
+  });
   var tb=$('tableBody');
-  tb.innerHTML=rows.map(function(r){
+  tb.innerHTML=sRows.map(function(r){
     if(!r.ok)return '<tr><td>'+r.t+'</td><td colspan="5" style="color:var(--text-muted);">N/A</td></tr>';
     var cc=r.ch>=0?'var(--green)':'var(--red)';
     var rsi=typeof r.rsi==='number'?Math.round(r.rsi):'—';
@@ -302,6 +317,12 @@ window.loadManager = function(id){
     if(e2){e2.textContent='Fetch failed: '+e.message;e2.style.display='block'}
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--red);">⚠️ Failed</td></tr>';
   });
+  // Update timestamp in a way that survives stale responses
+  var ts=$('updateTs');
+  if(ts){
+    var nowU=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    if(seq===loadSeq)ts.textContent='🔄 Updated '+nowU;
+  }
 };
 
 window.refreshAll = function(){
@@ -311,6 +332,9 @@ window.refreshAll = function(){
 
 function boot(){
   loadPrices();
+  // Init sort indicator: Weight ▲ (descending)
+  var wth=document.querySelector('.portfolio-table th[data-sort="wt"] .sort-arrow');
+  if(wth)wth.textContent='▲';
   var n=0;
   function c(){if(window.Chart){loadManager('salp')}else if(n++<100){setTimeout(c,200)}}
   c();
