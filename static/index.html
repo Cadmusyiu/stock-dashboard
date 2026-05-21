@@ -57,25 +57,30 @@
 var exch = {
   AA:'NASDAQ',
   AAPL:'NASDAQ',
+  AMD:'NASDAQ',
   AMZN:'NASDAQ',
-  APLD:'NYSE',
+  APLD:'NASDAQ',
   AXP:'NYSE',
   BAC:'NYSE',
   BE:'NYSE',
   BN:'NYSE',
   BRKR:'NASDAQ',
   CB:'NYSE',
-  CLSK:'NYSE',
-  CORZ:'NYSE',
+  CLSK:'NASDAQ',
+  COIN:'NASDAQ',
+  CORZ:'NASDAQ',
+  CRCL:'NYSE',
+  CRSP:'NASDAQ',
   CRWV:'NASDAQ',
   CVX:'NYSE',
   DJT:'NASDAQ',
   GOOGL:'NASDAQ',
   HAL:'NYSE',
   HHC:'NYSE',
+  HOOD:'NASDAQ',
   INSM:'NASDAQ',
-  IREN:'NYSE',
-  IWM:'NASDAQ',
+  IREN:'NASDAQ',
+  IWM:'AMEX',
   KHC:'NYSE',
   KO:'NYSE',
   LULU:'NASDAQ',
@@ -89,13 +94,17 @@ var exch = {
   NTRA:'NASDAQ',
   OXY:'NYSE',
   PFE:'NYSE',
+  PLTR:'NASDAQ',
   QQQ:'NASDAQ',
   QSR:'NYSE',
-  RIOT:'NYSE',
+  RIOT:'NASDAQ',
+  ROKU:'NASDAQ',
   SE:'NYSE',
+  SHOP:'NASDAQ',
   SLM:'NASDAQ',
   SNDK:'NASDAQ',
   TBBB:'NYSE',
+  TEM:'NASDAQ',
   TSLA:'NASDAQ',
   TSM:'NYSE',
   UBER:'NYSE',
@@ -105,49 +114,58 @@ var exch = {
 var COLORS = {
   AA:'#76b900',
   AAPL:'#4fc3f7',
-  AMZN:'#7cff00',
-  APLD:'#00b894',
-  AXP:'#ff6b6b',
-  BAC:'#e17055',
-  BE:'#0984e3',
-  BN:'#ff9900',
-  BRKR:'#1877f2',
-  CB:'#34a853',
-  CLSK:'#555555',
-  CORZ:'#e31b23',
-  CRWV:'#002663',
-  CVX:'#f40000',
-  DJT:'#0093c4',
-  GOOGL:'#e31937',
-  HAL:'#003a70',
-  HHC:'#7ac043',
-  INSM:'#e82127',
-  IREN:'#6a1b9a',
-  IWM:'#0052ff',
-  KHC:'#0e71eb',
-  KO:'#000000',
-  LULU:'#00a2ff',
-  MCO:'#00a4ef',
-  META:'#00843d',
-  MOH:'#00b2a9',
-  MSFT:'#d50032',
-  MSTR:'#0089cf',
-  MU:'#211915',
-  NAMS:'#00a4e4',
-  NTRA:'#004990',
-  OXY:'#0093d0',
-  PFE:'#76b900',
-  QQQ:'#4fc3f7',
-  QSR:'#7cff00',
-  RIOT:'#00b894',
-  SE:'#ff6b6b',
-  SLM:'#e17055',
-  SNDK:'#0984e3',
-  TBBB:'#ff9900',
-  TSLA:'#1877f2',
-  TSM:'#34a853',
-  UBER:'#555555',
-  YPF:'#e31b23'
+  AMD:'#7cff00',
+  AMZN:'#00b894',
+  APLD:'#ff6b6b',
+  AXP:'#e17055',
+  BAC:'#0984e3',
+  BE:'#ff9900',
+  BN:'#1877f2',
+  BRKR:'#34a853',
+  CB:'#555555',
+  CLSK:'#e31b23',
+  COIN:'#002663',
+  CORZ:'#f40000',
+  CRCL:'#0093c4',
+  CRSP:'#e31937',
+  CRWV:'#003a70',
+  CVX:'#7ac043',
+  DJT:'#e82127',
+  GOOGL:'#6a1b9a',
+  HAL:'#0052ff',
+  HHC:'#0e71eb',
+  HOOD:'#000000',
+  INSM:'#00a2ff',
+  IREN:'#00a4ef',
+  IWM:'#00843d',
+  KHC:'#00b2a9',
+  KO:'#d50032',
+  LULU:'#0089cf',
+  MCO:'#211915',
+  META:'#00a4e4',
+  MOH:'#004990',
+  MSFT:'#0093d0',
+  MSTR:'#76b900',
+  MU:'#4fc3f7',
+  NAMS:'#7cff00',
+  NTRA:'#00b894',
+  OXY:'#ff6b6b',
+  PFE:'#e17055',
+  PLTR:'#0984e3',
+  QQQ:'#ff9900',
+  QSR:'#1877f2',
+  RIOT:'#34a853',
+  ROKU:'#555555',
+  SE:'#e31b23',
+  SHOP:'#002663',
+  SLM:'#f40000',
+  SNDK:'#0093c4',
+  TBBB:'#e31937',
+  TEM:'#003a70',
+  TSLA:'#7ac043',
+  TSM:'#e82127',
+  UBER:'#6a1b9a',
+  YPF:'#0052ff'
 };
 var CMG = {
   buffett:{name:'Buffett (Berkshire Hathaway)',meta:'AUM: $263.10B',tags:['Value', 'Insurance', 'Consumer'],tk:['AAPL','AXP','KO','BAC','CVX','OXY','GOOGL','CB','MCO','KHC'],wt:{AAPL:24.2,AXP:19.1,KO:12.7,BAC:10.4,CVX:7.3,OXY:7.1,GOOGL:6.9,CB:4.6,MCO:4.5,KHC:3.1}},
@@ -155,11 +173,12 @@ var CMG = {
   drucken:{name:'Druckenmiller (Duquesne)',meta:'AUM: $3M',tags:['Macro', 'Biotech', 'Cyclical'],tk:['NTRA','IWM','INSM','TSM','QQQ','YPF','TBBB','AA','NAMS','SE'],wt:{NTRA:31.0,IWM:14.9,INSM:9.6,TSM:8.6,QQQ:8.1,YPF:7.5,TBBB:5.7,AA:5.0,NAMS:5.0,SE:4.6}},
   salp:{name:'SALP (Situational Awareness LP)',meta:'AUM: $5.22B',tags:['AI Infra', 'Power', 'Semicon'],tk:['SNDK','BE','CRWV','MU','IREN','CORZ','TSM','APLD','RIOT','CLSK'],wt:{SNDK:22.7,BE:19.1,CRWV:14.3,MU:8.8,IREN:8.2,CORZ:8.0,TSM:7.4,APLD:6.5,RIOT:2.9,CLSK:2.1}},
   burry:{name:'Burry (Scion Asset Mgmt)',meta:'AUM: $283M',tags:['Value', 'Healthcare', 'Contrarian'],tk:['PFE','HAL','MOH','LULU','SLM','BRKR'],wt:{PFE:54.0,HAL:21.8,MOH:8.5,LULU:6.3,SLM:4.7,BRKR:4.7}},
+  cathie:{name:'Cathie Wood (ARK Innovation)',meta:'ARKK Daily',tags:['Innovation','Genomics','Fintech'],tk:['TSLA', 'AMD', 'CRCL', 'TEM', 'CRSP', 'HOOD', 'COIN', 'ROKU', 'SHOP', 'PLTR'],wt:{TSLA:21.2,AMD:10.3,CRCL:9.5,TEM:9.4,CRSP:9.2,HOOD:8.9,COIN:8.6,ROKU:8.6,SHOP:8.3,PLTR:6.1}}
   trump:{name:'Trump (Media & Deals)',meta:'Speculative',tags:['Media','Crypto'],tk:['DJT', 'MSTR', 'TSLA'],wt:{DJT:40,MSTR:10,TSLA:5}}
 };
 
 var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
-var lChart=null,pChart=null,busy=false;
+var lChart=null,pChart=null,busy=false,loadSeq=0;
 
 function $(id){return document.getElementById(id)}
 
@@ -248,7 +267,8 @@ function fmt(p){
 window.loadManager = function(id){
   if(busy)return;
   busy=true;
-  var mgr=CMG[id];if(!mgr)return;
+  var mgr=CMG[id],seq=++loadSeq;
+  if(!mgr){busy=false;return}
   // Sidebar
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
   var si=document.querySelector('.sidebar-item[data-mgr="'+id+'"]');
@@ -261,6 +281,7 @@ window.loadManager = function(id){
   $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr>';
   // Fetch data
   scanTicker(mgr.tk).then(function(data){
+    if(seq!==loadSeq){busy=false;return}  // stale load
     busy=false;
     var rows=mgr.tk.map(function(t){
       var d=data[t],w=mgr.wt[t]||0;
@@ -275,6 +296,7 @@ window.loadManager = function(id){
       },50);
     }
   }).catch(function(e){
+    if(seq!==loadSeq){busy=false;return}  // stale load
     busy=false;
     var e2=$('errMsg');
     if(e2){e2.textContent='Fetch failed: '+e.message;e2.style.display='block'}
