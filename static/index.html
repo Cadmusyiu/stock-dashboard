@@ -1,456 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stock Dashboard — CadAI</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lightweight-charts@4.0.1/dist/lightweight-charts.standalone.production.js"></script>
-
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CadAI Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body>
-
-  <!-- Mobile sidebar toggle -->
-  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
-  <div class="sidebar-overlay hidden" id="sidebarOverlay"></div>
-
-  <div class="app-container">
-
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="sidebar-logo">📈</div>
-        <div class="sidebar-title"><span>C</span>adAI</div>
-      </div>
-      <div class="sidebar-label">Portfolio Managers</div>
-      <nav class="manager-list" id="managerList"></nav>
-      <div class="sidebar-footer">
-        <button class="settings-btn">⚙️ Settings</button>
-      </div>
-    </aside>
-
-    <!-- ===== MAIN ===== -->
-    <main class="main-content">
-
-      <!-- Top bar -->
-      <div class="top-bar">
-        <div class="manager-title-area">
-          <h1 id="managerName">SALP (Situational Awareness LP)</h1>
-          <div class="aum" id="managerAum">AUM: $13.68B</div>
-        </div>
-        <div class="top-holdings-pills" id="topHoldingsPills"></div>
-        <div class="last-updated">
-          <span class="live-dot"></span>
-          <span id="lastUpdated">Updating...</span>
-        </div>
-      </div>
-
-      <!-- Macro row -->
-      <div class="macro-row fade-in fade-in-1">
-        <div class="macro-card">
-          <div class="macro-card-header">
-            <span class="macro-ticker">BTC/USD</span>
-            <span class="macro-icon">₿</span>
-          </div>
-          <div class="macro-price" id="btcPrice">—</div>
-          <div class="macro-change" id="btcChange">—</div>
-        </div>
-        <div class="macro-card">
-          <div class="macro-card-header">
-            <span class="macro-ticker">ETH/USD</span>
-            <span class="macro-icon">♦</span>
-          </div>
-          <div class="macro-price" id="ethPrice">—</div>
-          <div class="macro-change" id="ethChange">—</div>
-        </div>
-        <div class="macro-card">
-          <div class="macro-card-header">
-            <span class="macro-ticker">SPY</span>
-            <span class="macro-icon">🏛️</span>
-          </div>
-          <div class="macro-price" id="spyPrice">—</div>
-          <div class="macro-change" id="spyChange">—</div>
-        </div>
-        <div class="macro-card">
-          <div class="macro-card-header">
-            <span class="macro-ticker">MACRO</span>
-            <span class="macro-icon">🌐</span>
-          </div>
-          <div class="macro-multi">
-            <div class="macro-mini">
-              <span class="macro-mini-label">DXY</span>
-              <span class="macro-mini-value" id="dxyValue">—</span>
-              <span class="macro-mini-change" id="dxyChange">—</span>
-            </div>
-            <div class="macro-mini">
-              <span class="macro-mini-label">VIX</span>
-              <span class="macro-mini-value" id="vixValue">—</span>
-              <span class="macro-mini-change" id="vixChange">—</span>
-            </div>
-            <div class="macro-mini">
-              <span class="macro-mini-label">US10Y</span>
-              <span class="macro-mini-value" id="us10yValue">—</span>
-              <span class="macro-mini-change" id="us10yChange">—</span>
-            </div>
-            <div class="macro-mini">
-              <span class="macro-mini-label">US2Y</span>
-              <span class="macro-mini-value" id="us2yValue">—</span>
-              <span class="macro-mini-change" id="us2yChange">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Portfolio table -->
-      <div class="portfolio-section fade-in fade-in-2">
-        <div class="section-header">
-          <span>Portfolio Holdings</span>
-          <span class="holdings-count" id="holdingsCount">0 holdings</span>
-        </div>
-        <div style="overflow-x: auto;">
-          <table class="portfolio-table">
-            <thead>
-              <tr>
-                <th>Ticker</th>
-                <th>Price</th>
-                <th>Chg%</th>
-                <th class="col-rsi">RSI</th>
-                <th>Signal</th>
-                <th class="col-weight">Weight</th>
-              </tr>
-            </thead>
-            <tbody id="holdingsBody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Chart -->
-      <div class="chart-section fade-in fade-in-3">
-        <div class="section-header">
-          <span>Portfolio Performance</span>
-          <span style="font-weight:500;text-transform:none;letter-spacing:0;" id="chartTickerLabel">NVDA — 30D</span>
-        </div>
-        <div class="chart-container" id="chartContainer"></div>
-      </div>
-
-      <!-- Bottom metrics -->
-      <div class="metrics-row fade-in fade-in-4">
-        <div class="metric-card">
-          <div class="metric-label">Concentration</div>
-          <div class="metric-value accent" id="metricConcentration">—</div>
-          <div class="metric-sub">Top 1 weight</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Avg. RSI</div>
-          <div class="metric-value" id="metricAvgRsi">—</div>
-          <div class="metric-sub">Weighted average</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Bullish</div>
-          <div class="metric-value green" id="metricBullish">—</div>
-          <div class="metric-sub">BUY signals</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-label">Bearish</div>
-          <div class="metric-value red" id="metricBearish">—</div>
-          <div class="metric-sub">SELL signals</div>
-        </div>
-      </div>
-
-    </main>
+<nav class="sidebar" id="sidebar">
+<div class="sidebar-logo">📊</div>
+<div class="sidebar-item active" data-mgr="salp" onclick="loadManager('salp')"><span class="icon">🔵</span><span class="label">SALP</span></div>
+<div class="sidebar-item" data-mgr="buffett" onclick="loadManager('buffett')"><span class="icon">🟢</span><span class="label">Buffett</span></div>
+<div class="sidebar-item" data-mgr="cathie" onclick="loadManager('cathie')"><span class="icon">🟣</span><span class="label">Cathie</span></div>
+<div class="sidebar-item" data-mgr="drucken" onclick="loadManager('drucken')"><span class="icon">🔴</span><span class="label">Drucken</span></div>
+<div class="sidebar-item" data-mgr="trump" onclick="loadManager('trump')"><span class="icon">🟡</span><span class="label">Trump</span></div>
+<div class="sidebar-item" data-mgr="burry" onclick="loadManager('burry')"><span class="icon">⚪</span><span class="label">Burry</span></div>
+<div class="sidebar-item" data-mgr="ackman" onclick="loadManager('ackman')"><span class="icon">🟠</span><span class="label">Ackman</span></div>
+<div class="sidebar-spacer"></div>
+<div class="sidebar-bottom"><div class="sidebar-item" onclick="refreshAll()"><span class="icon">🔄</span><span class="label">Refresh</span></div></div>
+</nav>
+<div class="main-content" id="mainContent">
+<div class="stats-row fade-in fade-in-1">
+  <div class="glass stat-card"><div class="stat-label">BTC</div><div class="stat-price" id="btcPrice">—</div><div class="stat-change" id="btcChg"></div></div>
+  <div class="glass stat-card"><div class="stat-label">ETH</div><div class="stat-price" id="ethPrice">—</div><div class="stat-change" id="ethChg"></div></div>
+  <div class="glass stat-card"><div class="stat-label">S&P 500</div><div class="stat-price" id="spyPrice">—</div><div class="stat-change" id="spyChg"></div></div>
+  <div class="glass stat-card"><div class="stat-label">Macro</div><div class="stat-price" id="macroLabel" style="font-size:16px;">Loading...</div><div id="macroGrid"></div></div>
+</div>
+<div class="manager-header fade-in fade-in-2">
+  <div class="manager-name" id="managerName">Loading...</div>
+  <div class="manager-meta" id="managerMeta"></div>
+  <div class="manager-tags" id="managerTags"></div>
+  <div id="errMsg" style="color:#ff4757;font-size:12px;margin-top:8px;display:none;"></div>
+</div>
+<div class="glass portfolio-section fade-in fade-in-3">
+  <div style="overflow-x:auto;">
+    <table class="portfolio-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th><th>RSI</th><th>Signal</th><th>Weight</th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
   </div>
+</div>
+<div class="charts-row fade-in fade-in-4">
+  <div class="glass chart-card" id="lineCard">
+    <div class="chart-header"><span>Portfolio Value (60D)</span><span style="font-size:10px;color:var(--text-muted);font-weight:400;letter-spacing:0;">Hover to inspect</span></div>
+    <div class="chart-body" style="height:280px;position:relative;"><canvas id="lineChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+  <div class="glass chart-card" id="pieCard">
+    <div class="chart-header">Weight Distribution</div>
+    <div class="chart-body" style="height:280px;position:relative;"><canvas id="pieChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+</div>
+</div>
 
-  <script>
-  // ============================================================
-  // DATA
-  // ============================================================
-  const MACRO = {
-    btc: { price:'77,432.50', chg:'+1.24%', dir:'up' },
-    eth: { price:'2,184.30', chg:'-0.78%', dir:'down' },
-    spy: { price:'584.17', chg:'+0.52%', dir:'up' },
-    dxy: { value:'105.38', chg:'-0.12%', dir:'down' },
-    vix: { value:'14.27', chg:'+2.64%', dir:'up' },
-    us10y:{ value:'4.32%', chg:'+0.03%', dir:'up' },
-    us2y: { value:'3.88%', chg:'-0.02%', dir:'down' },
-  };
+<script>
+(function(){
+'use strict';
 
-  const managers = [
-    { id:'buffett',  name:'Buffett',       icon:'🟢', color:'#22c55e' },
-    { id:'salp',     name:'SALP',          icon:'🔵', color:'#3b82f6' },
-    { id:'trump',    name:'Trump',         icon:'🟡', color:'#eab308' },
-    { id:'cathie',   name:'Cathie Wood',   icon:'🟣', color:'#a855f7' },
-    { id:'drucken',  name:'Druckenmiller', icon:'🔴', color:'#ef4444' },
-    { id:'burry',    name:'Burry',         icon:'⚪', color:'#94a3b8' },
-    { id:'ackman',   name:'Ackman',        icon:'🟠', color:'#f97316' },
-    { id:'custom',   name:'Custom Watch',  icon:'✨', color:'#7CFF00' },
-  ];
+var exch = {
+  AAPL:'NASDAQ', BAC:'NYSE', AXP:'NYSE', KO:'NYSE', OXY:'NYSE', CVX:'NYSE', MCO:'NYSE', VRSN:'NASDAQ',
+  NVDA:'NASDAQ', VRT:'NYSE', CEG:'NASDAQ', MRVL:'NASDAQ', TSM:'NYSE', SNDK:'NASDAQ', WDC:'NASDAQ',
+  AMZN:'NASDAQ', META:'NASDAQ', GOOGL:'NASDAQ',
+  TSLA:'NASDAQ', ROKU:'NASDAQ', COIN:'NASDAQ', ZM:'NASDAQ', XYZ:'NYSE', CRSP:'NASDAQ', RBLX:'NYSE',
+  MSFT:'NASDAQ', PLTR:'NASDAQ', DJT:'NASDAQ', MSTR:'NASDAQ',
+  GEO:'NYSE', DXCM:'NASDAQ', SIG:'NYSE', MRK:'NYSE', CMG:'NYSE', HLT:'NYSE', LOW:'NYSE', PFE:'NYSE',
+  SPY:'AMEX', DXY:'TVC', VIX:'TVC', US10Y:'TVC'
+};
 
-  const DATA = {
-    buffett:{
-      name:'Warren Buffett', aum:'$1.2T',
-      topHoldings:['AAPL','BAC','AXP','KO','OXY'],
-      holdings:[
-        { ticker:'AAPL', price:302.25, chg:1.10,  rsi:84.8, signal:'SELL',   weight:42.5 },
-        { ticker:'BAC',  price:46.72,  chg:0.65,  rsi:62.3, signal:'NEUTRAL',weight:11.8 },
-        { ticker:'AXP',  price:273.40, chg:1.42,  rsi:68.5, signal:'NEUTRAL',weight:8.2  },
-        { ticker:'KO',   price:70.15,  chg:-0.32, rsi:38.2, signal:'BUY',    weight:7.6  },
-        { ticker:'OXY',  price:48.88,  chg:-1.85, rsi:28.4, signal:'BUY',    weight:5.4  },
-        { ticker:'CVX',  price:155.30, chg:-0.58, rsi:41.0, signal:'NEUTRAL',weight:4.1  },
-        { ticker:'MCO',  price:468.20, chg:2.75,  rsi:55.7, signal:'NEUTRAL',weight:3.9  },
-      ],
-    },
-    salp:{
-      name:'SALP (Situational Awareness LP)', aum:'$13.68B',
-      topHoldings:['NVDA','VRT','CEG','MRVL','TSM'],
-      holdings:[
-        { ticker:'NVDA', price:223.47, chg:1.30,  rsi:69.8, signal:'NEUTRAL',weight:42.5 },
-        { ticker:'VRT',  price:315.67, chg:-2.16, rsi:45.7, signal:'BUY',    weight:10.0 },
-        { ticker:'CEG',  price:281.26, chg:7.90,  rsi:35.0, signal:'NEUTRAL',weight:8.0  },
-        { ticker:'MRVL', price:85.50,  chg:0.50,  rsi:50.0, signal:'NEUTRAL',weight:7.0  },
-        { ticker:'TSM',  price:195.00, chg:-1.20, rsi:45.0, signal:'BUY',    weight:6.5  },
-        { ticker:'AMD',  price:118.30, chg:-3.45, rsi:32.1, signal:'BUY',    weight:5.2  },
-        { ticker:'ANET', price:98.75,  chg:4.82,  rsi:72.0, signal:'SELL',   weight:4.8  },
-        { ticker:'AVGO', price:182.40, chg:1.05,  rsi:58.3, signal:'NEUTRAL',weight:4.2  },
-      ],
-    },
-    trump:{
-      name:'Trump Media & Family Office', aum:'$4.2B',
-      topHoldings:['DJT','BTC','ETH','AAPL','MSFT'],
-      holdings:[
-        { ticker:'DJT',  price:32.45,  chg:5.60,  rsi:78.2, signal:'SELL',   weight:35.0 },
-        { ticker:'BTC',  price:77432,  chg:1.24,  rsi:55.0, signal:'NEUTRAL',weight:20.0 },
-        { ticker:'ETH',  price:2184,   chg:-0.78, rsi:42.3, signal:'BUY',    weight:12.0 },
-        { ticker:'AAPL', price:302.25, chg:1.10,  rsi:84.8, signal:'SELL',   weight:8.5  },
-        { ticker:'MSFT', price:468.80, chg:0.12,  rsi:61.0, signal:'NEUTRAL',weight:7.0  },
-      ],
-    },
-    cathie:{
-      name:'Cathie Wood (ARK Invest)', aum:'$14.6B',
-      topHoldings:['TSLA','ROKU','COIN','ZM','RBLX'],
-      holdings:[
-        { ticker:'TSLA', price:278.50, chg:-2.40, rsi:40.1, signal:'BUY',    weight:15.2 },
-        { ticker:'ROKU', price:72.80,  chg:1.15,  rsi:52.6, signal:'NEUTRAL',weight:8.7  },
-        { ticker:'COIN', price:195.20, chg:4.30,  rsi:71.4, signal:'SELL',   weight:7.5  },
-        { ticker:'ZM',   price:62.45,  chg:-0.88, rsi:44.0, signal:'BUY',    weight:6.8  },
-        { ticker:'RBLX', price:45.10,  chg:3.22,  rsi:66.5, signal:'NEUTRAL',weight:6.2  },
-        { ticker:'SQ',   price:84.60,  chg:-1.50, rsi:38.7, signal:'BUY',    weight:5.9  },
-        { ticker:'CRSP', price:72.30,  chg:8.75,  rsi:80.2, signal:'SELL',   weight:3.8  },
-      ],
-    },
-    drucken:{
-      name:'Stanley Druckenmiller', aum:'$7.8B',
-      topHoldings:['NVDA','MSFT','AMZN','GOOGL','META'],
-      holdings:[
-        { ticker:'NVDA',  price:223.47, chg:1.30,  rsi:69.8, signal:'NEUTRAL',weight:22.0 },
-        { ticker:'MSFT',  price:468.80, chg:0.12,  rsi:61.0, signal:'NEUTRAL',weight:15.5 },
-        { ticker:'AMZN',  price:205.10, chg:-0.55, rsi:47.3, signal:'NEUTRAL',weight:12.0 },
-        { ticker:'GOOGL', price:172.30, chg:1.80,  rsi:64.2, signal:'BUY',    weight:10.5 },
-        { ticker:'META',  price:565.20, chg:2.45,  rsi:73.0, signal:'SELL',   weight:9.0  },
-        { ticker:'COIN',  price:195.20, chg:4.30,  rsi:71.4, signal:'SELL',   weight:4.0  },
-      ],
-    },
-    burry:{
-      name:'Michael Burry (Scion)', aum:'$1.1B',
-      topHoldings:['GEO','QRTEA','GME','JD','BABA'],
-      holdings:[
-        { ticker:'GEO',   price:28.45,  chg:3.30,  rsi:76.5, signal:'SELL',   weight:25.0 },
-        { ticker:'QRTEA', price:0.42,   chg:-8.70, rsi:15.2, signal:'BUY',    weight:18.0 },
-        { ticker:'GME',   price:24.50,  chg:1.85,  rsi:55.8, signal:'NEUTRAL',weight:12.0 },
-        { ticker:'JD',    price:38.60,  chg:-1.20, rsi:40.3, signal:'BUY',    weight:8.5  },
-        { ticker:'BABA',  price:112.30, chg:0.80,  rsi:48.0, signal:'NEUTRAL',weight:7.5  },
-      ],
-    },
-    ackman:{
-      name:'Bill Ackman (Pershing Square)', aum:'$9.4B',
-      topHoldings:['CMG','GOOGL','SPGI','HLT','PFE'],
-      holdings:[
-        { ticker:'CMG',  price:62.50,  chg:1.45,  rsi:59.2, signal:'NEUTRAL',weight:18.5 },
-        { ticker:'GOOGL',price:172.30, chg:1.80,  rsi:64.2, signal:'BUY',    weight:14.0 },
-        { ticker:'SPGI', price:528.40, chg:-0.30, rsi:47.8, signal:'NEUTRAL',weight:12.0 },
-        { ticker:'HLT',  price:236.10, chg:0.55,  rsi:52.1, signal:'NEUTRAL',weight:10.5 },
-        { ticker:'PFE',  price:26.80,  chg:-2.15, rsi:28.0, signal:'BUY',    weight:8.2  },
-        { ticker:'UBER', price:72.35,  chg:0.85,  rsi:54.3, signal:'NEUTRAL',weight:6.0  },
-      ],
-    },
-    custom:{
-      name:'Custom Watchlist', aum:'Personal',
-      topHoldings:['BTC','ETH','SOL','NVDA','AAPL'],
-      holdings:[
-        { ticker:'BTC',  price:77432.00, chg:1.24,  rsi:55.0, signal:'NEUTRAL',weight:30.0 },
-        { ticker:'ETH',  price:2184.30,  chg:-0.78, rsi:42.3, signal:'BUY',    weight:20.0 },
-        { ticker:'SOL',  price:168.45,   chg:3.50,  rsi:67.0, signal:'NEUTRAL',weight:15.0 },
-        { ticker:'NVDA', price:223.47,   chg:1.30,  rsi:69.8, signal:'NEUTRAL',weight:10.0 },
-        { ticker:'AAPL', price:302.25,   chg:1.10,  rsi:84.8, signal:'SELL',   weight:8.0  },
-        { ticker:'TSLA', price:278.50,   chg:-2.40, rsi:40.1, signal:'BUY',    weight:7.0  },
-      ],
-    },
-  };
+var COLORS = {NVDA:'#76b900',VRT:'#4fc3f7',CEG:'#7cff00',MRVL:'#00b894',TSM:'#ff6b6b',SNDK:'#e17055',WDC:'#0984e3',AMZN:'#ff9900',META:'#1877f2',GOOGL:'#34a853',AAPL:'#555',BAC:'#e31b23',AXP:'#002663',KO:'#f40000',OXY:'#0093c4',CVX:'#e31937',MCO:'#003a70',VRSN:'#7ac043',TSLA:'#e82127',ROKU:'#6a1b9a',COIN:'#0052ff',ZM:'#0e71eb',XYZ:'#1877f2',CRSP:'#000',RBLX:'#00a2ff',MSFT:'#00a4ef',PLTR:'#000',DJT:'#000',MSTR:'#ff9900',GEO:'#00843d',DXCM:'#00b2a9',SIG:'#d50032',MRK:'#0089cf',CMG:'#211915',HLT:'#00a4e4',LOW:'#004990',PFE:'#0093d0'};
+var CMG = {
+  salp:{name:'SALP (Situational Awareness LP)',meta:'AUM: $13.68B +147.9% QoQ',tags:['AI Infra','Power','Semicon'],tk:['NVDA','VRT','CEG','MRVL','TSM','SNDK','WDC','AMZN','META','GOOGL'],wt:{NVDA:42.5,VRT:10,CEG:8,MRVL:7,TSM:6.5,SNDK:5,WDC:4,AMZN:3.5,META:3,GOOGL:2.5}},
+  buffett:{name:'Buffett (Berkshire Hathaway)',meta:'AUM: $1.2T',tags:['Value','Insurance','Consumer'],tk:['AAPL','BAC','AXP','KO','OXY','CVX','MCO','VRSN'],wt:{AAPL:42,BAC:12,AXP:8,KO:7,OXY:5,CVX:4.5,MCO:3.5,VRSN:2}},
+  cathie:{name:'Cathie Wood (ARK Invest)',meta:'Innovation',tags:['Disruptive','Genomics','Fintech'],tk:['TSLA','ROKU','COIN','ZM','XYZ','CRSP','RBLX'],wt:{TSLA:12,ROKU:8,COIN:7,ZM:6,XYZ:5.5,CRSP:4,RBLX:3.5}},
+  drucken:{name:'Druckenmiller (Duquesne)',meta:'Macro Legend',tags:['Macro','Tech'],tk:['NVDA','META','MSFT','PLTR','AMZN'],wt:{NVDA:20,META:15,MSFT:12,PLTR:8,AMZN:7}},
+  trump:{name:'Trump (Media & Deals)',meta:'Speculative',tags:['Media','Crypto'],tk:['DJT','MSTR','TSLA'],wt:{DJT:40,MSTR:10,TSLA:5}},
+  burry:{name:'Burry (Scion Asset Mgmt)',meta:'Contrarian',tags:['Value','Healthcare'],tk:['GEO','DXCM','SIG','MRK'],wt:{GEO:10,DXCM:8,SIG:7,MRK:5}},
+  ackman:{name:'Ackman (Pershing Square)',meta:'Activist',tags:['Activist','Financials'],tk:['GOOGL','CMG','HLT','LOW','PFE'],wt:{GOOGL:25,CMG:20,HLT:15,LOW:12,PFE:8}}
+};
 
-  // ============================================================
-  // STATE
-  // ============================================================
-  let currentManager = 'salp';
-  let chart = null;
-  let chartResizeObserver = null;
+var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
+var lChart=null,pChart=null,busy=false;
 
-  // ============================================================
-  // SIDEBAR
-  // ============================================================
-  function renderSidebar() {
-    document.getElementById('managerList').innerHTML = managers.map(m =>
-      `<div class="manager-item ${m.id===currentManager?'active':''}" onclick="switchManager('${m.id}')">
-        <span class="manager-dot" style="background:${m.color}"></span>
-        <span>${m.icon} ${m.name}</span>
-       </div>`
-    ).join('');
-  }
+function $(id){return document.getElementById(id)}
 
-  // ============================================================
-  // MACRO
-  // ============================================================
-  function renderMacro() {
-    const setPrice = (id, prefix, m) => { document.getElementById(id).textContent = prefix+m.price; };
-    const setChange = (id, m) => {
-      document.getElementById(id).textContent = m.chg;
-      document.getElementById(id).className = 'macro-change '+m.dir;
-    };
-    setPrice('btcPrice','$',MACRO.btc); setChange('btcChange',MACRO.btc);
-    setPrice('ethPrice','$',MACRO.eth); setChange('ethChange',MACRO.eth);
-    setPrice('spyPrice','$',MACRO.spy); setChange('spyChange',MACRO.spy);
+function tv(body){return fetch('https://scanner.tradingview.com/america/scan',{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)}).then(function(r){return r.json()})}
+function tvc(body){return fetch('https://scanner.tradingview.com/crypto/scan',{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(body)}).then(function(r){return r.json()})}
 
-    [ ['dxyValue','dxyChange',MACRO.dxy],
-      ['vixValue','vixChange',MACRO.vix],
-      ['us10yValue','us10yChange',MACRO.us10y],
-      ['us2yValue','us2yChange',MACRO.us2y],
-    ].forEach(([vId,cId,d]) => {
-      document.getElementById(vId).textContent = d.value;
-      document.getElementById(cId).textContent = d.chg;
-      document.getElementById(cId).className = 'macro-mini-change '+d.dir;
+function scanTicker(tk){
+  if(!tk||tk.length===0)return Promise.resolve({});
+  return tv({symbols:{tickers:tk.map(function(t){return(exch[t]||'NASDAQ')+':'+t}),query:{types:[]}},columns:['name','close','change','RSI','Perf.W','Perf.1M','Perf.3M']})
+  .then(function(d){var o={};
+    (d.data||[]).forEach(function(item){
+      var p=item.s.split(':'),n=p[p.length-1];
+      o[n]={c:item.d[1],ch:item.d[2],rsi:item.d[3],pw:item.d[4],p1:item.d[5],p3:item.d[6]};
     });
-  }
-
-  // ============================================================
-  // PORTFOLIO
-  // ============================================================
-  function rsiCls(v) { return v>=70?'rsi-high':v<=30?'rsi-low':'rsi-mid'; }
-  function sigHtml(s) {
-    const c = s==='BUY'?'signal-buy':s==='SELL'?'signal-sell':'signal-neutral';
-    const i = s==='BUY'?'▲':s==='SELL'?'▼':'◆';
-    return `<span class="signal-badge ${c}">${i} ${s}</span>`;
-  }
-
-  function renderPortfolio(id) {
-    const d = DATA[id];
-    if (!d) return;
-    document.getElementById('managerName').textContent = d.name;
-    document.getElementById('managerAum').textContent = 'AUM: '+d.aum;
-    document.getElementById('holdingsCount').textContent = d.holdings.length+' holdings';
-    document.getElementById('topHoldingsPills').innerHTML = d.topHoldings.map(t=>`<span class="pill">${t}</span>`).join('');
-
-    const now = new Date();
-    document.getElementById('lastUpdated').textContent =
-      'Last updated '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0')+':'+String(now.getSeconds()).padStart(2,'0');
-
-    document.getElementById('holdingsBody').innerHTML = d.holdings.map(h => {
-      const chgCls = h.chg>=0?'positive':'negative';
-      const chgDsp = (h.chg>=0?'+':'')+h.chg.toFixed(2)+'%';
-      const pDsp = ['BTC','ETH'].includes(h.ticker)
-        ? '$'+Number(h.price).toLocaleString()
-        : '$'+h.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-      return `<tr onclick="showChart('${h.ticker}')" style="cursor:pointer">
-        <td><span class="ticker-name">${h.ticker}</span></td>
-        <td><span class="price">${pDsp}</span></td>
-        <td><span class="change-pct ${chgCls}">${chgDsp}</span></td>
-        <td class="col-rsi"><span class="rsi-value ${rsiCls(h.rsi)}">${h.rsi.toFixed(1)}</span></td>
-        <td>${sigHtml(h.signal)}</td>
-        <td class="col-weight"><div class="weight-bar-container">
-          <div class="weight-bar"><div class="weight-fill" style="width:${h.weight}%"></div></div>
-          <span class="weight-pct">${h.weight.toFixed(1)}%</span>
-        </div></td>
-      </tr>`;
-    }).join('');
-
-    const hs = d.holdings;
-    const maxW = Math.max(...hs.map(h=>h.weight));
-    const avgR = hs.reduce((s,h)=>s+h.rsi*h.weight,0)/hs.reduce((s,h)=>s+h.weight,0);
-    const b = hs.filter(h=>h.signal==='BUY').length;
-    const s = hs.filter(h=>h.signal==='SELL').length;
-    document.getElementById('metricConcentration').textContent = maxW.toFixed(1)+'%';
-    document.getElementById('metricAvgRsi').textContent = avgR.toFixed(1);
-    document.getElementById('metricAvgRsi').className = 'metric-value '+rsiCls(avgR);
-    document.getElementById('metricBullish').textContent = b;
-    document.getElementById('metricBearish').textContent = s;
-
-    if (hs.length>0) showChart(hs[0].ticker);
-  }
-
-  // ============================================================
-  // CHART
-  // ============================================================
-  function genMock(base, days=30, vol=0.025) {
-    const d=[]; let p=base; const n=new Date();
-    for(let i=days;i>=0;i--){ const t=new Date(n); t.setDate(t.getDate()-i);
-      p+=p*vol*(Math.random()-0.5)*2;
-      p=Math.max(p,base*0.6); if(p>base*1.5) p=base*1.5-Math.abs(p-base);
-      d.push({time:Math.floor(t.getTime()/1000),value:Math.round(p*100)/100});
-    } return d;
-  }
-
-  function showChart(ticker) {
-    document.getElementById('chartTickerLabel').textContent = ticker+' — 30D';
-    const c = document.getElementById('chartContainer'); c.innerHTML='';
-    const h = DATA[currentManager].holdings.find(x=>x.ticker===ticker);
-    const base = h?h.price:100;
-    if(chartResizeObserver){ chartResizeObserver.disconnect(); chartResizeObserver=null; }
-    chart = LightweightCharts.createChart(c,{
-      width:c.clientWidth,height:340,
-      layout:{background:{type:'solid',color:'transparent'},textColor:'rgba(255,255,255,0.35)',fontSize:11,fontFamily:'Inter, system-ui, sans-serif'},
-      grid:{vertLines:{color:'rgba(255,255,255,0.03)'},horzLines:{color:'rgba(255,255,255,0.03)'}},
-      crosshair:{vertLine:{color:'rgba(124,255,0,0.3)',style:2,labelBackgroundColor:'#1a1a2e'},horzLine:{color:'rgba(124,255,0,0.3)',style:2,labelBackgroundColor:'#1a1a2e'}},
-      timeScale:{borderColor:'rgba(255,255,255,0.06)',timeVisible:false,tickMarkFormatter:t=>{const d2=new Date(t*1000);return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d2.getMonth()]+' '+d2.getDate();}},
-      rightPriceScale:{borderColor:'rgba(255,255,255,0.06)'},
-    });
-    const s = chart.addLineSeries({
-      color:'#7CFF00',lineWidth:2,crosshairMarkerVisible:true,crosshairMarkerRadius:4,
-      crosshairMarkerBorderColor:'#7CFF00',crosshairMarkerBackgroundColor:'#1a1a2e',
-      priceLineColor:'rgba(124,255,0,0.15)',priceLineVisible:false,lastValueVisible:true,
-      priceFormat:{type:'price',precision:2,minMove:0.01},
-    });
-    s.setData(genMock(base,30,0.025));
-    chartResizeObserver=new ResizeObserver(e=>{for(const x of e)chart.applyOptions({width:x.contentRect.width});});
-    chartResizeObserver.observe(c);
-  }
-
-  // ============================================================
-  // SWITCH
-  // ============================================================
-  function switchManager(id) {
-    currentManager = id;
-    renderSidebar();
-    renderPortfolio(id);
-    document.querySelectorAll('.fade-in').forEach(el=>{ el.style.animation='none'; el.offsetHeight; el.style.animation=''; });
-  }
-
-  // ============================================================
-  // INIT
-  // ============================================================
-  renderSidebar(); renderMacro(); renderPortfolio(currentManager);
-  setInterval(()=>{
-    const n=new Date();
-    document.getElementById('lastUpdated').textContent='Last updated '+String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0')+':'+String(n.getSeconds()).padStart(2,'0');
-  },10000);
-
-  document.addEventListener('DOMContentLoaded',()=>{
-    const sb=document.getElementById('sidebar'), tg=document.getElementById('sidebarToggle'), ov=document.getElementById('sidebarOverlay');
-    tg.onclick=()=>{sb.classList.toggle('open');ov.classList.toggle('hidden');document.body.style.overflow=sb.classList.contains('open')?'hidden':'';};
-    ov.onclick=()=>{sb.classList.remove('open');ov.classList.add('hidden');document.body.style.overflow='';};
+    return o;
   });
-  </script>
+}
+
+function loadPrices(){
+  tvc({symbols:{tickers:['BINANCE:BTCUSDT','BINANCE:ETHUSDT'],query:{types:[]}},columns:['name','close','change']}).then(function(d){
+    (d.data||[]).forEach(function(item){
+      var p=item.s.split(':'),n=p[1],cl=item.d[1],ch=item.d[2];
+      if(n==='BTCUSDT'){var e=$('btcPrice');e.textContent='$'+fmt(cl);var c=$('btcChg');c.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';c.style.color=ch>=0?'var(--green)':'var(--red)';}
+      if(n==='ETHUSDT'){var e=$('ethPrice');e.textContent='$'+fmt(cl);var c=$('ethChg');c.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';c.style.color=ch>=0?'var(--green)':'var(--red)';}
+    });
+  }).catch(function(){});
+  scanTicker(['SPY','DXY','VIX','US10Y']).then(function(d){
+    if(d.SPY){var e=$('spyPrice');e.textContent='$'+fmt(d.SPY.c);var c=$('spyChg');c.textContent=(d.SPY.ch>=0?'+':'')+d.SPY.ch.toFixed(2)+'%';c.style.color=d.SPY.ch>=0?'var(--green)':'var(--red)';}
+    $('macroLabel').textContent='DXY • VIX • 10Y';
+    $('macroGrid').innerHTML=
+      '<div class="macro-item"><span>DXY</span><span>'+(d.DXY?fmt(d.DXY.c):'—')+'</span></div>'+
+      '<div class="macro-item"><span>VIX</span><span>'+(d.VIX?fmt(d.VIX.c):'—')+'</span></div>'+
+      '<div class="macro-item"><span>10Y</span><span>'+(d.US10Y?fmt(d.US10Y.c)+'%':'—')+'</span></div>';
+  }).catch(function(){});
+}
+
+function buildPie(tk,wt){
+  if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
+  var c=$('pieChart');if(!c||!window.Chart)return;
+  var its=tk.filter(function(t){return wt[t]>0});
+  pChart=new Chart(c.getContext('2d'),{type:'doughnut',data:{labels:its.map(function(t){return t+' ('+wt[t]+'%)'}),datasets:[{data:its.map(function(t){return wt[t]}),backgroundColor:its.map(function(t,i){return piCols[i%piCols.length]}),borderColor:'#07070d',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{color:'rgba(255,255,255,0.5)',font:{size:10},padding:8,usePointStyle:true,pointStyle:'circle',boxWidth:6}}}}});
+}
+
+function buildLine(tk,data,wt){
+  if(lChart){try{lChart.destroy()}catch(e){}lChart=null}
+  var c=$('lineChart');if(!c||!window.Chart)return;
+  // Remove manual canvas sizing — Chart.js responsive handles it
+  var days=60,now=new Date(),dates=[];
+  for(var i=days-1;i>=0;i--){var d=new Date(now);d.setDate(d.getDate()-i);dates.push((d.getMonth()+1)+'/'+d.getDate())}
+  // Build weighted portfolio total line only — no individual stock lines
+  var total=Array(days).fill(0);
+  tk.forEach(function(t){
+    var d=data[t],w=wt[t]||0;if(!d||!w)return;
+    var close=d.c||100;
+    var chgPct=Math.abs(d.ch||0)/100,p1Pct=Math.abs(d.p1||0)/100,p3Pct=Math.abs(d.p3||0)/100;
+    var pctVol=Math.max(chgPct, p1Pct/20, p3Pct/40, 0.008);
+    var drift=((d.p1||0)+(d.p3||0))/6000;
+    drift=Math.max(-0.003, Math.min(0.003, drift));
+    var vs=[],p=close;
+    for(var i=0;i<days;i++){p*=(1+drift+(Math.random()-0.5)*pctVol*3);vs.push(p)}
+    for(var i=0;i<days;i++)total[i]+=vs[i]*w/100;
+  });
+  var dss=[{label:'Portfolio',data:total,borderColor:'#7cff00',backgroundColor:'rgba(124,255,0,0.08)',fill:true,borderWidth:2.5,pointRadius:0,tension:0.3}];
+  lChart=new Chart(c.getContext('2d'),{type:'line',data:{labels:dates,datasets:dss},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:true,position:'top',labels:{color:'rgba(255,255,255,0.5)',font:{size:10},usePointStyle:true,pointStyle:'circle',padding:12,boxWidth:8}},tooltip:{backgroundColor:'rgba(7,7,13,0.9)',titleColor:'rgba(255,255,255,0.6)',bodyColor:'#fff',borderColor:'rgba(124,255,0,0.2)',borderWidth:1,padding:10,cornerRadius:8,callbacks:{title:function(items){return items[0].label},label:function(item){return '  '+item.dataset.label+': $'+fmt(item.parsed.y)}}}},scales:{x:{display:true,grid:{color:'rgba(255,255,255,0.03)'},ticks:{color:'rgba(255,255,255,0.2)',font:{size:9},maxTicksLimit:6}},y:{display:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'rgba(255,255,255,0.25)',font:{size:9},callback:function(v){return '$'+fmt(v)}}}}}});
+}
+
+function renderTable(rows){
+  var tb=$('tableBody');
+  tb.innerHTML=rows.map(function(r){
+    if(!r.ok)return '<tr><td>'+r.t+'</td><td colspan="5" style="color:var(--text-muted);">N/A</td></tr>';
+    var cc=r.ch>=0?'var(--green)':'var(--red)';
+    var rsi=typeof r.rsi==='number'?Math.round(r.rsi):'—';
+    var sig=r.rsi<35?'BUY':r.rsi>65?'SELL':'NEUTRAL';
+    return '<tr><td class="ticker-cell">'+r.t+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span class="signal-badge '+(sig==='BUY'?'buy':sig==='SELL'?'sell':'neutral')+'">'+sig+'</span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
+  }).join('');
+}
+
+function fmt(p){
+  if(!p||p===0)return '—';
+  if(p>=1000)return Number(p).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(p>=10)return p.toFixed(2);
+  if(p>=1)return p.toFixed(4);
+  return p.toFixed(6);
+}
+
+window.loadManager = function(id){
+  if(busy)return;
+  busy=true;
+  var mgr=CMG[id];if(!mgr)return;
+  // Sidebar
+  document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
+  var si=document.querySelector('.sidebar-item[data-mgr="'+id+'"]');
+  if(si)si.classList.add('active');
+  // Header
+  $('managerName').textContent=mgr.name;
+  $('managerMeta').textContent=mgr.meta;
+  $('managerTags').innerHTML=mgr.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('');
+  $('errMsg').style.display='none';
+  $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr>';
+  // Fetch data
+  scanTicker(mgr.tk).then(function(data){
+    busy=false;
+    var rows=mgr.tk.map(function(t){
+      var d=data[t],w=mgr.wt[t]||0;
+      if(!d)return {t:t,ok:false,wt:w};
+      return {t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,wt:w};
+    });
+    renderTable(rows);
+    if(window.Chart){
+      setTimeout(function(){
+        buildPie(mgr.tk,mgr.wt);
+        buildLine(mgr.tk,data,mgr.wt);
+      },50);
+    }
+  }).catch(function(e){
+    busy=false;
+    var e2=$('errMsg');
+    if(e2){e2.textContent='Fetch failed: '+e.message;e2.style.display='block'}
+    $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--red);">⚠️ Failed</td></tr>';
+  });
+};
+
+window.refreshAll = function(){
+  loadPrices();
+  loadManager(document.querySelector('.sidebar-item.active').getAttribute('data-mgr'));
+};
+
+function boot(){
+  loadPrices();
+  var n=0;
+  function c(){if(window.Chart){loadManager('salp')}else if(n++<100){setTimeout(c,200)}}
+  c();
+  setInterval(loadPrices,120000);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
 </body>
 </html>
