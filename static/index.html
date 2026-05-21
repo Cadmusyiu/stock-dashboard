@@ -32,6 +32,7 @@
   <div class="manager-meta" id="managerMeta"></div>
   <div class="manager-tags" id="managerTags"></div>
   <div id="errMsg" style="color:#ff4757;font-size:12px;margin-top:8px;display:none;"></div>
+  <div id="wRSI" style="font-size:13px;font-weight:500;margin-top:6px;"></div>
 </div>
 <div style="text-align:right;font-size:10px;color:var(--text-muted);margin:-8px 0 8px;opacity:0.6;" id="updateTs"></div>
 <div class="glass portfolio-section fade-in fade-in-3">
@@ -298,6 +299,7 @@ window.loadManager = function(id){
   $('managerMeta').textContent=mgr.meta;
   $('managerTags').innerHTML=mgr.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('');
   $('errMsg').style.display='none';
+  var wRSI=$('wRSI');if(wRSI){wRSI.textContent='';wRSI.style.display='none'}
   $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr>';
   // Fetch data
   scanTicker(mgr.tk).then(function(data){
@@ -309,6 +311,13 @@ window.loadManager = function(id){
       return {t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,wt:w};
     });
     renderTable(rows, mgr.puts);
+    // Compute weighted RSI
+    var totalWt=0,wRSI=0,hasRSI=false;
+    rows.forEach(function(r){if(typeof r.rsi==='number'){wRSI+=r.rsi*r.wt;totalWt+=r.wt;hasRSI=true}});
+    if(hasRSI&&totalWt>0){wRSI/=totalWt;var e=$('wRSI');if(e){
+      e.textContent='Portfolio RSI: '+Math.round(wRSI);
+      e.style.color=wRSI<35?'var(--green)':wRSI>65?'var(--red)':'var(--text-secondary)';
+      e.style.display='block';}}
     if(window.Chart){
       setTimeout(function(){
         buildPie(mgr.tk,mgr.wt);
