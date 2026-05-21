@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CadAI Stock Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        body { background: #0f172a; color: #e2e8f0; }
+        .card { background: #1e293b; border-radius: 12px; border: 1px solid #334155; }
+        .card-header { padding: 12px 16px; border-bottom: 1px solid #334155; font-weight: 600; color: #94a3b8; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        .card-body { padding: 16px; }
+        .up { color: #22c55e; }
+        .down { color: #ef4444; }
+        .flat { color: #94a3b8; }
+        .search-box { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 8px 16px; color: #e2e8f0; width: 100%; outline: none; }
+        .search-box:focus { border-color: #6366f1; }
+        .ticker-row { display: grid; grid-template-columns: 80px 1fr 80px 60px 60px 60px 60px 70px; gap: 8px; padding: 10px 16px; border-bottom: 1px solid #1e293b; align-items: center; font-size: 13px; cursor: pointer; }
+        .ticker-row:hover { background: #1e293b; }
+        .ticker-row.header { color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #334155; cursor: default; }
+        .ticker-row.header:hover { background: transparent; }
+        .signal-buy { background: #22c55e33; color: #22c55e; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .signal-sell { background: #ef444433; color: #ef4444; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .signal-neutral { background: #f59e0b33; color: #f59e0b; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .price-card { padding: 16px; text-align: center; border-radius: 12px; background: #1e293b; border: 1px solid #334155; }
+        .price-card .label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+        .price-card .price { font-size: 22px; font-weight: 700; margin: 4px 0; }
+        .price-card .change { font-size: 13px; font-weight: 500; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        .tab { padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; color: #64748b; }
+        .tab.active { background: #6366f1; color: white; }
+        .macro-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; }
+        .macro-item:last-child { border-bottom: none; }
+        #chart-container { height: 300px; width: 100%; }
+        .loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid #334155; border-top-color: #6366f1; border-radius: 50%; animation: spin 0.6s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="max-w-7xl mx-auto p-4">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-4">
+            <div>
+                <h1 class="text-xl font-bold">📊 CadAI Dashboard</h1>
+                <p class="text-xs text-slate-500" id="lastUpdated">Loading...</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="refreshAll()" class="text-xs text-slate-400 hover:text-white px-3 py-1.5 rounded bg-slate-700">🔄 Refresh</button>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="relative mb-4">
+            <input type="text" id="searchInput" class="search-box pl-10" placeholder="Search ticker (e.g. NVDA, AAPL, 0700.HK)..." onkeydown="if(event.key==='Enter')addTicker()">
+            <span class="absolute left-3 top-2.5 text-slate-500">🔍</span>
+            <div id="autocomplete" class="absolute z-10 w-full mt-1 bg-slate-800 border border-slate-700 rounded-lg hidden max-h-48 overflow-y-auto"></div>
+        </div>
+
+        <!-- Price Cards Row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4" id="priceCards">
+            <div class="price-card"><div class="label">BTC</div><div class="price" id="btcPrice">---</div><div class="change" id="btcChg"></div></div>
+            <div class="price-card"><div class="label">ETH</div><div class="price" id="ethPrice">---</div><div class="change" id="ethChg"></div></div>
+            <div class="price-card"><div class="label">SPY</div><div class="price" id="spyPrice">---</div><div class="change" id="spyChg"></div></div>
+            <div class="price-card"><div class="label">HSI</div><div class="price" id="hsiPrice">---</div><div class="change" id="hsiChg"></div></div>
+        </div>
+
+        <!-- Main Grid: Watchlist + Macro -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-4">
+            <!-- Watchlist -->
+            <div class="card lg:col-span-3">
+                <div class="card-header flex justify-between items-center">
+                    <span>Watchlist</span>
+                    <div class="flex gap-2">
+                        <span class="tab active" onclick="selectTab(this,'all')">All</span>
+                        <span class="tab" onclick="selectTab(this,'stocks')">Stocks</span>
+                        <span class="tab" onclick="selectTab(this,'crypto')">Crypto</span>
+                    </div>
+                </div>
+                <div class="ticker-row header">
+                    <span>Ticker</span> <span>Last Price</span> <span>Chg%</span> <span>RSI</span> <span>MA</span> <span>Vol</span> <span>Signal</span> <span></span>
+                </div>
+                <div id="watchlistBody">
+                    <div class="text-center py-12 text-slate-500 text-sm">Loading watchlist...</div>
+                </div>
+            </div>
+
+            <!-- Macro Panel -->
+            <div class="card">
+                <div class="card-header">Macro</div>
+                <div class="card-body" id="macroPanel">
+                    <div class="macro-item"><span class="text-slate-400">DXY</span><span id="macroDxy">---</span></div>
+                    <div class="macro-item"><span class="text-slate-400">10Y Yield</span><span id="macro10y">---</span></div>
+                    <div class="macro-item"><span class="text-slate-400">VIX</span><span id="macroVix">---</span></div>
+                    <div class="macro-item"><span class="text-slate-400">WTI</span><span id="macroWti">---</span></div>
+                    <div class="macro-item"><span class="text-slate-400">Gold</span><span id="macroGold">---</span></div>
+                    <div class="macro-item"><span class="text-slate-400">US2Y</span><span id="macroUs2y">---</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Panel (hidden by default) -->
+        <div class="card mb-4 hidden" id="detailPanel">
+            <div class="card-header flex justify-between items-center">
+                <span id="detailTitle">Detail</span>
+                <button onclick="hideDetail()" class="text-slate-500 hover:text-white text-sm">✕</button>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div class="lg:col-span-2">
+                        <div id="chart-container"></div>
+                        <div class="flex gap-2 mt-2">
+                            <span class="tab active" onclick="selectChart(this,'1mo')">1M</span>
+                            <span class="tab" onclick="selectChart(this,'3mo')">3M</span>
+                            <span class="tab" onclick="selectChart(this,'6mo')">6M</span>
+                            <span class="tab" onclick="selectChart(this,'1y')">1Y</span>
+                            <span class="tab" onclick="selectChart(this,'5y')">5Y</span>
+                        </div>
+                    </div>
+                    <div id="fundamentalsPanel" class="text-sm">
+                        <div class="macro-item"><span class="text-slate-400">P/E</span><span id="fundPe">---</span></div>
+                        <div class="macro-item"><span class="text-slate-400">EPS (TTM)</span><span id="fundEps">---</span></div>
+                        <div class="macro-item"><span class="text-slate-400">Mkt Cap</span><span id="fundMktCap">---</span></div>
+                        <div class="macro-item"><span class="text-slate-400">Revenue</span><span id="fundRev">---</span></div>
+                        <div class="macro-item"><span class="text-slate-400">Div Yield</span><span id="fundDiv">---</span></div>
+                    </div>
+                </div>
+                <!-- News -->
+                <div class="mt-4">
+                    <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Latest News</div>
+                    <div id="newsFeed" class="text-sm space-y-1"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lightweight-charts@4.2.1/dist/lightweight-charts.standalone.production.js"></script>
+    <script>
+        // State
+        let watchlist = ['NVDA', 'AAPL', 'VRT', 'CEG', 'MRVL', 'TSM', 'SNDK', 'AMZN', 'META', 'GOOGL'];
+        let currentTicker = null;
+        let currentPeriod = '1mo';
+        let chart = null;
+        let refreshInterval = null;
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAll();
+            startAutoRefresh();
+        });
+
+        async function loadAll() {
+            loadPriceCards();
+            loadWatchlist();
+            loadMacro();
+            updateTimestamp();
+        }
+
+        async function fetchAPI(path) {
+            try {
+                const r = await fetch(path);
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                return await r.json();
+            } catch(e) {
+                console.error('API error:', e);
+                return null;
+            }
+        }
+
+        async function loadPriceCards() {
+            // BTC
+            fetchAPI('/api/quote?ticker=BTC-USD').then(d => {
+                if (d) { document.getElementById('btcPrice').textContent = '$' + fmt(d.price); document.getElementById('btcChg').innerHTML = fmtChg(d.chg); }
+            });
+            fetchAPI('/api/quote?ticker=ETH-USD').then(d => {
+                if (d) { document.getElementById('ethPrice').textContent = '$' + fmt(d.price); document.getElementById('ethChg').innerHTML = fmtChg(d.chg); }
+            });
+            fetchAPI('/api/quote?ticker=SPY').then(d => {
+                if (d) { document.getElementById('spyPrice').textContent = '$' + fmt(d.price); document.getElementById('spyChg').innerHTML = fmtChg(d.chg); }
+            });
+            fetchAPI('/api/quote?ticker=^HSI').then(d => {
+                if (d) { document.getElementById('hsiPrice').textContent = fmt(d.price); document.getElementById('hsiChg').innerHTML = fmtChg(d.chg); }
+            });
+        }
+
+        async function loadWatchlist() {
+            const container = document.getElementById('watchlistBody');
+            container.innerHTML = '<div class="flex justify-center py-4"><div class="loading-spinner"></div></div>';
+            
+            const results = await fetchAPI(`/api/watchlist?tickers=${watchlist.join(',')}`);
+            if (!results) {
+                container.innerHTML = '<div class="text-center py-4 text-red-400 text-sm">Failed to load</div>';
+                return;
+            }
+            
+            if (results.length === 0) {
+                container.innerHTML = '<div class="text-center py-8 text-slate-500 text-sm">Search to add tickers to your watchlist</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            results.forEach(t => {
+                const row = document.createElement('div');
+                row.className = 'ticker-row';
+                const sigClass = t.signal === 'BUY' ? 'signal-buy' : t.signal === 'SELL' ? 'signal-sell' : 'signal-neutral';
+                const sigText = t.signal || '-';
+                row.innerHTML = `
+                    <span class="font-medium">${t.symbol}</span>
+                    <span>$${fmt(t.price)}</span>
+                    <span class="${t.chg >= 0 ? 'up' : 'down'}">${t.chg >= 0 ? '+' : ''}${t.chg.toFixed(2)}%</span>
+                    <span>${t.rsi ? t.rsi.toFixed(0) : '-'}</span>
+                    <span class="${t.ma_trend === 'bull' ? 'up' : t.ma_trend === 'bear' ? 'down' : 'flat'}">${t.ma_trend === 'bull' ? '🟢' : t.ma_trend === 'bear' ? '🔴' : '⚪'}</span>
+                    <span>${t.volume ? fmt(t.volume/1e6) + 'M' : '-'}</span>
+                    <span><span class="${sigClass}">${sigText}</span></span>
+                    <span class="text-slate-600 cursor-pointer hover:text-red-400" onclick="removeTicker('${t.symbol}')">✕</span>
+                `;
+                row.onclick = () => showDetail(t.symbol);
+                container.appendChild(row);
+            });
+        }
+
+        async function loadMacro() {
+            const d = await fetchAPI('/api/macro');
+            if (!d) return;
+            if (d.dxy) document.getElementById('macroDxy').textContent = d.dxy.toFixed(2);
+            if (d.tnx) document.getElementById('macro10y').textContent = d.tnx.toFixed(2) + '%';
+            if (d.vix) document.getElementById('macroVix').textContent = d.vix.toFixed(2);
+            if (d.wti) document.getElementById('macroWti').textContent = '$' + fmt(d.wti);
+            if (d.gold) document.getElementById('macroGold').textContent = '$' + fmt(d.gold);
+            if (d.us2y) document.getElementById('macroUs2y').textContent = d.us2y.toFixed(2) + '%';
+        }
+
+        async function showDetail(ticker) {
+            currentTicker = ticker;
+            document.getElementById('detailPanel').classList.remove('hidden');
+            document.getElementById('detailTitle').textContent = `${ticker} — Detail`;
+            
+            // Load chart
+            loadChart(ticker, currentPeriod);
+            
+            // Load fundamentals
+            const d = await fetchAPI(`/api/fundamentals?ticker=${ticker}`);
+            if (d) {
+                document.getElementById('fundPe').textContent = d.pe ? d.pe.toFixed(1) : 'N/A';
+                document.getElementById('fundEps').textContent = d.eps ? '$' + d.eps.toFixed(2) : 'N/A';
+                document.getElementById('fundMktCap').textContent = d.mktCap ? fmtLarge(d.mktCap) : 'N/A';
+                document.getElementById('fundRev').textContent = d.revenue ? fmtLarge(d.revenue) : 'N/A';
+                document.getElementById('fundDiv').textContent = d.divYield ? d.divYield.toFixed(2) + '%' : 'N/A';
+            }
+
+            // Load news
+            const news = await fetchAPI(`/api/news?ticker=${ticker}`);
+            const newsFeed = document.getElementById('newsFeed');
+            if (news && news.length > 0) {
+                newsFeed.innerHTML = news.slice(0, 5).map(n => 
+                    `<div class="py-1.5 border-b border-slate-700/50 last:border-0">
+                        <a href="${n.url}" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs">${n.headline}</a>
+                        <span class="text-slate-600 text-xs ml-2">${n.source || ''}</span>
+                    </div>`
+                ).join('');
+            } else {
+                newsFeed.innerHTML = '<div class="text-slate-500 text-xs">No news available</div>';
+            }
+        }
+
+        function loadChart(ticker, period) {
+            const container = document.getElementById('chart-container');
+            container.innerHTML = '<div class="flex justify-center items-center h-full"><div class="loading-spinner"></div></div>';
+            
+            fetchAPI(`/api/history?ticker=${ticker}&period=${period}`).then(data => {
+                container.innerHTML = '';
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div class="flex justify-center items-center h-full text-slate-500 text-sm">No chart data</div>';
+                    return;
+                }
+
+                const chartDom = document.createElement('div');
+                chartDom.style.height = '300px';
+                chartDom.style.width = '100%';
+                container.appendChild(chartDom);
+
+                const c = LightweightCharts.createChart(chartDom, {
+                    layout: { textColor: '#94a3b8', background: { color: '#1e293b' } },
+                    grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+                    crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+                    rightPriceScale: { borderColor: '#334155' },
+                    timeScale: { borderColor: '#334155', timeVisible: true, secondsVisible: false },
+                });
+
+                const candleSeries = c.addCandlestickSeries({
+                    upColor: '#22c55e', downColor: '#ef4444', borderDownColor: '#ef4444', borderUpColor: '#22c55e',
+                    wickDownColor: '#ef4444', wickUpColor: '#22c55e',
+                });
+
+                candleSeries.setData(data.map(d => ({
+                    time: Math.floor(new Date(d.time).getTime() / 1000),
+                    open: d.open, high: d.high, low: d.low, close: d.close
+                })));
+
+                c.timeScale().fitContent();
+                chart = c;
+            });
+        }
+
+        function selectChart(el, period) {
+            document.querySelectorAll('#detailPanel .tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            currentPeriod = period;
+            if (currentTicker) loadChart(currentTicker, period);
+        }
+
+        function selectTab(el, filter) {
+            document.querySelectorAll('.card-header .tab').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            // Simple filter: just reload (yfinance doesn't support filter)
+            loadWatchlist();
+        }
+
+        function hideDetail() {
+            document.getElementById('detailPanel').classList.add('hidden');
+            if (chart) { chart.remove(); chart = null; }
+        }
+
+        async function addTicker() {
+            const input = document.getElementById('searchInput');
+            const ticker = input.value.trim().toUpperCase();
+            if (!ticker) return;
+            if (!watchlist.includes(ticker)) {
+                watchlist.unshift(ticker);
+                await fetchAPI(`/api/watchlist/save?tickers=${watchlist.join(',')}`);
+                loadWatchlist();
+            }
+            input.value = '';
+            document.getElementById('autocomplete').classList.add('hidden');
+        }
+
+        function removeTicker(ticker) {
+            watchlist = watchlist.filter(t => t !== ticker);
+            fetchAPI(`/api/watchlist/save?tickers=${watchlist.join(',')}`);
+            loadWatchlist();
+        }
+
+        function refreshAll() {
+            loadAll();
+            if (currentTicker) showDetail(currentTicker);
+        }
+
+        function startAutoRefresh() {
+            if (refreshInterval) clearInterval(refreshInterval);
+            refreshInterval = setInterval(loadPriceCards, 60000);
+        }
+
+        function updateTimestamp() {
+            document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleTimeString('zh-HK', { hour12: false });
+        }
+
+        function fmt(v) {
+            if (v === null || v === undefined) return '-';
+            if (v >= 1000) return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            return v.toFixed(2);
+        }
+
+        function fmtLarge(v) {
+            if (!v) return 'N/A';
+            if (v >= 1e12) return '$' + (v/1e12).toFixed(2) + 'T';
+            if (v >= 1e9) return '$' + (v/1e9).toFixed(2) + 'B';
+            if (v >= 1e6) return '$' + (v/1e6).toFixed(2) + 'M';
+            return '$' + fmt(v);
+        }
+
+        function fmtChg(chg) {
+            if (chg === null || chg === undefined) return '';
+            const cls = chg >= 0 ? 'up' : 'down';
+            const sign = chg >= 0 ? '+' : '';
+            return `<span class="${cls}">${sign}${chg.toFixed(2)}%</span>`;
+        }
+    </script>
+</body>
+</html>
