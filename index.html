@@ -43,7 +43,7 @@
 <div style="text-align:right;font-size:10px;color:var(--text-muted);margin:-8px 0 8px;opacity:0.6;" id="updateTs"></div>
 <div class="aum-row fade-in fade-in-3">
   <div class="glass chart-card" id="aumCard">
-    <div class="chart-header">AUM Overview</div>
+    <div class="chart-header">Portfolio Value Overview</div>
     <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
   </div>
 </div>
@@ -189,11 +189,11 @@ var COLORS = {
   YPF:'#0052ff'
 };
 var CMG = {
-  buffett:{name:'Buffett (Berkshire Hathaway)',meta:'AUM: $263.10B',tags:['Value', 'Insurance', 'Consumer'],tk:['AAPL','AXP','KO','BAC','CVX','OXY','GOOGL','CB','MCO','KHC'],wt:{AAPL:24.2,AXP:19.1,KO:12.7,BAC:10.4,CVX:7.3,OXY:7.1,GOOGL:6.9,CB:4.6,MCO:4.5,KHC:3.1},chg:{AAPL:'kept',AXP:'reduced',KO:'kept',BAC:'reduced',CVX:'new',OXY:'increased',GOOGL:'increased',CB:'exited',MCO:'reduced',KHC:'kept'}},
-  ackman:{name:'Ackman (Pershing Square)',meta:'AUM: $13.71B',tags:['Activist', 'Financials', 'Tech'],tk:['BN','AMZN','UBER','MSFT','QSR','META','HHC'],wt:{BN:18.0,AMZN:17.8,UBER:16.0,MSFT:15.6,QSR:12.4,META:11.3,HHC:8.9},chg:{BN:'reduced',AMZN:'kept',UBER:'reduced',MSFT:'new',QSR:'kept',META:'reduced',HHC:'reduced'}},
-  drucken:{name:'Druckenmiller (Duquesne)',meta:'AUM: $3M',tags:['Macro', 'Biotech', 'Cyclical'],tk:['NTRA','IWM','INSM','TSM','QQQ','YPF','TBBB','AA','NAMS','SE'],wt:{NTRA:31.0,IWM:14.9,INSM:9.6,TSM:8.6,QQQ:8.1,YPF:7.5,TBBB:5.7,AA:5.0,NAMS:5.0,SE:4.6},chg:{NTRA:'kept',IWM:'increased',INSM:'reduced',TSM:'new',QQQ:'reduced',YPF:'increased',TBBB:'increased',AA:'increased',NAMS:'kept',SE:'reduced'}},
-  salp:{name:'SALP (Situational Awareness LP)',meta:'AUM: $5.22B',tags:['AI Infra', 'Power', 'Semicon'],tk:['SNDK','BE','CRWV','MU','IREN','CORZ','TSM','APLD','RIOT','CLSK'],wt:{SNDK:22.7,BE:19.1,CRWV:14.3,MU:8.8,IREN:8.2,CORZ:8.0,TSM:7.4,APLD:6.5,RIOT:2.9,CLSK:2.1},puts:{MU:1,TSM:1},chg:{SNDK:'increased',BE:'kept',CRWV:'reduced',MU:'new',IREN:'increased',CORZ:'kept',TSM:'new',APLD:'increased',RIOT:'increased',CLSK:'increased'}},
-  burry:{name:'Burry (Scion Asset Mgmt)',meta:'AUM: $283M',tags:['Value', 'Healthcare', 'Contrarian'],tk:['PFE','HAL','MOH','LULU','SLM','BRKR'],wt:{PFE:54.0,HAL:21.8,MOH:8.5,LULU:6.3,SLM:4.7,BRKR:4.7},chg:{PFE:'new',HAL:'new',MOH:'new',LULU:'reduced',SLM:'new',BRKR:'increased'}},
+  buffett:{name:'Buffett (Berkshire Hathaway)',meta:'Portfolio: $263.10B',tags:['Value', 'Insurance', 'Consumer'],tk:['AAPL','AXP','KO','BAC','CVX','OXY','GOOGL','CB','MCO','KHC'],wt:{AAPL:24.2,AXP:19.1,KO:12.7,BAC:10.4,CVX:7.3,OXY:7.1,GOOGL:6.9,CB:4.6,MCO:4.5,KHC:3.1},chg:{AAPL:'kept',AXP:'reduced',KO:'kept',BAC:'reduced',CVX:'new',OXY:'increased',GOOGL:'increased',CB:'exited',MCO:'reduced',KHC:'kept'}},
+  ackman:{name:'Ackman (Pershing Square)',meta:'Portfolio: $13.71B',tags:['Activist', 'Financials', 'Tech'],tk:['BN','AMZN','UBER','MSFT','QSR','META','HHC'],wt:{BN:18.0,AMZN:17.8,UBER:16.0,MSFT:15.6,QSR:12.4,META:11.3,HHC:8.9},chg:{BN:'reduced',AMZN:'kept',UBER:'reduced',MSFT:'new',QSR:'kept',META:'reduced',HHC:'reduced'}},
+  drucken:{name:'Druckenmiller (Duquesne)',meta:'Portfolio: $3.4M',tags:['Macro', 'Biotech', 'Cyclical'],tk:['NTRA','IWM','INSM','TSM','QQQ','YPF','TBBB','AA','NAMS','SE'],wt:{NTRA:31.0,IWM:14.9,INSM:9.6,TSM:8.6,QQQ:8.1,YPF:7.5,TBBB:5.7,AA:5.0,NAMS:5.0,SE:4.6},chg:{NTRA:'kept',IWM:'increased',INSM:'reduced',TSM:'new',QQQ:'reduced',YPF:'increased',TBBB:'increased',AA:'increased',NAMS:'kept',SE:'reduced'}},
+  salp:{name:'SALP (Situational Awareness LP)',meta:'Portfolio: $5.22B',tags:['AI Infra', 'Power', 'Semicon'],tk:['SNDK','BE','CRWV','MU','IREN','CORZ','TSM','APLD','RIOT','CLSK'],wt:{SNDK:22.7,BE:19.1,CRWV:14.3,MU:8.8,IREN:8.2,CORZ:8.0,TSM:7.4,APLD:6.5,RIOT:2.9,CLSK:2.1},puts:{MU:1,TSM:1},chg:{SNDK:'increased',BE:'kept',CRWV:'reduced',MU:'new',IREN:'increased',CORZ:'kept',TSM:'new',APLD:'increased',RIOT:'increased',CLSK:'increased'}},
+  burry:{name:'Burry (Scion Asset Mgmt)',meta:'Portfolio: $282.5M',tags:['Value', 'Healthcare', 'Contrarian'],tk:['PFE','HAL','MOH','LULU','SLM','BRKR'],wt:{PFE:54.0,HAL:21.8,MOH:8.5,LULU:6.3,SLM:4.7,BRKR:4.7},chg:{PFE:'new',HAL:'new',MOH:'new',LULU:'reduced',SLM:'new',BRKR:'increased'}},
   cathie:{name:'Cathie Wood (ARK Innovation)',meta:'ARKK Daily',tags:['Innovation','Genomics','Fintech'],tk:['TSLA', 'AMD', 'CRCL', 'TEM', 'CRSP', 'HOOD', 'COIN', 'ROKU', 'SHOP', 'PLTR'],wt:{TSLA:21.2,AMD:10.3,CRCL:9.5,TEM:9.4,CRSP:9.2,HOOD:8.9,COIN:8.6,ROKU:8.6,SHOP:8.3,PLTR:6.1}},
   trump:{name:'Trump (Media & Deals)',meta:'Speculative',tags:['Media','Crypto'],tk:['DJT', 'MSTR', 'TSLA'],wt:{DJT:40,MSTR:10,TSLA:5}},
 };
