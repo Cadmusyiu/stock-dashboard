@@ -728,7 +728,7 @@ window.showLanding = function showLanding(){
     // 🆕 Render Market Overview section
     var moGrid=$('marketOverviewGrid');
     if(moGrid){
-      var dxy=d.DXY||null,spx=d.SPX||null,vix=d.VIX||null;
+      var dxy=data.DXY||null,spx=data.SPX||null,vix=data.VIX||null;
       var btcP=$('btcPrice');
       var btcV=btcP?btcP.textContent:null;
       var btcC=$('btcChg');
