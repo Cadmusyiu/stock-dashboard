@@ -414,6 +414,9 @@ window.switchTf = function(tf){
   if(el)el.classList.add('active');
   if(_tvTicker)window.loadTvWidget(_tvTicker);
 };
+
+
+window.showTickerDetail=function(t){loadTvWidget(t);var r=$('summaryRow');if(r)r.innerHTML='<span style="color:var(--accent);font-weight:600;font-size:12px;">🎯 '+t+'</span> <span style="font-size:11px;color:var(--text-muted);">TradingView chart updated</span>';};
 window.loadTvWidget = function(ticker){
   _tvTicker=ticker;
   var c=$('tvChart');if(!c)return;
@@ -465,7 +468,7 @@ function renderTable(rows, puts, chg){
     var pwC=pw!=='--'?(r.pw>=0?'var(--green)':'var(--red)'):'',p1C=p1!=='--'?(r.p1>=0?'var(--green)':'var(--red)'):'',p3C=p3!=='--'?(r.p3>=0?'var(--green)':'var(--red)'):'';
     var alertPrice=window._alerts&&window._alerts[r.t];
     var alertIcon=alertPrice?'<span class="alert-bell" title="Alert at $'+alertPrice+'">🔔</span>':'';
-    return '<tr class="holding-row" onclick="loadTvWidget(\''+r.t+'\')" oncontextmenu="return setPriceAlert(\''+r.t+'\',\''+fmt(r.pr)+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+alertIcon+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span style="display:inline-flex;gap:4px;font-size:10px;"><span style="color:'+pwC+';font-weight:600;">W:'+pw+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p1C+';font-weight:600;">M:'+p1+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p3C+';font-weight:600;">3M:'+p3+'</span></span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
+    return '<tr class="holding-row" onclick="showTickerDetail(\''+r.t+'\')" oncontextmenu="return setPriceAlert(\''+r.t+'\',\''+fmt(r.pr)+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+alertIcon+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span style="display:inline-flex;gap:4px;font-size:10px;"><span style="color:'+pwC+';font-weight:600;">W:'+pw+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p1C+';font-weight:600;">M:'+p1+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p3C+';font-weight:600;">3M:'+p3+'</span></span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
   }).join('');
 }
 
