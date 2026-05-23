@@ -43,6 +43,33 @@
     <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
 </div>
+
+<!-- 🆕 Market Overview Section -->
+<div class="glass fade-in fade-in-3" style="padding:14px 16px;margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:8px;">📊 Market Overview</div>
+  <div class="market-overview-grid" id="marketOverviewGrid">
+    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">DXY</div><div class="stat-price" id="dxyPrice" style="font-size:18px;">—</div><div class="stat-change" id="dxyChg"></div></div>
+    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">S&P 500</div><div class="stat-price" id="spxPrice" style="font-size:18px;">—</div><div class="stat-change" id="spxChg"></div></div>
+    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">VIX</div><div class="stat-price" id="vixPrice" style="font-size:18px;">—</div><div class="stat-change" id="vixChg"></div></div>
+    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">BTC</div><div class="stat-price" id="btcPrice2" style="font-size:18px;">—</div><div class="stat-change" id="btcChg2"></div></div>
+  </div>
+</div>
+
+<!-- 🆕 Manager Snapshot Section -->
+<div class="fade-in fade-in-4" style="margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:8px;padding:0 4px;">📋 Manager Snapshots</div>
+  <div class="manager-snapshot-grid" id="managerSnapshotGrid"></div>
+</div>
+
+<!-- 🆕 Top Movers Section -->
+<div class="glass fade-in fade-in-4" style="padding:12px 16px;margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:6px;">🔥 Top Movers</div>
+  <div id="topMoversContent" style="font-size:11px;"><div style="color:var(--text-muted);">Loading...</div></div>
+</div>
+
+<!-- 🆕 Landing Timestamp -->
+<div class="landing-timestamp" id="landingTimestamp"></div>
+
 </div>
 <div id="fundView" hidden>
 <div class="manager-header fade-in fade-in-2">
@@ -689,10 +716,94 @@ window.showLanding = function showLanding(){
       var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
       return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
     }).join('');
+    // 🆕 Render Market Overview section
+    var moGrid=$('marketOverviewGrid');
+    if(moGrid){
+      var dxy=d.DXY||null,spx=d.SPX||null,vix=d.VIX||null;
+      var btcP=$('btcPrice');
+      var btcV=btcP?btcP.textContent:null;
+      var btcC=$('btcChg');
+      var btcChV=btcC?btcC.textContent:null;
+      var ethP=$('ethPrice');
+      var ethV=ethP?ethP.textContent:null;
+      var ethC=$('ethChg');
+      var ethChV=ethC?ethC.textContent:null;
+      // DXY
+      var dxyP=$('dxyPrice');var dxyChg=$('dxyChg');
+      if(dxy){dxyP.textContent=fmt(dxy.c);dxyChg.textContent=(dxy.ch>=0?'+':'')+dxy.ch.toFixed(2)+'%';dxyChg.style.color=dxy.ch>=0?'var(--green)':'var(--red)';}
+      // SPX (reuse spy data since SPX is fetched)
+      var spxP=$('spxPrice');var spxChg=$('spxChg');
+      if(spx){spxP.textContent=fmt(spx.c);spxChg.textContent=(spx.ch>=0?'+':'')+spx.ch.toFixed(2)+'%';spxChg.style.color=spx.ch>=0?'var(--green)':'var(--red)';}
+      // VIX
+      var vixP=$('vixPrice');var vixChg=$('vixChg');
+      if(vix){vixP.textContent=fmt(vix.c);vixChg.textContent=(vix.ch>=0?'+':'')+vix.ch.toFixed(2)+'%';vixChg.style.color=vix.ch>=0?'var(--green)':'var(--red)';}
+      // BTC (reuse from top stats)
+      var btcP2=$('btcPrice2');var btcChg2=$('btcChg2');
+      if(btcV!=='—'&&btcV!==null){btcP2.textContent=btcV;if(btcChV){btcChg2.textContent=btcChV;btcChg2.style.color=btcC?btcC.style.color:'var(--text-muted)';}}
+    }
+
+    // 🆕 Render Manager Snapshot cards
+    var snapGrid=$('managerSnapshotGrid');
+    if(snapGrid){
+      snapGrid.innerHTML=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
+        var m=CMG[k];if(!m)return'';
+        // Aggregate metrics (reuse from cards above)
+        var validWt=0,wRSI=0,hasData=false;
+        var sortedTk=m.tk.slice().sort(function(a,b){return (m.wt[b]||0)-(m.wt[a]||0)});
+        sortedTk.forEach(function(t){
+          var d=data[t],w=m.wt[t]||0;
+          if(d&&w>0){hasData=true;wRSI+=(typeof d.rsi==='number'?d.rsi:50)*w;validWt+=w}
+        });
+        if(validWt>0){wRSI/=validWt}
+        var rsiCls=hasData?(wRSI<35?'rsi-low':wRSI>65?'rsi-high':'rsi-mid'):'rsi-mid';
+        var rsiHtml='<span class="rsi-badge '+rsiCls+'">RSI'+(hasData?Math.round(wRSI):'--')+'</span>';
+        // HHI concentration
+        var hhi=0;Object.keys(m.wt).forEach(function(t){var w=m.wt[t]/100;hhi+=w*w});
+        var concBadge=hhi<0.15?'🟢 '+hhi.toFixed(2):hhi<0.30?'🟡 '+hhi.toFixed(2):'🔴 '+hhi.toFixed(2);
+        var top3Wt=0;sortedTk.slice(0,3).forEach(function(t){top3Wt+=m.wt[t]||0});
+        var puts=m.puts||{};var putsTk=Object.keys(puts).filter(function(t){return puts[t]});
+        var putsStr=putsTk.length?'🛡️':' ';
+        var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
+        return '<div class="manager-snap-card" onclick="loadManager(\''+k+'\')" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';">'+
+          '<div><span class="manager-snap-name">'+m.name.split(' (')[0]+'</span><span class="manager-snap-aum">'+m.meta+'</span></div>'+
+          '<div class="manager-snap-stats">'+rsiHtml+'<span class="conc-badge">'+concBadge+'</span><span>'+putsStr+'</span></div>'+
+          '<div class="manager-snap-top3">Top 3: <span>'+sortedTk.slice(0,3).map(function(t){return t+' '+(m.wt[t]||0).toFixed(1)+'%'}).join(' · ')+'</span> <span class="manager-snap-count">('+m.tk.length+' holdings)</span></div>'+
+          '</div>';
+      }).join('');
+    }
+
+    // 🆕 Render Top Movers
+    var tmc=$('topMoversContent');
+    if(tmc){
+      var gainers=[],losers=[];
+      Object.keys(data).forEach(function(t){
+        var d=data[t];
+        if(d&&typeof d.ch==='number'){
+          if(d.ch>0)gainers.push({t:t,ch:d.ch,pr:d.c});
+          else if(d.ch<0)losers.push({t:t,ch:d.ch,pr:d.c});
+        }
+      });
+      gainers.sort(function(a,b){return b.ch-a.ch});
+      losers.sort(function(a,b){return a.ch-b.ch});
+      var topG=gainers.slice(0,5);
+      var topL=losers.slice(0,5);
+      var html='<table class="top-movers-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th></tr></thead><tbody>';
+      topG.forEach(function(g){html+='<tr><td class="ticker-cell">'+g.t+'</td><td>$'+fmt(g.pr)+'</td><td class="gain">+'+g.ch.toFixed(2)+'%</td></tr>'});
+      if(topL.length>0){
+        html+='<tr><td colspan="3" style="padding:4px 12px;font-size:9px;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">▼ Losers</td></tr>';
+        topL.forEach(function(l){html+='<tr><td class="ticker-cell">'+l.t+'</td><td>$'+fmt(l.pr)+'</td><td class="loss">'+l.ch.toFixed(2)+'%</td></tr>'});
+      }
+      html+='</tbody></table>';
+      tmc.innerHTML=html;
+    }
+
     var now=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
     $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
     $('updateTs').style.display='block';
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
+    // 🆕 Landing timestamp
+    var lt=$('landingTimestamp');
+    if(lt)lt.textContent='Last updated: '+now;
   }).catch(function(e){
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
     busy=false
