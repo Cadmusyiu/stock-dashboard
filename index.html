@@ -26,6 +26,7 @@
   <div class="compare-panels"><div class="compare-panel" id="comparePanel0"><div class="compare-panel-header">Manager 1</div><div class="compare-panel-body" id="compareBody0">Select a manager</div></div><div class="compare-panel" id="comparePanel1"><div class="compare-panel-header">Manager 2</div><div class="compare-panel-body" id="compareBody1">Select a manager</div></div></div>
 </div>
 <div class="main-content" id="mainContent">
+<div id="landingView">
 <div class="stats-row fade-in fade-in-1">
   <div class="glass stat-card"><div class="stat-label">BTC</div><div class="stat-price" id="btcPrice">—</div><div class="stat-change" id="btcChg"></div></div>
   <div class="glass stat-card"><div class="stat-label">ETH</div><div class="stat-price" id="ethPrice">—</div><div class="stat-change" id="ethChg"></div></div>
@@ -42,6 +43,9 @@
     <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
 </div>
+</div>
+</div>
+<div id="fundView" style="display:none;">
 <div class="manager-header fade-in fade-in-2">
   <div class="manager-name" id="managerName">Loading...</div>
   <div class="manager-meta" id="managerMeta"></div>
@@ -482,6 +486,8 @@ window.doSearch = function(q){
 window.loadManager = function(id){
   if(busy)return;
   busy=true;
+  var lv=$('landingView'),fv=$('fundView');
+  if(lv)lv.style.display='none';if(fv)fv.style.display='';
   var mgr=CMG[id],seq=++loadSeq;
   if(!mgr){busy=false;return}
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
@@ -617,6 +623,8 @@ function showLanding(){
   busy=false;
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
   var lb=$('landingBtn');if(lb)lb.classList.add('active');
+  var lv=$('landingView'),fv=$('fundView');
+  if(lv)lv.style.display='';if(fv)fv.style.display='none';
   $('managerName').textContent='📊 All Managers Overview';
   $('managerMeta').textContent='';$('managerTags').innerHTML='';$('managerOptionsBar').style.display='none';
   $('managerFilingBar').style.display='none';$('managerChangesBar').style.display='none';
