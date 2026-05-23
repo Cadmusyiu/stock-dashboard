@@ -45,7 +45,7 @@
     <div class="chart-header">Portfolio Value Overview</div>
     <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
   </div>
-  <div class="glass chart-card sector-heatmap" id="sectorHeatmap" style="flex:0 0 320px;padding:14px 16px;">
+  <div class="glass chart-card sector-heatmap" id="sectorHeatmap" style="flex:0 0 320px;padding:14px 16px;display:none;">
     <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
     <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
@@ -101,13 +101,11 @@
 <div class="glass portfolio-section fade-in fade-in-4">
   <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><div class="ticker-search-bar" style="flex:1;margin-bottom:0;"><input type="text" id="tickerSearch" placeholder="🔍 Search ticker across all managers…" oninput="window.doSearch(this.value)"></div><button class="export-btn" onclick="exportPortfolio()" style="white-space:nowrap;">📋 Copy</button></div>
   <div id="searchResults"></div>
-  <div id="managerDetail" style="display:none;margin-bottom:12px;"></div>
-  <div id="sectorPieMgr" style="display:none;margin-bottom:12px;"></div>
+  <div id="managerDetail" style="display:none;margin-bottom:8px;"></div>
   <div style="overflow-x:auto;">
     <table class="portfolio-table"><thead><tr><th data-sort="tk" onclick="doSort('tk')">Ticker <span class="sort-arrow"></span></th><th>Price</th><th>Chg%</th><th>RSI</th><th>Momentum</th><th data-sort="wt" onclick="doSort('wt')">Weight <span class="sort-arrow"></span></th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
   </div>
 </div>
-<div id="perfChartSection" style="display:none;margin-top:8px;"></div>
 <div class="charts-row fade-in fade-in-5">
   <div class="glass chart-card" id="lineCard">
     <div class="chart-header"><span id="tvTitle">SNDK (D)</span><span id="tvSub" style="font-size:10px;color:var(--text-muted);font-weight:400;letter-spacing:0;"></span></div>
@@ -593,23 +591,16 @@ window.loadManager = function(id, force){
     // Manager detail panel
     var mdPanel = $('managerDetail');
     if(mgr) {
-      var detailHTML = '<div class="mgr-detail-card">';
-      detailHTML += '<div class="mgr-detail-name" style="font-size:18px;font-weight:700;">' + mgr.name + '</div>';
-      detailHTML += '<div class="mgr-detail-meta" style="font-size:12px;color:var(--text-secondary);margin:4px 0;">' + mgr.meta + '</div>';
-      detailHTML += '<div class="mgr-detail-tags" style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;">';
-      (mgr.tags||[]).forEach(function(t){ detailHTML += '<span style="background:var(--card-bg);padding:2px 10px;border-radius:12px;font-size:11px;border:1px solid var(--card-border);">' + t + '</span>'; });
-      detailHTML += '</div>';
-      detailHTML += '<div class="mgr-detail-changes" style="font-size:12px;color:var(--text-muted);margin-top:4px;">';
       var added=0,kept=0,increased=0,reduced=0,exited=0;
       if(mgr.chg) { Object.values(mgr.chg).forEach(function(c){
         if(c==='new') added++; else if(c==='kept') kept++; else if(c==='increased') increased++; else if(c==='reduced') reduced++; else if(c==='exited') exited++;
       }); }
       var parts=[];
-      if(added) parts.push('➕ New:'+added); if(increased) parts.push('📈 Increased:'+increased); if(reduced) parts.push('📉 Reduced:'+reduced); if(kept) parts.push('➡️ Kept:'+kept); if(exited) parts.push('🚫 Exited:'+exited);
-      detailHTML += parts.join(' · ');
-      detailHTML += '</div></div>';
-      mdPanel.innerHTML = detailHTML;
-      mdPanel.style.display = 'block';
+      if(added) parts.push('➕'+added); if(increased) parts.push('📈'+increased); if(reduced) parts.push('📉'+reduced); if(kept) parts.push('➡️'+kept); if(exited) parts.push('🚫'+exited);
+      if(parts.length) {
+        mdPanel.innerHTML = '<div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--text-muted);padding:6px 0;">🏷️ Position Changes: ' + parts.join(' \u00b7 ') + '</div>';
+        mdPanel.style.display = 'block';
+      } else { mdPanel.style.display = 'none'; }
     }
     // Sector pie chart per manager
     (function(){
@@ -655,21 +646,6 @@ window.loadManager = function(id, force){
       setTimeout(function(){
         buildPie(mgr.tk,mgr.wt);
         buildSectorPie(mgr);
-        // Portfolio performance chart
-        (function(){
-          var perfContainer = $('perfChartSection');
-          if(mgr && mgr.tk && mgr.wt) {
-            var perfHTML = '<div class="perf-chart-header" style="display:flex;gap:12px;margin:16px 0 8px;font-size:13px;font-weight:600;">📈 Portfolio Performance</div>';
-            perfHTML += '<div style="position:relative;"><canvas id="perfCanvas" height="280"></canvas></div>';
-            perfHTML += '<div class="perf-periods" style="display:flex;gap:8px;margin-top:8px;font-size:11px;">';
-            var periods = [['1W','1W'],['1M','1M'],['3M','3M'],['YTD','YTD'],['1Y','1Y']];
-            periods.forEach(function(p){ perfHTML += '<button class="perf-btn" data-perf="'+p[0]+'" onclick="loadPerfChart(\''+id+'\',\''+p[1]+'\')" style="background:var(--card-bg);border:1px solid var(--card-border);color:var(--text-primary);padding:4px 12px;border-radius:6px;cursor:pointer;">'+p[0]+'</button>'; });
-            perfHTML += '</div>';
-            perfContainer.innerHTML = perfHTML;
-            perfContainer.style.display = 'block';
-            loadPerfChart(id, '1W');
-          }
-        })();
         if(mgr.tk.length>0)loadTvWidget(mgr.tk[0]);
       },50);
     }
@@ -707,291 +683,6 @@ window.toggleCompare = function(){
 };
 
 window.exitCompare = function(){_compareMode=false;var ov=$('compareOverlay'),mc=$('mainContent'),btn=$('compareBtn');if(ov)ov.style.display='none';if(mc)mc.style.display='';if(btn)btn.style.background=''};
-
-window.loadPerfChart = function(mgrName, period) {
-  var mgr = CMG[mgrName];
-  if(!mgr || !mgr.tk) return;
-  var tickers = Object.keys(mgr.wt).filter(function(t){ return mgr.wt[t]>0; });
-  var weights = tickers.map(function(t){ return mgr.wt[t]; });
-  var totalW = weights.reduce(function(a,b){ return a+b; }, 0);
-  var periodMap = {'1W':'Perf.W','1M':'Perf.1M','3M':'Perf.3M','YTD':'Perf.YTD','1Y':'Perf.1Y'};
-  var perCol = periodMap[period] || 'Perf.1M';
-  var columns = ['name','close', perCol];
-  tv({
-    symbols:{tickers:tickers.map(function(t){ var e=window.exch[t]||'NASDAQ'; return e+':'+t; }), query:{types:[]}},
-    columns: columns
-  }).then(function(data){
-    var canvas = document.getElementById('perfCanvas');
-    if(!canvas || !data.data) return;
-    var ctx = canvas.getContext('2d');
-    var labels = [];
-    var perfValues = [];
-    var overall = 0;
-    data.data.forEach(function(item, i){
-      var perf = item.d[2];
-      if(perf !== null && perf !== undefined) {
-        var w = weights[i] / totalW;
-        var weightedPerf = perf * w;
-        overall += weightedPerf;
-        labels.push(tickers[i]);
-        perfValues.push(perf);
-      }
-    });
-    if(window.mgrPerfChart) window.mgrPerfChart.destroy();
-    if(perfValues.length === 0) {
-      ctx.font = '14px sans-serif';
-      ctx.fillStyle = 'var(--text-muted)';
-      ctx.fillText('No data available', 10, 30);
-      return;
-    }
-    window.mgrPerfChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: period + ' Performance (%)',
-          data: perfValues,
-          backgroundColor: perfValues.map(function(v){ return v>=0 ? 'rgba(124,255,0,0.6)' : 'rgba(255,68,68,0.6)'; }),
-          borderColor: perfValues.map(function(v){ return v>=0 ? 'rgba(124,255,0,1)' : 'rgba(255,68,68,1)'; }),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            callbacks: {
-              label: function(ctx){ return ctx.parsed.y.toFixed(2) + '%'; }
-            }
-          }
-        },
-        scales: {
-          y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { callback: function(v){ return v.toFixed(1) + '%'; }, color: 'var(--text-muted)' } },
-          x: { grid: { display: false }, ticks: { maxRotation: 45, font: { size: 10 }, color: 'var(--text-muted)' } }
-        }
-      }
-    });
-    var overallDiv = document.createElement('div');
-    overallDiv.style.cssText = 'text-align:center;font-size:13px;margin-top:8px;font-weight:600;color:' + (overall>=0?'var(--green)':'var(--red)') + ';';
-    overallDiv.textContent = '📊 Portfolio ' + period + ': ' + (overall>=0?'+':'') + overall.toFixed(2) + '%';
-    var existing = canvas.parentElement.querySelector('.perf-overall');
-    if(existing) existing.remove();
-    overallDiv.className = 'perf-overall';
-    canvas.parentElement.appendChild(overallDiv);
-  }).catch(function(e){ console.error('Perf chart error', e); });
-};
-
-// Hook into loadManager for compare mode
-var _origLoadMgr=window.loadManager;
-window.loadManager = function(id){
-  if(_compareMode){
-    _selectCompareManager(id);
-    return;
-  }
-  _origLoadMgr(id);
-};
-
-function _selectCompareManager(id){
-  if(!_compareMode||_comparePicks.length>=2){return}
-  if(_comparePicks.indexOf(id)!==-1){return}
-  _comparePicks.push(id);
-  var idx=_comparePicks.length-1;
-  var mgr=CMG[id];
-  $('comparePick').textContent=_comparePicks.length<2?'Pick 2nd manager (sidebar)':'Loading...';
-  var body=$('compareBody'+idx);
-  body.innerHTML='<div class="cp-loading">📡 Loading '+mgr.name+'...</div>';
-  scanTicker(mgr.tk).then(function(data){
-    _compareData[id]=data;
-    if(_comparePicks.indexOf(id)!==idx)return;
-    renderComparePanel(idx,id,mgr,data);
-    if(_comparePicks.length===2){
-      var id0=_comparePicks[0],id1=_comparePicks[1];
-      $('comparePick').innerHTML='<span class="cp-vs">'+CMG[id0].name.split(' (')[0]+'  vs  '+CMG[id1].name.split(' (')[0]+'</span>';
-    }else{
-      $('comparePick').textContent='Pick 2nd manager (sidebar)';
-    }
-  }).catch(function(e){
-    if(_comparePicks.indexOf(id)!==idx)return;
-    body.innerHTML='<div class="cp-error">⚠️ Failed: '+e.message+'</div>';
-    _comparePicks.pop();
-  });
-}
-
-function renderComparePanel(idx,id,mgr,data){
-  var b=$('compareBody'+idx);if(!b)return;
-  var h=mgr.name.split(' (')[0];
-  var titles='<div class="cp-header">'+h+'<span class="cp-meta">'+mgr.meta+'</span></div>';
-  var rows=[];mgr.tk.forEach(function(t){
-    var d=data[t];if(!d)return;
-    var cc=d.ch>=0?'var(--green)':'var(--red)';
-    var rsi=typeof d.rsi==='number'?Math.round(d.rsi):'—';
-    var sig=d.rsi<35?'BUY':d.rsi>65?'SELL':'NEUTRAL';
-    var wt=mgr.wt[t]||0;
-    rows.push('<tr><td style="font-weight:600;">'+t+'</td><td>$'+fmt(d.c)+'</td><td style="color:'+cc+'">'+(d.ch>=0?'+':'')+d.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td>'+wt.toFixed(1)+'%</td></tr>');
-  });
-  b.innerHTML=titles+'<table class="compare-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th><th>RSI</th><th>Weight</th></tr></thead><tbody>'+rows.join('')+'</tbody></table>';
-}
-
-window.showLanding = function showLanding(){
-  busy=false;
-  document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
-  var lb=$('landingBtn');if(lb)lb.classList.add('active');
-  var lv=$('landingView'),fv=$('fundView');
-  if(lv)lv.hidden=false;if(fv)fv.hidden=true;
-  $('managerName').textContent='📊 All Managers Overview';
-  $('managerMeta').textContent='';$('managerTags').innerHTML='';$('managerOptionsBar').style.display='none';
-  $('managerFilingBar').style.display='none';$('managerChangesBar').style.display='none';
-  $('summaryRow').innerHTML='';$('wRSI').style.display='none';$('tvChart').innerHTML='';$('newsPanel').style.display='none';
-  var mdP=$('managerDetail');if(mdP)mdP.style.display='none';
-  var spM=$('sectorPieMgr');if(spM)spM.style.display='none';
-  var pfS=$('perfChartSection');if(pfS)pfS.style.display='none';
-  if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
-  if(sectorPChart){try{sectorPChart.destroy()}catch(e){}sectorPChart=null}
-  if(window.mgrPieChart){try{window.mgrPieChart.destroy()}catch(e){}delete window.mgrPieChart}
-  if(window.mgrPerfChart){try{window.mgrPerfChart.destroy()}catch(e){}delete window.mgrPerfChart}
-  $('pieCard').innerHTML='<div class="chart-header">Weight Distribution</div><div class="chart-body" style="height:192px;position:relative;"><canvas id="pieChart"></canvas></div>';
-  $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📊 Loading overview...</td></tr>';
-  var allTk=[];var mgrMap={};
-  Object.keys(CMG).forEach(function(k){
-    if(CMG[k]&&CMG[k].tk){CMG[k].tk.forEach(function(t){allTk.push(t);if(!mgrMap[t])mgrMap[t]=[];mgrMap[t].push(k)})}
-  });
-  scanTicker([...new Set(allTk)]).then(function(data){
-    if(window.checkAlerts(data)){setTimeout(function(){document.title='CadAI Dashboard'},5000)};
-    var cards=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
-      var m=CMG[k];if(!m)return'';
-      // Aggregate metrics
-      var validWt=0,wRSI=0,wPW=0,wP1=0,wP3=0,hasData=false;
-      var sortedTk=m.tk.slice().sort(function(a,b){return (m.wt[b]||0)-(m.wt[a]||0)});
-      sortedTk.forEach(function(t,i){
-        var d=data[t],w=m.wt[t]||0;
-        if(d&&w>0){hasData=true;wRSI+=(typeof d.rsi==='number'?d.rsi:50)*w;wPW+=d.pw*w;wP1+=d.p1*w;wP3+=d.p3*w;validWt+=w}
-      });
-      if(validWt>0){wRSI/=validWt;wPW/=validWt;wP1/=validWt;wP3/=validWt}
-      var rsiStr=hasData?'<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;color:'+(wRSI<35?'var(--green)':wRSI>65?'var(--red)':'var(--text-muted)')+';">RSI '+Math.round(wRSI)+'</span>':'';
-      var momStr=hasData?'<span style="font-size:9px;color:var(--text-muted);">'+(wPW>=0?'W+':'W')+wPW.toFixed(1)+'% M'+(wP1>=0?'+':'')+wP1.toFixed(1)+'% 3M'+(wP3>=0?'+':'')+wP3.toFixed(1)+'%</span>':'';
-      // Top 3 concentration
-      var top3Wt=0;sortedTk.slice(0,3).forEach(function(t){top3Wt+=m.wt[t]||0});
-      var concPct=top3Wt.toFixed(0);
-      // Changes summary
-      var chg=m.chg||{};var nNew=0,nInc=0,nRed=0,nExit=0;
-      Object.keys(chg).forEach(function(t){var v=chg[t];if(v==='new')nNew++;else if(v==='increased')nInc++;else if(v==='reduced')nRed++;else if(v==='exited')nExit++});
-      var chgStr=(nNew||nInc||nRed||nExit)?'<span style="font-size:9px;color:var(--text-muted);">🆕'+nNew+' 📈'+nInc+' 📉'+nRed+' ❌'+nExit+'</span>':'';
-      // Puts
-      var puts=m.puts||{};var putsTk=Object.keys(puts).filter(function(t){return puts[t]});
-      var putsStr=putsTk.length?'<span style="font-size:9px;color:var(--red);">🛡️'+putsTk.join(' ')+'</span>':'';
-      // Ticker prices
-      var tkPrices=m.tk.map(function(t){
-        var d=data[t];
-        if(!d)return'<div style="font-size:9px;color:var(--text-muted);">'+t+' —</div>';
-        var cc=d.ch>=0?'var(--green)':'var(--red)';
-        return'<div style="display:flex;justify-content:space-between;font-size:10px;padding:1px 0;"><span>'+t+'</span><span style="color:'+cc+';font-weight:500;">$'+fmt(d.c)+' '+(d.ch>=0?'+':'')+d.ch.toFixed(2)+'%</span></div>';
-      }).join('');
-      var aum=m.meta||'';
-      var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
-      return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
-    }).join('');
-    // 🆕 Render Market Overview section
-    try{(function(){
-      var moGrid=$('marketOverviewGrid');
-      if(!moGrid)return;
-      // Fetch macro data (DXY, SPX, VIX) fresh from TV for market overview
-      tv({symbols:{tickers:['TVC:DXY','SP:SPX','TVC:VIX'],query:{types:[]}},columns:['name','close','change']}).then(function(md){
-        (md.data||[]).forEach(function(item){
-          var p=item.s.split(':'),n=p[p.length-1],cl=item.d[1],ch=item.d[2];
-          if(n==='DXY'){$('dxyPrice').textContent=fmt(cl);var e=$('dxyChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
-          if(n==='SPX'){$('spxPrice').textContent=fmt(cl);var e=$('spxChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
-          if(n==='VIX'){$('vixPrice').textContent=fmt(cl);var e=$('vixChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
-        });
-      }).catch(function(){});
-      // BTC/ETH from top DOM
-      var btcP2=$('btcPrice2');var btcChg2=$('btcChg2');
-      if(btcP2){var btcP=$('btcPrice');btcP2.textContent=btcP?btcP.textContent:'—';var btcC=$('btcChg');if(btcChg2&&btcC){btcChg2.textContent=btcC.textContent;btcChg2.style.color=btcC.style.color;}}
-      var ep=$('ethPrice2');var eC=$('ethChg2');
-      if(ep){var ethP=$('ethPrice');ep.textContent=ethP?ethP.textContent:'—';var ethC=$('ethChg');if(eC&&ethC){eC.textContent=ethC.textContent;eC.style.color=ethC.style.color;}}
-    })()}catch(e){console.error('market overview error',e)}
-
-    // 🆕 Render Manager Snapshot cards
-    var snapGrid=$('managerSnapshotGrid');
-    if(snapGrid){
-      snapGrid.innerHTML=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
-        var m=CMG[k];if(!m)return'';
-        // Aggregate metrics (reuse from cards above)
-        var validWt=0,wRSI=0,hasData=false;
-        var sortedTk=m.tk.slice().sort(function(a,b){return (m.wt[b]||0)-(m.wt[a]||0)});
-        sortedTk.forEach(function(t){
-          var d=data[t],w=m.wt[t]||0;
-          if(d&&w>0){hasData=true;wRSI+=(typeof d.rsi==='number'?d.rsi:50)*w;validWt+=w}
-        });
-        if(validWt>0){wRSI/=validWt}
-        var rsiCls=hasData?(wRSI<35?'rsi-low':wRSI>65?'rsi-high':'rsi-mid'):'rsi-mid';
-        var rsiHtml='<span class="rsi-badge '+rsiCls+'">RSI'+(hasData?Math.round(wRSI):'--')+'</span>';
-        // HHI concentration
-        var hhi=0;Object.keys(m.wt).forEach(function(t){var w=m.wt[t]/100;hhi+=w*w});
-        var concBadge=hhi<0.15?'🟢 '+hhi.toFixed(2):hhi<0.30?'🟡 '+hhi.toFixed(2):'🔴 '+hhi.toFixed(2);
-        var top3Wt=0;sortedTk.slice(0,3).forEach(function(t){top3Wt+=m.wt[t]||0});
-        var puts=m.puts||{};var putsTk=Object.keys(puts).filter(function(t){return puts[t]});
-        var putsStr=putsTk.length?'🛡️':' ';
-        var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
-        return '<div class="manager-snap-card" onclick="loadManager(\''+k+'\')" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';">'+
-          '<div><span class="manager-snap-name">'+m.name.split(' (')[0]+'</span><span class="manager-snap-aum">'+m.meta+'</span></div>'+
-          '<div class="manager-snap-stats">'+rsiHtml+'<span class="conc-badge">'+concBadge+'</span><span>'+putsStr+'</span></div>'+
-          '<div class="manager-snap-top3">Top 3: <span>'+sortedTk.slice(0,3).map(function(t){return t+' '+(m.wt[t]||0).toFixed(1)+'%'}).join(' · ')+'</span> <span class="manager-snap-count">('+m.tk.length+' holdings)</span></div>'+
-          '</div>';
-      }).join('');
-    }
-
-    // 🆕 Render Top Movers
-    var tmc=$('topMoversContent');
-    if(tmc){
-      var gainers=[],losers=[];
-      Object.keys(data).forEach(function(t){
-        var d=data[t];
-        if(d&&typeof d.ch==='number'){
-          if(d.ch>0)gainers.push({t:t,ch:d.ch,pr:d.c});
-          else if(d.ch<0)losers.push({t:t,ch:d.ch,pr:d.c});
-        }
-      });
-      gainers.sort(function(a,b){return b.ch-a.ch});
-      losers.sort(function(a,b){return a.ch-b.ch});
-      var topG=gainers.slice(0,5);
-      var topL=losers.slice(0,5);
-      var html='<table class="top-movers-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th></tr></thead><tbody>';
-      topG.forEach(function(g){html+='<tr><td class="ticker-cell">'+g.t+'</td><td>$'+fmt(g.pr)+'</td><td class="gain">+'+g.ch.toFixed(2)+'%</td></tr>'});
-      if(topL.length>0){
-        html+='<tr><td colspan="3" style="padding:4px 12px;font-size:9px;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,0.04);">▼ Losers</td></tr>';
-        topL.forEach(function(l){html+='<tr><td class="ticker-cell">'+l.t+'</td><td>$'+fmt(l.pr)+'</td><td class="loss">'+l.ch.toFixed(2)+'%</td></tr>'});
-      }
-      html+='</tbody></table>';
-      tmc.innerHTML=html;
-    }
-
-    // Trigger alerts for ±5% movers in all managers (UI badge only)
-    try {
-      Object.keys(CMG).forEach(function(mk){
-        var m = CMG[mk];
-        (m.tk||[]).forEach(function(t){
-          var td = data[t];
-          if(td && td.ch && Math.abs(td.ch) >= 5) {
-            console.log('⚠️ ' + m.name + ' - ' + t + ': ' + td.ch.toFixed(2) + '%');
-          }
-        });
-      });
-    } catch(e){}
-
-    var now=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-    $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
-    $('updateTs').style.display='block';
-    $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
-    // 🆕 Landing timestamp
-    var lt=$('landingTimestamp');
-    if(lt)lt.textContent='Last updated: '+now;
-  }).catch(function(e){
-    $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
-    busy=false
-  });
-}
 
 window.toggleTheme = function() {
   var current = document.documentElement.getAttribute('data-theme') || 'dark';
