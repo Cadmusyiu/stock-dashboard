@@ -358,6 +358,7 @@ var CMG = {
   trump:{name:'Trump (Personal Portfolio)',meta:'Q1 2026 Ethics Filing ~$500M',tags:['Tech','Defense','Large Cap'],tk:['NVDA','NOW','ADBE','MSFT','ORCL','AVGO','MSI','AMZN','TXN','DELL','PLTR','AAPL','WDAY','BA','META'],wt:{NVDA:8.5,NOW:8.5,ADBE:8.5,MSFT:8.5,ORCL:8.5,AVGO:8.5,MSI:8.5,AMZN:8.5,TXN:6.0,DELL:6.0,PLTR:4.5,AAPL:4.0,WDAY:4.0,BA:3.5,META:3.0},chg:{NVDA:'new',NOW:'new',ADBE:'new',MSFT:'new',ORCL:'new',AVGO:'new',MSI:'new',AMZN:'new',TXN:'new',DELL:'new',PLTR:'new',AAPL:'new',WDAY:'new',BA:'new',META:'new'}},
 };
 
+var _scanCache = {}; var _cacheTTL = 30000;
 var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
 var pChart=null,busy=false,loadSeq=0,sortBy='wt',sortAsc=false;
 var _chartSeed={}; // seeded random for stable chart lines
@@ -371,12 +372,18 @@ function tvc(body){return fetch('https://scanner.tradingview.com/crypto/scan',{m
 
 function scanTicker(tk){
   if(!tk||tk.length===0)return Promise.resolve({});
+  var key = tk.slice().sort().join(',');
+  var cached = _scanCache[key];
+  if(cached && (Date.now() - cached.time) < _cacheTTL){
+    return Promise.resolve(cached.data);
+  }
   return tv({symbols:{tickers:tk.map(function(t){return(exch[t]||'NASDAQ')+':'+t}),query:{types:[]}},columns:['name','close','change','RSI','Perf.W','Perf.1M','Perf.3M']})
   .then(function(d){var o={};
     (d.data||[]).forEach(function(item){
       var p=item.s.split(':'),n=p[p.length-1];
       o[n]={c:item.d[1],ch:item.d[2],rsi:item.d[3],pw:item.d[4],p1:item.d[5],p3:item.d[6]};
     });
+    _scanCache[key] = {data:o, time:Date.now()};
     return o;
   })
   .catch(function(e){console.error('scanTicker error',e);return Promise.resolve({})});
@@ -594,6 +601,42 @@ window.loadManager = function(id, force){
       return{t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,pw:d.pw,p1:d.p1,p3:d.p3,wt:w};
     });
     renderTable(rows,mgr.puts,mgr.chg);
+    // CSV download button
+    (function(){
+      var ob = $('managerOptionsBar');
+      if(ob){
+        var existingCsv = ob.querySelector('.csv-btn');
+        if(!existingCsv){
+          var csvBtn = document.createElement('button');
+          csvBtn.className = 'csv-btn';
+          csvBtn.textContent = '📥 CSV';
+          csvBtn.style.cssText = 'background:var(--accent);color:#000;border:none;border-radius:4px;padding:2px 8px;font-size:11px;cursor:pointer;margin-left:8px;';
+          csvBtn.onclick = function(e){
+            e.stopPropagation();
+            var lines = ['Ticker,Name,Weight%,Price,Change%,RSI'];
+            rows.forEach(function(r){
+              var ticker = '"' + r.t + '"';
+              var w = typeof r.wt === 'number' ? r.wt.toFixed(1) : '';
+              var p = typeof r.pr === 'number' ? r.pr.toFixed(2) : '';
+              var ch = typeof r.ch === 'number' ? r.ch.toFixed(2) : '';
+              var rsi = typeof r.rsi === 'number' ? Math.round(r.rsi) : '';
+              var nm = '""';
+              lines.push(ticker + ',' + nm + ',' + w + ',' + p + ',' + ch + ',' + rsi);
+            });
+            var blob = new Blob([lines.join('\n')], {type:'text/csv;charset=utf-8;'});
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = $('managerName').textContent.replace(/[^a-zA-Z0-9]/g,'_') + '_holdings.csv';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          };
+          ob.appendChild(csvBtn);
+        }
+      }
+    })();
     // Manager detail panel (compact)
     var mdPanel = $('managerDetail');
     if(mgr) {
