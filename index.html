@@ -434,6 +434,12 @@ function doSort(by){
   if(window._rows)renderTable(window._rows, window._puts, window._chg);
 }
 
+// Price alert system
+window._alerts=JSON.parse(localStorage.getItem('da_alerts')||'{}');
+window.setPriceAlert=function(t,p){var at=prompt('Target price for '+t+': (current: $'+p+')');if(at){var n=parseFloat(at);if(n>0){window._alerts[t]=n;localStorage.setItem('da_alerts',JSON.stringify(window._alerts));$('errMsg').textContent='🔔 Alert set: '+t+' @ $'+n;$('errMsg').style.display='block';$('errMsg').style.color='var(--green)';setTimeout(function(){$('errMsg').style.display='none'},2000);window._rerender&&window._rerender()}else alert('Invalid price')}return false};
+// Check alerts after scanTicker returns data
+window.checkAlerts=function(data){var fired=false;Object.keys(window._alerts).forEach(function(t){if(data[t]){var p=data[t].c,ap=window._alerts[t];if(p>=ap){fired=true;document.title='🔔 '+t+' @ $'+p+'! - Stock Dashboard';delete window._alerts[t];localStorage.setItem('da_alerts',JSON.stringify(window._alerts))}}});return fired};
+
 window.exportPortfolio=function(){var rows=window._rows;if(!rows||rows.length===0)return;var mgrName=$('managerName').textContent;var lines=['📊 '+mgrName];rows.forEach(function(r){if(!r.ok)return;var sig=r.rsi<35?'B':r.rsi>65?'S':'N';var puts=window._puts[r.t]?' 🛡️':'';var chg=window._chg[r.t]||'';var ci={'new':'🆕','increased':'📈','reduced':'📉','exited':'❌'};var ch=ci[chg]||'';lines.push(ch+r.t+puts+' $'+fmt(r.pr)+' '+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'% RSI:'+(typeof r.rsi==='number'?Math.round(r.rsi):'--')+' W:'+r.wt.toFixed(1)+'%')});var txt=lines.join('\n');navigator.clipboard.writeText(txt).then(function(){$('errMsg').textContent='✅ Copied to clipboard!';$('errMsg').style.display='block';$('errMsg').style.color='var(--green)';setTimeout(function(){$('errMsg').style.display='none'},2000)}).catch(function(){prompt('Copy manually:',txt)})};
 
 function renderTable(rows, puts, chg){
@@ -457,7 +463,9 @@ function renderTable(rows, puts, chg){
     var chgHtml=chgLabel&&chgIcon[chgLabel]?'<span class="chg-mark">'+chgIcon[chgLabel]+'</span>':'';
     var pw=typeof r.pw==='number'?r.pw.toFixed(1)+'%':'--',p1=typeof r.p1==='number'?r.p1.toFixed(1)+'%':'--',p3=typeof r.p3==='number'?r.p3.toFixed(1)+'%':'--';
     var pwC=pw!=='--'?(r.pw>=0?'var(--green)':'var(--red)'):'',p1C=p1!=='--'?(r.p1>=0?'var(--green)':'var(--red)'):'',p3C=p3!=='--'?(r.p3>=0?'var(--green)':'var(--red)'):'';
-    return '<tr class="holding-row" onclick="loadTvWidget(\''+r.t+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span style="display:inline-flex;gap:4px;font-size:10px;"><span style="color:'+pwC+';font-weight:600;">W:'+pw+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p1C+';font-weight:600;">M:'+p1+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p3C+';font-weight:600;">3M:'+p3+'</span></span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
+    var alertPrice=window._alerts&&window._alerts[r.t];
+    var alertIcon=alertPrice?'<span class="alert-bell" title="Alert at $'+alertPrice+'">🔔</span>':'';
+    return '<tr class="holding-row" onclick="loadTvWidget(\''+r.t+'\')" oncontextmenu="return setPriceAlert(\''+r.t+'\',\''+fmt(r.pr)+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+alertIcon+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span style="display:inline-flex;gap:4px;font-size:10px;"><span style="color:'+pwC+';font-weight:600;">W:'+pw+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p1C+';font-weight:600;">M:'+p1+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p3C+';font-weight:600;">3M:'+p3+'</span></span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
   }).join('');
 }
 
@@ -510,7 +518,10 @@ window.loadManager = function(id, force){
   // Top-3 summary
   var sorted=Object.keys(mgr.wt).sort(function(a,b){return mgr.wt[b]-mgr.wt[a]});
   var top3=sorted.slice(0,3);
-  $('summaryRow').innerHTML='<span class="summary-holdings">'+sorted.length+' holdings</span><span class="summary-top3">Top: '+top3.map(function(t){return t+' '+mgr.wt[t].toFixed(1)+'%'}).join(' · ')+'</span>';
+  // Sector concentration score - sum of squared weights (Herfindahl)
+  var hhi=0;Object.keys(mgr.wt).forEach(function(t){var w=mgr.wt[t]/100;hhi+=w*w});
+  var hhiLabel=hhi<0.15?'🟢':hhi<0.30?'🟡':'🔴';
+  $('summaryRow').innerHTML='<span class="summary-holdings">'+sorted.length+' holdings</span><span>'+hhiLabel+' Conc: '+(hhi*100).toFixed(1)+'</span><span class="summary-top3">Top: '+top3.map(function(t){return t+' '+mgr.wt[t].toFixed(1)+'%'}).join(' · ')+'</span>';
   $('searchResults').innerHTML='';$('searchResults').style.display='none';$('tableBody').style.display='';$('tickerSearch').value='';
   $('errMsg').style.display='none';
   var wRSI=$('wRSI');if(wRSI){wRSI.textContent='';wRSI.style.display='none'}
@@ -518,6 +529,7 @@ window.loadManager = function(id, force){
   scanTicker(mgr.tk).then(function(data){
     if(seq!==loadSeq){busy=false;return}
     busy=false;
+    if(window.checkAlerts(data)){setTimeout(function(){document.title='CadAI Dashboard'},5000)};
     var rows=mgr.tk.map(function(t){
       var d=data[t],w=mgr.wt[t]||0;
       if(!d)return{t:t,ok:false,wt:w};
@@ -544,7 +556,7 @@ window.loadManager = function(id, force){
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--red);">⚠️ Failed</td></tr>';
   });
   var ts=$('updateTs');
-  if(ts){var nu=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});if(seq===loadSeq)ts.textContent='🔄 Updated '+nu;}
+  if(ts){var nu=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});if(seq===loadSeq)ts.textContent='🔄 Updated '+nu+' | '+mgr.tk.length+' holdings | Conc: '+(hhi*100).toFixed(1);}
 };
 
 window.refreshAll = function(){
@@ -640,6 +652,7 @@ window.showLanding = function showLanding(){
     if(CMG[k]&&CMG[k].tk){CMG[k].tk.forEach(function(t){allTk.push(t);if(!mgrMap[t])mgrMap[t]=[];mgrMap[t].push(k)})}
   });
   scanTicker([...new Set(allTk)]).then(function(data){
+    if(window.checkAlerts(data)){setTimeout(function(){document.title='CadAI Dashboard'},5000)};
     var cards=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
       var m=CMG[k];if(!m)return'';
       // Aggregate metrics
@@ -673,6 +686,9 @@ window.showLanding = function showLanding(){
       var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
       return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
     }).join('');
+    var now=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
+    $('updateTs').style.display='block';
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
   }).catch(function(e){
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
