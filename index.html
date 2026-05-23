@@ -105,7 +105,7 @@
   <div id="sectorPieMgr" style="margin-bottom:12px;">
     <div class="glass chart-card" style="margin:0 auto;max-width:400px;">
       <div class="chart-header" style="text-align:center;">Sector Distribution</div>
-      <div class="chart-body" style="height:220px;position:relative;display:flex;justify-content:center;">
+      <div class="chart-body" style="height:260px;position:relative;display:flex;justify-content:center;">
         <canvas id="sectorPieCanvas" style="width:100%;height:100%;"></canvas>
       </div>
     </div>
@@ -605,6 +605,7 @@ window.loadManager = function(id, force){
       var cp = $('sectorPieCanvas');
       if(!cp) return;
       if(mgr && mgr.chg) {
+        var secColorsDef = {'Technology':'#4ecdc4','Financial':'#45b7d1','Consumer':'#f0932b','Healthcare':'#eb4d4b','Energy':'#6ab04c','Defense':'#e056fd','Industrial':'#ff7979','Other':'#95afc0'};
         var sectors = {'Technology':0,'Financial':0,'Consumer':0,'Healthcare':0,'Energy':0,'Defense':0,'Industrial':0,'Other':0};
         var tkList = mgr.tk || [];
         tkList.forEach(function(t){
@@ -620,7 +621,7 @@ window.loadManager = function(id, force){
           sectors[cat] = (sectors[cat]||0) + wt;
         });
         var labels=[], values=[], colors=[];
-        var colorMap = {'Technology':'#4ecdc4','Financial':'#45b7d1','Consumer':'#f0932b','Healthcare':'#eb4d4b','Energy':'#6ab04c','Defense':'#e056fd','Industrial':'#ff7979','Other':'#95afc0'};
+        var colorMap = secColorsDef;
         Object.keys(sectors).forEach(function(k){ if(sectors[k]>0){ labels.push(k); values.push(sectors[k]); colors.push(colorMap[k]); } });
         if(values.length>0) {
           if(window.mgrPieChart) { try{window.mgrPieChart.destroy()}catch(e){} window.mgrPieChart=null }
@@ -628,7 +629,7 @@ window.loadManager = function(id, force){
           window.mgrPieChart = new Chart(ctx, {
             type:'doughnut',
             data:{labels:labels, datasets:[{data:values, backgroundColor:colors, borderWidth:0}]},
-            options:{responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:false}, tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+ctx.parsed.toFixed(1)+'%';}}}}}
+            options:{responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10, padding:8, font:{size:9}, color:'rgba(255,255,255,0.5)', usePointStyle:true, pointStyle:'circle'}}, tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+ctx.parsed.toFixed(1)+'%';}}}}}
           });
         }
       }
@@ -715,7 +716,6 @@ window.showLanding = function(){
   var mdP=$('managerDetail');if(mdP)mdP.style.display='none';
   var spM=$('sectorPieMgr');if(spM)spM.style.display='none';
   if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
-  if(sectorPChart){try{sectorPChart.destroy()}catch(e){}sectorPChart=null}
   if(window.mgrPieChart){try{window.mgrPieChart.destroy()}catch(e){}delete window.mgrPieChart}
   $('pieCard').innerHTML='<div class="chart-header">Weight Distribution</div><div class="chart-body" style="height:192px;position:relative;"><canvas id="pieChart"></canvas></div>';
   $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📊 Loading overview...</td></tr>';
