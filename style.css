@@ -146,3 +146,6 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 .landing-card-name { font-size:12px; font-weight:600; color:var(--text-primary); }
 .landing-card-aum { float:right; }
 .landing-card .landing-card-header + div > div:nth-child(1) { border-top:1px solid rgba(255,255,255,0.04); padding-top:4px; }
+
+.export-btn { padding:8px 16px; border-radius:8px; border:1px solid var(--accent-dim); background:rgba(124,255,0,0.08); color:var(--accent); font-size:12px; font-weight:600; cursor:pointer; transition:all .2s; white-space:nowrap; }
+.export-btn:hover { background:rgba(124,255,0,0.18); box-shadow:0 0 20px var(--accent-glow); }

@@ -62,7 +62,7 @@
   <div id="newsContent" style="font-size:11px;color:var(--text-secondary);"></div>
 </div>
 <div class="glass portfolio-section fade-in fade-in-4">
-  <div class="ticker-search-bar"><input type="text" id="tickerSearch" placeholder="🔍 Search ticker across all managers…" oninput="window.doSearch(this.value)"></div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;"><div class="ticker-search-bar" style="flex:1;margin-bottom:0;"><input type="text" id="tickerSearch" placeholder="🔍 Search ticker across all managers…" oninput="window.doSearch(this.value)"></div><button class="export-btn" onclick="exportPortfolio()" style="white-space:nowrap;">📋 Copy</button></div>
   <div id="searchResults"></div>
   <div style="overflow-x:auto;">
     <table class="portfolio-table"><thead><tr><th data-sort="tk" onclick="doSort('tk')">Ticker <span class="sort-arrow"></span></th><th>Price</th><th>Chg%</th><th>RSI</th><th>Momentum</th><th data-sort="wt" onclick="doSort('wt')">Weight <span class="sort-arrow"></span></th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
@@ -433,6 +433,8 @@ function doSort(by){
   if(cur)cur.textContent=sortAsc?'▲':'▼';
   if(window._rows)renderTable(window._rows, window._puts, window._chg);
 }
+
+window.exportPortfolio=function(){var rows=window._rows;if(!rows||rows.length===0)return;var mgrName=$('managerName').textContent;var lines=['📊 '+mgrName];rows.forEach(function(r){if(!r.ok)return;var sig=r.rsi<35?'B':r.rsi>65?'S':'N';var puts=window._puts[r.t]?' 🛡️':'';var chg=window._chg[r.t]||'';var ci={'new':'🆕','increased':'📈','reduced':'📉','exited':'❌'};var ch=ci[chg]||'';lines.push(ch+r.t+puts+' $'+fmt(r.pr)+' '+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'% RSI:'+(typeof r.rsi==='number'?Math.round(r.rsi):'--')+' W:'+r.wt.toFixed(1)+'%')});var txt=lines.join('\n');navigator.clipboard.writeText(txt).then(function(){$('errMsg').textContent='✅ Copied to clipboard!';$('errMsg').style.display='block';$('errMsg').style.color='var(--green)';setTimeout(function(){$('errMsg').style.display='none'},2000)}).catch(function(){prompt('Copy manually:',txt)})};
 
 function renderTable(rows, puts, chg){
   window._rows=rows;
