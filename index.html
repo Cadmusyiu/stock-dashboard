@@ -236,15 +236,15 @@ function loadPrices(){
     if(d.SPX){var e=$('spyPrice');e.textContent=fmt(d.SPX.c);var c=$('spyChg');c.textContent=(d.SPX.ch>=0?'+':'')+d.SPX.ch.toFixed(2)+'%';c.style.color=d.SPX.ch>=0?'var(--green)':'var(--red)';}
     $('macroLabel').textContent='DXY • VIX • 10Y';
     // Fetch US10Y yield from Yahoo Finance via ^TNX
-    (function(){var u='https://query1.finance.yahoo.com/v8/finance/chart/%5ETNX?interval=1d&range=1d';
-    fetch(u).then(function(r){return r.json()}).then(function(j){
+    (function(){var y='https://query1.finance.yahoo.com/v8/finance/chart/%5ETNX?interval=1d&range=1d';
+    fetch('https://corsproxy.io/?'+encodeURIComponent(y)).then(function(r){return r.json()}).then(function(j){
       var p=j.chart.result[0].meta.regularMarketPrice;
       $('macroGrid').innerHTML=
         '<div class="macro-item"><span>DXY</span><span>'+(d.DXY?fmt(d.DXY.c):'—')+'</span></div>'+
         '<div class="macro-item"><span>VIX</span><span>'+(d.VIX?fmt(d.VIX.c):'—')+'</span></div>'+
         '<div class="macro-item"><span>10Y</span><span>'+(typeof p==='number'?p.toFixed(3)+'%':'—')+'</span></div>';
     }).catch(function(e2){
-      console.error('US10Y yahoo fail',e2);
+      console.error('US10Y fetch fail',e2);
       $('macroGrid').innerHTML=
         '<div class="macro-item"><span>DXY</span><span>'+(d.DXY?fmt(d.DXY.c):'—')+'</span></div>'+
         '<div class="macro-item"><span>VIX</span><span>'+(d.VIX?fmt(d.VIX.c):'—')+'</span></div>'+
