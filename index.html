@@ -43,9 +43,13 @@
 </div>
 <div style="text-align:right;font-size:10px;color:var(--text-muted);margin:-8px 0 8px;opacity:0.6;" id="updateTs"></div>
 <div class="aum-row fade-in fade-in-3">
-  <div class="glass chart-card" id="aumCard">
+  <div class="glass chart-card" id="aumCard" style="flex:1;">
     <div class="chart-header">Portfolio Value Overview</div>
     <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+  <div class="glass chart-card sector-heatmap" id="sectorHeatmap" style="flex:0 0 320px;padding:14px 16px;">
+    <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
+    <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
 </div>
 <div id="newsPanel" class="glass" style="display:none;margin-bottom:16px;padding:12px 16px;">
@@ -78,10 +82,6 @@
   <div class="glass chart-card">
     <div class="chart-header">Sector Distribution</div>
     <div class="chart-body" style="height:192px;position:relative;"><canvas id="sectorPieChart" style="width:100%;height:100%;"></canvas></div>
-  </div>
-  <div class="sector-heatmap glass" id="sectorHeatmap" style="padding:12px 16px;">
-    <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
-    <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
 </div>
 </div>
