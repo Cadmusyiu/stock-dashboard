@@ -645,19 +645,20 @@ function showLanding(){
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
   }).catch(function(e){
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
-  });)
+  });
 }
 
 function boot(){
-  loadPrices();
-  // Init sort indicator: Weight ▲ (descending)
-  var wth=document.querySelector('.portfolio-table th[data-sort="wt"] .sort-arrow');
-  if(wth)wth.textContent='▼';
-  var n=0;
-  function c(){if(window.Chart){buildAumChart();showLanding();}else if(n++<100){setTimeout(c,200)}}
-  c();
-  setTimeout(buildAumChart,1000); // retry
-  setInterval(loadPrices,120000);
+  try{
+    loadPrices();
+    var wth=document.querySelector('.portfolio-table th[data-sort="wt"] .sort-arrow');
+    if(wth)wth.textContent='▼';
+    var n=0;
+    function c(){try{if(window.Chart){buildAumChart();showLanding();}else if(n++<100){setTimeout(c,200)}}catch(e){console.error('Init error:',e);$('errMsg').textContent='Init: '+e.message;$('errMsg').style.display='block'}}
+    c();
+    setTimeout(buildAumChart,1000);
+    setInterval(loadPrices,120000);
+  }catch(e){console.error('Boot error:',e)}
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
