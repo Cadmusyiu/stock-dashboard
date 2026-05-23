@@ -209,7 +209,7 @@ function loadNews(topTickers){
   var today=new Date(),from=new Date(today);from.setDate(from.getDate()-7);
   var fd=function(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
   var promises=topTickers.map(function(t){
-    return fetch('https://finnhub.io/api/v1/company-news?symbol='+t+'&from='+fd(from)+'&to='+fd(today)+'&token=d7guv11r01qmqj46rgn0')
+    return fetch('https://finnhub.io/api/v1/company-news?symbol='+t+'&from='+fd(from)+'&to='+fd(today)+'&token=d7guv11r01qmqj46rgn0d7guv11r01qmqj46rgng')
     .then(function(r){return r.json()}).then(function(d){
       if(!Array.isArray(d)||d.length===0)return[];
       var results=[];var max=Math.min(3,d.length);
