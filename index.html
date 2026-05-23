@@ -57,7 +57,7 @@
     <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">DXY</div><div class="stat-price" id="dxyPrice" style="font-size:18px;">—</div><div class="stat-change" id="dxyChg"></div></div>
     <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">S&P 500</div><div class="stat-price" id="spxPrice" style="font-size:18px;">—</div><div class="stat-change" id="spxChg"></div></div>
     <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">VIX</div><div class="stat-price" id="vixPrice" style="font-size:18px;">—</div><div class="stat-change" id="vixChg"></div></div>
-    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">BTC</div><div class="stat-price" id="btcPrice2" style="font-size:18px;">—</div><div class="stat-change" id="btcChg2"></div></div>
+    <div class="glass stat-card" style="padding:10px 14px;"><div class="stat-label">ETH</div><div class="stat-price" id="ethPrice2" style="font-size:18px;">—</div><div class="stat-change" id="ethChg2"></div></div>
   </div>
 </div>
 
@@ -728,27 +728,31 @@ window.showLanding = function showLanding(){
     // 🆕 Render Market Overview section
     var moGrid=$('marketOverviewGrid');
     if(moGrid){
-      var dxy=data.DXY||null,spx=data.SPX||null,vix=data.VIX||null;
-      var btcP=$('btcPrice');
-      var btcV=btcP?btcP.textContent:null;
-      var btcC=$('btcChg');
-      var btcChV=btcC?btcC.textContent:null;
-      var ethP=$('ethPrice');
-      var ethV=ethP?ethP.textContent:null;
-      var ethC=$('ethChg');
-      var ethChV=ethC?ethC.textContent:null;
-      // DXY
-      var dxyP=$('dxyPrice');var dxyChg=$('dxyChg');
-      if(dxy){dxyP.textContent=fmt(dxy.c);dxyChg.textContent=(dxy.ch>=0?'+':'')+dxy.ch.toFixed(2)+'%';dxyChg.style.color=dxy.ch>=0?'var(--green)':'var(--red)';}
-      // SPX (reuse spy data since SPX is fetched)
-      var spxP=$('spxPrice');var spxChg=$('spxChg');
-      if(spx){spxP.textContent=fmt(spx.c);spxChg.textContent=(spx.ch>=0?'+':'')+spx.ch.toFixed(2)+'%';spxChg.style.color=spx.ch>=0?'var(--green)':'var(--red)';}
-      // VIX
-      var vixP=$('vixPrice');var vixChg=$('vixChg');
-      if(vix){vixP.textContent=fmt(vix.c);vixChg.textContent=(vix.ch>=0?'+':'')+vix.ch.toFixed(2)+'%';vixChg.style.color=vix.ch>=0?'var(--green)':'var(--red)';}
-      // BTC (reuse from top stats)
+      // Reuse data from DOM (loadPrices already fetched DXY/SPX/VIX/BTC/ETH)
+      function cp(id){var e=$(id);return e?e.textContent:'—'}
+      function cc(id){var e=$(id);return e?e.textContent:''}
+      function cs(id,def){var e=$(id);return{text:e?e.textContent:'—',color:e?e.style.color:(def||'var(--text-muted)')}}
+      // ETH
+      var ep=cp('ethPrice'),ec=cs('ethChg');
+      // DXY - read from macro grid if available
+      var macroItems=$('macroGrid').querySelectorAll('.macro-item');
+      var dxyText='—',spxText='—',vixText='—';
+      // BTC
       var btcP2=$('btcPrice2');var btcChg2=$('btcChg2');
-      if(btcV!=='—'&&btcV!==null){btcP2.textContent=btcV;if(btcChV){btcChg2.textContent=btcChV;btcChg2.style.color=btcC?btcC.style.color:'var(--text-muted)';}}
+      var btcV=cp('btcPrice');var btcC=cs('btcChg');
+      if(btcV!=='—'){btcP2.textContent=btcV;btcChg2.textContent=btcC.text;btcChg2.style.color=btcC.color};
+      // ETH (second display)
+      $('ethPrice2').textContent=ep;
+      $('ethChg2').textContent=ec.text;$('ethChg2').style.color=ec.color;
+      // Fetch fresh macro data for market overview
+      tv({symbols:{tickers:['TVC:DXY','SP:SPX','TVC:VIX'],query:{types:[]}},columns:['name','close','change']}).then(function(md){
+        (md.data||[]).forEach(function(item){
+          var p=item.s.split(':'),n=p[p.length-1],cl=item.d[1],ch=item.d[2];
+          if(n==='DXY'){$('dxyPrice').textContent=fmt(cl);var e=$('dxyChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
+          if(n==='SPX'){$('spxPrice').textContent=fmt(cl);var e=$('spxChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
+          if(n==='VIX'){$('vixPrice').textContent=fmt(cl);var e=$('vixChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
+        });
+      }).catch(function(){});
     }
 
     // 🆕 Render Manager Snapshot cards
