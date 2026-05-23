@@ -715,7 +715,7 @@ window.showLanding = function(){
   var mdP=$('managerDetail');if(mdP)mdP.style.display='none';
   var spM=$('sectorPieMgr');if(spM)spM.style.display='none';
   if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
-  if(window.mgrPieChart){try{window.mgrPieChart.destroy()}catch(e){}window.mgrPieChart=null}
+  if(sectorPChart){try{sectorPChart.destroy()}catch(e){}sectorPChart=null}
   if(window.mgrPieChart){try{window.mgrPieChart.destroy()}catch(e){}delete window.mgrPieChart}
   $('pieCard').innerHTML='<div class="chart-header">Weight Distribution</div><div class="chart-body" style="height:192px;position:relative;"><canvas id="pieChart"></canvas></div>';
   $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📊 Loading overview...</td></tr>';
@@ -764,11 +764,10 @@ window.showLanding = function(){
           if(n==='VIX'){$('vixPrice').textContent=fmt(cl);var e=$('vixChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
         });
       }).catch(function(){});
-      // Sync ETH from scanTicker data to sidebar ethPrice and market overview ethPrice2
+      // Sync ETH to market overview ethPrice2/ethChg2 from sidebar (populated by loadPrices)
       var ethSidebar=$('ethPrice');var ethSidebarChg=$('ethChg');
-      if(ethSidebar&&data.ETH){ethSidebar.textContent=fmt(data.ETH.c);ethSidebarChg.textContent=(data.ETH.ch>=0?'+':'')+data.ETH.ch.toFixed(2)+'%';ethSidebarChg.style.color=data.ETH.ch>=0?'var(--green)':'var(--red)';}
       var ethP2=$('ethPrice2');var ethChg2=$('ethChg2');
-      if(ethP2&&data.ETH){ethP2.textContent=fmt(data.ETH.c);ethChg2.textContent=(data.ETH.ch>=0?'+':'')+data.ETH.ch.toFixed(2)+'%';ethChg2.style.color=data.ETH.ch>=0?'var(--green)':'var(--red)';}
+      if(ethP2&&ethSidebar){ethP2.textContent=ethSidebar.textContent;ethChg2.textContent=ethSidebarChg.textContent;ethChg2.style.color=ethSidebarChg.style.color;}
     })()}catch(e){console.error('market overview error',e)}
     var snapGrid=$('managerSnapshotGrid');
     if(snapGrid){
