@@ -622,7 +622,8 @@ window.loadManager = function(id, force){
         });
         var labels=[], values=[], colors=[];
         var colorMap = secColorsDef;
-        Object.keys(sectors).forEach(function(k){ if(sectors[k]>0){ labels.push(k); values.push(sectors[k]); colors.push(colorMap[k]); } });
+        var secEntries = Object.keys(sectors).filter(function(k){ return sectors[k]>0; }).map(function(k){ return {label:k, value:sectors[k], color:colorMap[k]}; }).sort(function(a,b){ return b.value - a.value; });
+        secEntries.forEach(function(e){ labels.push(e.label); values.push(e.value); colors.push(e.color); });
         if(values.length>0) {
           if(window.mgrPieChart) { try{window.mgrPieChart.destroy()}catch(e){} window.mgrPieChart=null }
           var ctx = cp.getContext('2d');
