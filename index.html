@@ -726,25 +726,10 @@ window.showLanding = function showLanding(){
       return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
     }).join('');
     // 🆕 Render Market Overview section
-    var moGrid=$('marketOverviewGrid');
-    if(moGrid){
-      // Reuse data from DOM (loadPrices already fetched DXY/SPX/VIX/BTC/ETH)
-      function cp(id){var e=$(id);return e?e.textContent:'—'}
-      function cc(id){var e=$(id);return e?e.textContent:''}
-      function cs(id,def){var e=$(id);return{text:e?e.textContent:'—',color:e?e.style.color:(def||'var(--text-muted)')}}
-      // ETH
-      var ep=cp('ethPrice'),ec=cs('ethChg');
-      // DXY - read from macro grid if available
-      var macroItems=$('macroGrid').querySelectorAll('.macro-item');
-      var dxyText='—',spxText='—',vixText='—';
-      // BTC
-      var btcP2=$('btcPrice2');var btcChg2=$('btcChg2');
-      var btcV=cp('btcPrice');var btcC=cs('btcChg');
-      if(btcV!=='—'){btcP2.textContent=btcV;btcChg2.textContent=btcC.text;btcChg2.style.color=btcC.color};
-      // ETH (second display)
-      $('ethPrice2').textContent=ep;
-      $('ethChg2').textContent=ec.text;$('ethChg2').style.color=ec.color;
-      // Fetch fresh macro data for market overview
+    try{(function(){
+      var moGrid=$('marketOverviewGrid');
+      if(!moGrid)return;
+      // Fetch macro data (DXY, SPX, VIX) fresh from TV for market overview
       tv({symbols:{tickers:['TVC:DXY','SP:SPX','TVC:VIX'],query:{types:[]}},columns:['name','close','change']}).then(function(md){
         (md.data||[]).forEach(function(item){
           var p=item.s.split(':'),n=p[p.length-1],cl=item.d[1],ch=item.d[2];
@@ -753,7 +738,12 @@ window.showLanding = function showLanding(){
           if(n==='VIX'){$('vixPrice').textContent=fmt(cl);var e=$('vixChg');e.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';e.style.color=ch>=0?'var(--green)':'var(--red)';}
         });
       }).catch(function(){});
-    }
+      // BTC/ETH from top DOM
+      var btcP2=$('btcPrice2');var btcChg2=$('btcChg2');
+      if(btcP2){var btcP=$('btcPrice');btcP2.textContent=btcP?btcP.textContent:'—';var btcC=$('btcChg');if(btcChg2&&btcC){btcChg2.textContent=btcC.textContent;btcChg2.style.color=btcC.style.color;}}
+      var ep=$('ethPrice2');var eC=$('ethChg2');
+      if(ep){var ethP=$('ethPrice');ep.textContent=ethP?ethP.textContent:'—';var ethC=$('ethChg');if(eC&&ethC){eC.textContent=ethC.textContent;eC.style.color=ethC.style.color;}}
+    })()}catch(e){console.error('market overview error',e)}
 
     // 🆕 Render Manager Snapshot cards
     var snapGrid=$('managerSnapshotGrid');
