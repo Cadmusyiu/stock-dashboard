@@ -734,7 +734,7 @@ window.showLanding = function showLanding(){
       }).join('');
       var aum=m.meta||'';
       var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
-      return'<div class="landing-card glass" onclick="loadManager(''+k+'')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
+      return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
     }).join('');
     try{(function(){
       var moGrid=$('marketOverviewGrid');
