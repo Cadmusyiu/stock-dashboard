@@ -706,6 +706,14 @@ if(savedTheme) {
   }
 }
 
+window.showLanding = function(){
+  var lv=$('landingView'),fv=$('fundView');
+  if(lv)lv.hidden=false;if(fv)fv.hidden=true;
+  document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
+  var li=$('landingBtn');if(li)li.classList.add('active');
+  $('searchResults').innerHTML='';$('searchResults').style.display='none';$('tableBody').style.display='';$('tickerSearch').value='';
+};
+
 function boot(){
   try{
     loadPrices();
