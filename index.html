@@ -642,6 +642,27 @@ window.showLanding = function showLanding(){
   scanTicker([...new Set(allTk)]).then(function(data){
     var cards=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
       var m=CMG[k];if(!m)return'';
+      // Aggregate metrics
+      var validWt=0,wRSI=0,wPW=0,wP1=0,wP3=0,hasData=false;
+      var sortedTk=m.tk.slice().sort(function(a,b){return (m.wt[b]||0)-(m.wt[a]||0)});
+      sortedTk.forEach(function(t,i){
+        var d=data[t],w=m.wt[t]||0;
+        if(d&&w>0){hasData=true;wRSI+=(typeof d.rsi==='number'?d.rsi:50)*w;wPW+=d.pw*w;wP1+=d.p1*w;wP3+=d.p3*w;validWt+=w}
+      });
+      if(validWt>0){wRSI/=validWt;wPW/=validWt;wP1/=validWt;wP3/=validWt}
+      var rsiStr=hasData?'<span style="display:inline-flex;align-items:center;gap:3px;font-size:9px;color:'+(wRSI<35?'var(--green)':wRSI>65?'var(--red)':'var(--text-muted)')+';">RSI '+Math.round(wRSI)+'</span>':'';
+      var momStr=hasData?'<span style="font-size:9px;color:var(--text-muted);">'+(wPW>=0?'W+':'W')+wPW.toFixed(1)+'% M'+(wP1>=0?'+':'')+wP1.toFixed(1)+'% 3M'+(wP3>=0?'+':'')+wP3.toFixed(1)+'%</span>':'';
+      // Top 3 concentration
+      var top3Wt=0;sortedTk.slice(0,3).forEach(function(t){top3Wt+=m.wt[t]||0});
+      var concPct=top3Wt.toFixed(0);
+      // Changes summary
+      var chg=m.chg||{};var nNew=0,nInc=0,nRed=0,nExit=0;
+      Object.keys(chg).forEach(function(t){var v=chg[t];if(v==='new')nNew++;else if(v==='increased')nInc++;else if(v==='reduced')nRed++;else if(v==='exited')nExit++});
+      var chgStr=(nNew||nInc||nRed||nExit)?'<span style="font-size:9px;color:var(--text-muted);">🆕'+nNew+' 📈'+nInc+' 📉'+nRed+' ❌'+nExit+'</span>':'';
+      // Puts
+      var puts=m.puts||{};var putsTk=Object.keys(puts).filter(function(t){return puts[t]});
+      var putsStr=putsTk.length?'<span style="font-size:9px;color:var(--red);">🛡️'+putsTk.join(' ')+'</span>':'';
+      // Ticker prices
       var tkPrices=m.tk.map(function(t){
         var d=data[t];
         if(!d)return'<div style="font-size:9px;color:var(--text-muted);">'+t+' —</div>';
@@ -650,7 +671,7 @@ window.showLanding = function showLanding(){
       }).join('');
       var aum=m.meta||'';
       var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
-      return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')" style="cursor:pointer;"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum" style="font-size:10px;color:var(--text-muted);">'+aum+'</span></div><div style="margin-top:6px;">'+tkPrices+'</div></div>';
+      return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum">'+aum+'</span></div><div style="display:flex;gap:6px;flex-wrap:wrap;margin:4px 0;">'+rsiStr+chgStr+'</div><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px;">'+momStr+putsStr+'</div><div style="font-size:9px;color:var(--text-muted);margin-bottom:2px;">Top 3: '+concPct+'% • '+sortedTk.slice(0,3).map(function(t){return t}).join(' ')+'</div><div style="padding-top:2px;border-top:1px solid rgba(255,255,255,0.04);">'+tkPrices+'</div></div>';
     }).join('');
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
   }).catch(function(e){
