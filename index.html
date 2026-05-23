@@ -416,7 +416,10 @@ function buildPie(tk,wt){
   if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
   var c=$('pieChart');if(!c||!window.Chart)return;
   var its=tk.filter(function(t){return wt[t]>0});
-  pChart=new Chart(c.getContext('2d'),{type:'doughnut',data:{labels:its.map(function(t){return t+' ('+wt[t]+'%)'}),datasets:[{data:its.map(function(t){return wt[t]}),backgroundColor:its.map(function(t,i){return piCols[i%piCols.length]}),borderColor:'#07070d',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{color:'rgba(255,255,255,0.5)',font:{size:10},padding:8,usePointStyle:true,pointStyle:'circle',boxWidth:6}}}}});
+  var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  var tc = isLight ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.5)';
+  c._pieIts = its; c._pieWt = wt;
+  pChart=new Chart(c.getContext('2d'),{type:'doughnut',data:{labels:its.map(function(t){return t+' ('+wt[t]+'%)'}),datasets:[{data:its.map(function(t){return wt[t]}),backgroundColor:its.map(function(t,i){return piCols[i%piCols.length]}),borderColor:isLight?'#ffffff':'#07070d',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{color:tc,font:{size:10},padding:8,usePointStyle:true,pointStyle:'circle',boxWidth:6}}}}});
 }
 
 function parseAUM(s){
@@ -450,7 +453,12 @@ function buildAumChart(){
   if(window._aumChart){try{window._aumChart.destroy()}catch(e){}}
   var maxV=Math.max.apply(null,values)||1;
   var pcts=values.map(function(v){return v/maxV*100});
-  window._aumChart=new Chart(c.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[{data:pcts,backgroundColor:colors,borderRadius:4,borderSkipped:false,maxBarThickness:22}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:'rgba(7,7,13,0.9)',padding:8,cornerRadius:6,callbacks:{label:function(item){return fmtAUM(values[item.dataIndex])}}}},scales:{x:{display:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{callback:function(v){return fmtAUM(v/100*maxV)},color:'rgba(255,255,255,0.25)',font:{size:8},maxTicksLimit:5},title:{display:false}},y:{display:true,grid:{display:false},ticks:{color:'rgba(255,255,255,0.35)',font:{size:9}}}}}});
+  var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  var axC = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.04)';
+  var axT = isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.25)';
+  var axL = isLight ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.35)';
+  var tBg = isLight ? 'rgba(255,255,255,0.9)' : 'rgba(7,7,13,0.9)';
+  window._aumChart=new Chart(c.getContext('2d'),{type:'bar',data:{labels:labels,datasets:[{data:pcts,backgroundColor:colors,borderRadius:4,borderSkipped:false,maxBarThickness:22}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:tBg,padding:8,cornerRadius:6,callbacks:{label:function(item){return fmtAUM(values[item.dataIndex])}}}},scales:{x:{display:true,grid:{color:axC},ticks:{callback:function(v){return fmtAUM(v/100*maxV)},color:axT,font:{size:8},maxTicksLimit:5},title:{display:false}},y:{display:true,grid:{display:false},ticks:{color:axL,font:{size:9}}}}}});
 }
 
 var _tvTicker='',_tvInterval='D';
@@ -626,11 +634,14 @@ window.loadManager = function(id, force){
         secEntries.forEach(function(e){ labels.push(e.label); values.push(e.value); colors.push(e.color); });
         if(values.length>0) {
           if(window.mgrPieChart) { try{window.mgrPieChart.destroy()}catch(e){} window.mgrPieChart=null }
+          var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+          var tc = isLight ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.5)';
           var ctx = cp.getContext('2d');
+          cp._pieLabels = labels; cp._pieValues = values; cp._pieColors = colors;
           window.mgrPieChart = new Chart(ctx, {
             type:'doughnut',
             data:{labels:labels, datasets:[{data:values, backgroundColor:colors, borderWidth:0}]},
-            options:{responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10, padding:8, font:{size:9}, color:'rgba(255,255,255,0.5)', usePointStyle:true, pointStyle:'circle'}}, tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+ctx.parsed.toFixed(1)+'%';}}}}}
+            options:{responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10, padding:8, font:{size:9}, color:tc, usePointStyle:true, pointStyle:'circle'}}, tooltip:{callbacks:{label:function(ctx){return ctx.label+': '+ctx.parsed.toFixed(1)+'%';}}}}}
           });
         }
       }
@@ -692,7 +703,44 @@ window.toggleTheme = function() {
     btn.querySelector('.label').textContent = 'Theme';
   }
   localStorage.setItem('dashboard-theme', next);
+  // Rebuild charts with proper theme colors
+  setTimeout(function(){ rebuildCharts(); }, 100);
 };
+function rebuildCharts(){
+  if(!window.Chart) return;
+  var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  var tc = isLight ? 'rgba(0,0,0,0.6)' : 'rgba(255,255,255,0.5)';
+  var axC = isLight ? 'rgba(0,0,0,0.15)' : 'rgba(255,255,255,0.25)';
+  var axT = isLight ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.25)';
+  var axL = isLight ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.35)';
+  var grd = isLight ? 'rgba(0,0,0,0.04)' : 'rgba(255,255,255,0.04)';
+  var border = isLight ? '#ffffff' : '#07070d';
+  var tBg = isLight ? 'rgba(255,255,255,0.9)' : 'rgba(7,7,13,0.9)';
+  // Rebuild weight pie chart
+  if(pChart) try{pChart.destroy()}catch(e){} pChart=null;
+  var pc=$('pieChart');
+  if(pc) {
+    var its=[]; var pwt={};
+    try{ its = pc._pieIts || []; pwt = pc._pieWt || {}; }catch(e){}
+    if(its.length>0){
+      pChart=new Chart(pc.getContext('2d'),{type:'doughnut',data:{labels:its.map(function(t){return t+' ('+pwt[t]+'%)'}),datasets:[{data:its.map(function(t){return pwt[t]}),backgroundColor:its.map(function(t,i){return piCols[i%piCols.length]}),borderColor:border,borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{color:tc,font:{size:10},padding:8,usePointStyle:true,pointStyle:'circle',boxWidth:6}}}}})
+    }
+  }
+  // Rebuild AUM chart
+  buildAumChart();
+  // Rebuild sector pie if visible
+  if(window.mgrPieChart){try{window.mgrPieChart.destroy()}catch(e){} delete window.mgrPieChart;}
+  var spCan=$('sectorPieCanvas');
+  if(spCan && spCan.getContext('2d') && spCan._pieLabels){
+    var sl=spCan._pieLabels || [];
+    var sv=spCan._pieValues || [];
+    var sc=spCan._pieColors || [];
+    if(sl.length>0){
+      var ctx2=spCan.getContext('2d');
+      window.mgrPieChart=new Chart(ctx2,{type:'doughnut',data:{labels:sl,datasets:[{data:sv,backgroundColor:sc,borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:10,padding:8,font:{size:9},color:tc,usePointStyle:true,pointStyle:'circle'}},tooltip:{callbacks:{label:function(ctx2){return ctx2.label+': '+ctx2.parsed.toFixed(1)+'%';}}}}}})
+    }
+  }
+}
 // Restore theme on load
 var savedTheme = localStorage.getItem('dashboard-theme');
 if(savedTheme) {
