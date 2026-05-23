@@ -221,7 +221,7 @@ function loadNews(topTickers){console.log('loadNews called with',topTickers);
       }return results;
     }).catch(function(){return[]});
   });
-  console.log('loadNews promises resolved',allNews.length);Promise.all(promises).then(function(allNews){
+  Promise.all(promises).then(function(allNews){console.log('loadNews promises resolved',allNews.length);
     var flat=[];
     allNews.forEach(function(arr){arr.forEach(function(n){flat.push(n)})});
     if(flat.length===0){console.log('loadNews: flat is empty after merge');nc.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No recent news</div>';return}
