@@ -35,6 +35,8 @@
   <div class="manager-name" id="managerName">Loading...</div>
   <div class="manager-meta" id="managerMeta"></div>
   <div class="manager-tags" id="managerTags"></div>
+  <div class="manager-options-bar" id="managerOptionsBar" style="font-size:12px;margin-top:6px;display:none;"></div>
+  <div class="manager-filing-bar" id="managerFilingBar" style="font-size:11px;margin-top:4px;color:var(--text-muted);display:none;"></div>
   <div id="errMsg" style="color:#ff4757;font-size:12px;margin-top:8px;display:none;"></div>
   <div class="summary-row" id="summaryRow"></div>
   <div id="wRSI" style="font-size:13px;font-weight:500;margin-top:6px;"></div>
@@ -46,11 +48,15 @@
     <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
   </div>
 </div>
+<div id="newsPanel" class="glass" style="display:none;margin-bottom:16px;padding:12px 16px;">
+  <div class="chart-header" style="margin-bottom:4px;">📰 Top Holdings News</div>
+  <div id="newsContent" style="font-size:11px;color:var(--text-secondary);"></div>
+</div>
 <div class="glass portfolio-section fade-in fade-in-4">
   <div class="ticker-search-bar"><input type="text" id="tickerSearch" placeholder="🔍 Search ticker across all managers…" oninput="window.doSearch(this.value)"></div>
   <div id="searchResults"></div>
   <div style="overflow-x:auto;">
-    <table class="portfolio-table"><thead><tr><th data-sort="tk" onclick="doSort('tk')">Ticker <span class="sort-arrow"></span></th><th>Price</th><th>Chg%</th><th>RSI</th><th>Signal</th><th data-sort="wt" onclick="doSort('wt')">Weight <span class="sort-arrow"></span></th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
+    <table class="portfolio-table"><thead><tr><th data-sort="tk" onclick="doSort('tk')">Ticker <span class="sort-arrow"></span></th><th>Price</th><th>Chg%</th><th>RSI</th><th>Momentum</th><th data-sort="wt" onclick="doSort('wt')">Weight <span class="sort-arrow"></span></th></tr></thead><tbody id="tableBody"><tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr></tbody></table>
   </div>
 </div>
 <div class="charts-row fade-in fade-in-5">
@@ -65,7 +71,17 @@
   </div>
   <div class="glass chart-card" id="pieCard">
     <div class="chart-header">Weight Distribution</div>
-    <div class="chart-body" style="height:280px;position:relative;"><canvas id="pieChart" style="width:100%;height:100%;"></canvas></div>
+    <div class="chart-body" style="height:192px;position:relative;"><canvas id="pieChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+</div>
+<div class="charts-row fade-in fade-in-5" style="margin-top:-8px;">
+  <div class="glass chart-card">
+    <div class="chart-header">Sector Distribution</div>
+    <div class="chart-body" style="height:192px;position:relative;"><canvas id="sectorPieChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+  <div class="sector-heatmap glass" id="sectorHeatmap" style="padding:12px 16px;">
+    <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
+    <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
   </div>
 </div>
 </div>
@@ -135,6 +151,96 @@ var exch = {
   YPF:'NYSE'
 };
 
+var SECTOR = {
+SNDK:'Semicon',MU:'Semicon',TSM:'Semicon',AMD:'Semicon',CRWV:'Semicon',INSM:'Semicon',
+AAPL:'Tech',GOOGL:'Tech',META:'Tech',MSFT:'Tech',AMZN:'Tech',SHOP:'Tech',PLTR:'Tech',UBER:'Tech',HOOD:'Tech',CRCL:'Tech',
+AXP:'Finance',BAC:'Finance',BN:'Finance',MCO:'Finance',CB:'Finance',SLM:'Finance',BRKR:'Finance',
+CVX:'Energy',OXY:'Energy',BE:'Energy',IREN:'Energy',HAL:'Energy',YPF:'Energy',
+KO:'Consumer',LULU:'Consumer',QSR:'Consumer',HHC:'Consumer',SE:'Consumer',DJT:'Consumer',
+PFE:'Healthcare',MOH:'Healthcare',TEM:'Healthcare',CRSP:'Healthcare',NAMS:'Healthcare',
+NTRA:'Biotech',
+CORZ:'AI Infra',APLD:'AI Infra',RIOT:'AI Infra',CLSK:'AI Infra',TBBB:'AI Infra',
+AA:'Macro/ETF',IWM:'Macro/ETF',QQQ:'Macro/ETF'};
+
+var SECTOR_COLORS = {
+'Semicon':'#7cff00','Tech':'#4fc3f7','Finance':'#ffc312','Energy':'#ff6b6b',
+'Consumer':'#a29bfe','Healthcare':'#fd79a8','AI Infra':'#00b894','Biotech':'#e17055',
+'Macro/ETF':'#636e72'};
+
+var FILINGS = {
+buffett:'2026-05-15 (Q1 2026)',ackman:'2026-05-15 (Q1 2026)',
+drucken:'2026-05-15 (Q1 2026)',salp:'2026-05-15 (Q1 2026)',
+burry:'2025-11-14 (Q3 2025)',cathie:'Daily (ARKK)'};
+
+function loadSectorHeatmap(){
+  tv({symbols:{tickers:SECTOR_ETFS.map(function(t){return'AMEX:'+t}),query:{types:[]}},columns:['name','close','change','Perf.W','Perf.1M','Perf.3M']})
+  .then(function(d){
+    var g=$('sectorHeatmapGrid');if(!g)return;g.innerHTML='';
+    (d.data||[]).forEach(function(item){
+      var p=item.s.split(':'),n=p[p.length-1],ch=item.d[2];if(typeof ch!=='number')ch=0;
+      var bg=ch>=0?'rgba(46,213,115,'+Math.min(Math.abs(ch)/10+0.1,0.5)+')':'rgba(255,71,87,'+Math.min(Math.abs(ch)/10+0.1,0.5)+')';
+      g.innerHTML+='<div class="sector-cell" style="background:'+bg+';padding:5px;border-radius:4px;text-align:center;font-size:10px;"><div style="font-weight:600;">'+(SECTOR_ETF_NAMES[n]||n)+'</div><div style="font-size:9px;">'+(ch>=0?'+':'')+ch.toFixed(2)+'%</div></div>';
+    });
+  }).catch(function(e){});
+}
+
+function getNewsSentiment(hl){
+  hl=hl.toLowerCase();
+  var pos=['upgrade','positive','surge','rally','gain','bullish','outperform','beat','growth','profit','soar','strong','record','breakthrough','approve','win','launch','innovation','FDA','partner','expand'];
+  var neg=['downgrade','negative','plunge','crash','decline','bearish','underperform','miss','loss','drop','weak','cut','layoff','fraud','investigation','lawsuit','recall','warning','sell','kill','delay','fail','ban','regulatory'];
+  var pn=0,nn=0;
+  pos.forEach(function(w){if(hl.indexOf(w)!==-1)pn++});
+  neg.forEach(function(w){if(hl.indexOf(w)!==-1)nn++});
+  if(pn>nn)return{label:'📈',cls:'news-pos',txt:'Pos'};
+  if(nn>pn)return{label:'📉',cls:'news-neg',txt:'Neg'};
+  return{label:'📊',cls:'news-neu',txt:'Neu'};
+}
+
+function loadNews(topTickers){
+  var np=$('newsPanel'),nc=$('newsContent');
+  if(!topTickers||topTickers.length===0){np.style.display='none';return}
+  np.style.display='block';
+  nc.innerHTML='<div style="color:var(--text-muted);">Loading news...</div>';
+  var today=new Date(),from=new Date(today);from.setDate(from.getDate()-7);
+  var fd=function(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+  var promises=topTickers.map(function(t){
+    return fetch('https://finnhub.io/api/v1/company-news?symbol='+t+'&from='+fd(from)+'&to='+fd(today)+'&token=d7guv11r01qmqj46rgn0')
+    .then(function(r){return r.json()}).then(function(d){
+      if(!Array.isArray(d)||d.length===0)return[];
+      var results=[];var max=Math.min(3,d.length);
+      for(var i=0;i<max;i++){
+        var item=d[i];if(item.headline){
+          var sent=getNewsSentiment(item.headline);
+          results.push({ticker:t,date:(item.datetime?new Date(item.datetime*1000).toLocaleDateString('zh-HK'):''),source:item.source||'',headline:item.headline.substring(0,65)+(item.headline.length>65?'...':''),sentiment:sent});
+        }
+      }return results;
+    }).catch(function(){return[]});
+  });
+  Promise.all(promises).then(function(allNews){
+    var flat=[];
+    allNews.forEach(function(arr){arr.forEach(function(n){flat.push(n)})});
+    if(flat.length===0){nc.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No recent news</div>';return}
+    nc.innerHTML='<div style="display:flex;flex-direction:column;gap:5px;">'+flat.slice(0,9).map(function(n){
+      return '<div style="display:flex;gap:6px;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="font-size:10px;min-width:10px;">'+n.sentiment.label+'</span><div style="flex:1;min-width:0;"><div style="font-size:11px;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+n.headline+'</div><div style="display:flex;gap:8px;font-size:9px;color:var(--text-muted);margin-top:1px;"><span>'+n.ticker+'</span><span>'+n.source+'</span><span>'+n.date+'</span></div></div></div>';
+    }).join('')+'</div>';
+  }).catch(function(){nc.innerHTML='<div style="color:var(--text-muted);font-size:11px;">News unavailable</div>'});
+}
+
+function buildSectorPie(mgr){
+  if(sectorPChart){try{sectorPChart.destroy()}catch(e){}sectorPChart=null}
+  var c=$('sectorPieChart');if(!c||!window.Chart)return;
+  var sectorWt={};
+  mgr.tk.forEach(function(t){var s=SECTOR[t]||'Other';sectorWt[s]=(sectorWt[s]||0)+(mgr.wt[t]||0)});
+  var labels=Object.keys(sectorWt),values=labels.map(function(l){return sectorWt[l]});
+  var colors=labels.map(function(l){return SECTOR_COLORS[l]||'#636e72'});
+  sectorPChart=new Chart(c.getContext('2d'),{type:'doughnut',data:{labels:labels.map(function(l,i){return l+' ('+values[i].toFixed(1)+'%)'}),datasets:[{data:values,backgroundColor:colors,borderColor:'#07070d',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{display:true,position:'right',labels:{color:'rgba(255,255,255,0.5)',font:{size:9},padding:6,usePointStyle:true,pointStyle:'circle',boxWidth:5}}}}});
+}
+
+var SECTOR_ETFS=['XLK','XLF','XLE','XLV','XLY','XLP','XLI','XLRE','XLU','XLB'];
+var SECTOR_ETF_NAMES={XLK:'Tech',XLF:'Finance',XLE:'Energy',XLV:'Health',XLY:'ConsDisc',XLP:'ConsStap',XLI:'Industrials',XLRE:'REstate',XLU:'Utilities',XLB:'Materials'};
+
+
+
 var COLORS = {
   AA:'#76b900',
   AAPL:'#4fc3f7',
@@ -201,7 +307,7 @@ var CMG = {
 };
 
 var piCols=['#7cff00','#4fc3f7','#ff6b6b','#ffc312','#a29bfe','#fd79a8','#636e72','#00b894','#e17055','#0984e3'];
-var pChart=null,busy=false,loadSeq=0,sortBy='wt',sortAsc=false;
+var pChart=null,sectorPChart=null,busy=false,loadSeq=0,sortBy='wt',sortAsc=false;
 var _chartSeed={}; // seeded random for stable chart lines
 function seededRand(seed){var x=(seed*9301+49297)%233280;return x/233280}
 function seedFor(ticker,day){return ((ticker.charCodeAt(0)*1000+ticker.charCodeAt(1||ticker.charCodeAt(0))*100+day*7)*9973)%233280}
@@ -251,6 +357,7 @@ function loadPrices(){
         '<div class="macro-item"><span>10Y</span><span>—</span></div>';
     });})();
   }).catch(function(e){console.error('macro fail',e)});
+  loadSectorHeatmap();
 }
 
 function buildPie(tk,wt){
@@ -327,7 +434,6 @@ function renderTable(rows, puts, chg){
   window._puts=puts||{};
   window._chg=chg||{};
   var sRows=rows.slice();
-  // default: sort by weight descending
   if(sortBy==='wt'){
     sRows.sort(function(a,b){return sortAsc?a.wt-b.wt:b.wt-a.wt});
   }else{
@@ -338,12 +444,13 @@ function renderTable(rows, puts, chg){
     if(!r.ok)return '<tr><td>'+r.t+'</td><td colspan="5" style="color:var(--text-muted);">N/A</td></tr>';
     var cc=r.ch>=0?'var(--green)':'var(--red)';
     var rsi=typeof r.rsi==='number'?Math.round(r.rsi):'—';
-    var sig=r.rsi<35?'BUY':r.rsi>65?'SELL':'NEUTRAL';
     var hasPut=window._puts[r.t]?' <span class="put-badge">PUT</span>':'';
     var chgIcon={'new':'🆕','increased':'🔺','reduced':'🔻','exited':'❌','kept':''};
     var chgLabel=window._chg[r.t]||'';
     var chgHtml=chgLabel&&chgIcon[chgLabel]?'<span class="chg-mark">'+chgIcon[chgLabel]+'</span>':'';
-    return '<tr class="holding-row" onclick="loadTvWidget(\''+r.t+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span class="signal-badge '+(sig==='BUY'?'buy':sig==='SELL'?'sell':'neutral')+'">'+sig+'</span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
+    var pw=typeof r.pw==='number'?r.pw.toFixed(1)+'%':'--',p1=typeof r.p1==='number'?r.p1.toFixed(1)+'%':'--',p3=typeof r.p3==='number'?r.p3.toFixed(1)+'%':'--';
+    var pwC=pw!=='--'?(r.pw>=0?'var(--green)':'var(--red)'):'',p1C=p1!=='--'?(r.p1>=0?'var(--green)':'var(--red)'):'',p3C=p3!=='--'?(r.p3>=0?'var(--green)':'var(--red)'):'';
+    return '<tr class="holding-row" onclick="loadTvWidget(\''+r.t+'\')"><td class="ticker-cell">'+chgHtml+r.t+hasPut+'</td><td>$'+fmt(r.pr)+'</td><td style="color:'+cc+';font-weight:500;">'+(r.ch>=0?'+':'')+r.ch.toFixed(2)+'%</td><td>'+rsi+'</td><td><span style="display:inline-flex;gap:4px;font-size:10px;"><span style="color:'+pwC+';font-weight:600;">W:'+pw+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p1C+';font-weight:600;">M:'+p1+'</span><span style="color:var(--text-muted);">|</span><span style="color:'+p3C+';font-weight:600;">3M:'+p3+'</span></span></td><td>'+r.wt.toFixed(1)+'%<div class="weight-bar"><div class="weight-bar-fill" style="width:'+Math.min(r.wt*2,100)+'%"></div></div></td></tr>';
   }).join('');
 }
 
@@ -375,60 +482,56 @@ window.loadManager = function(id){
   busy=true;
   var mgr=CMG[id],seq=++loadSeq;
   if(!mgr){busy=false;return}
-  // Sidebar
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
   var si=document.querySelector('.sidebar-item[data-mgr="'+id+'"]');
   if(si)si.classList.add('active');
-  // Header
   $('managerName').textContent=mgr.name;
   $('managerMeta').textContent=mgr.meta;
   $('managerTags').innerHTML=mgr.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('');
-  // Build top-3 summary
+  // 13F
+  var fe=$('managerFilingBar');
+  if(FILINGS[id]){fe.textContent='📋 13F: '+FILINGS[id];fe.style.display='block'}else{fe.style.display='none'}
+  // Options puts
+  var oe=$('managerOptionsBar');
+  if(mgr.puts){var pt=Object.keys(mgr.puts);if(pt.length>0){oe.innerHTML='🛡️ Puts: <span style="color:var(--red);font-weight:600;">'+pt.join(', ')+'</span>';oe.style.display='block'}else{oe.style.display='none'}}else{oe.style.display='none'}
+  // Top-3 summary
   var sorted=Object.keys(mgr.wt).sort(function(a,b){return mgr.wt[b]-mgr.wt[a]});
   var top3=sorted.slice(0,3);
-  var holdings=sorted.length;
-  var sumStr=top3.map(function(t){return t+' '+mgr.wt[t].toFixed(1)+'%'}).join(' · ');
-  $('summaryRow').innerHTML='<span class="summary-holdings">'+holdings+' holdings</span><span class="summary-top3">Top: '+sumStr+'</span>';
+  $('summaryRow').innerHTML='<span class="summary-holdings">'+sorted.length+' holdings</span><span class="summary-top3">Top: '+top3.map(function(t){return t+' '+mgr.wt[t].toFixed(1)+'%'}).join(' · ')+'</span>';
   $('searchResults').innerHTML='';$('searchResults').style.display='none';$('tableBody').style.display='';$('tickerSearch').value='';
   $('errMsg').style.display='none';
   var wRSI=$('wRSI');if(wRSI){wRSI.textContent='';wRSI.style.display='none'}
   $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Loading...</td></tr>';
-  // Fetch data
   scanTicker(mgr.tk).then(function(data){
-    if(seq!==loadSeq){busy=false;return}  // stale load
+    if(seq!==loadSeq){busy=false;return}
     busy=false;
     var rows=mgr.tk.map(function(t){
       var d=data[t],w=mgr.wt[t]||0;
-      if(!d)return {t:t,ok:false,wt:w};
-      return {t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,wt:w};
+      if(!d)return{t:t,ok:false,wt:w};
+      return{t:t,ok:true,pr:d.c||0,ch:d.ch||0,rsi:d.rsi,pw:d.pw,p1:d.p1,p3:d.p3,wt:w};
     });
-    renderTable(rows, mgr.puts, mgr.chg);
-    // Compute weighted RSI
-    var totalWt=0,wRSI=0,hasRSI=false;
-    rows.forEach(function(r){if(typeof r.rsi==='number'){wRSI+=r.rsi*r.wt;totalWt+=r.wt;hasRSI=true}});
-    if(hasRSI&&totalWt>0){wRSI/=totalWt;var e=$('wRSI');if(e){
-      e.textContent='Portfolio RSI: '+Math.round(wRSI);
-      e.style.color=wRSI<35?'var(--green)':wRSI>65?'var(--red)':'var(--text-secondary)';
-      e.style.display='block';}}
+    renderTable(rows,mgr.puts,mgr.chg);
+    // Weighted RSI
+    var tw=0,wRI=0,hr=false;
+    rows.forEach(function(r){if(typeof r.rsi==='number'){wRI+=r.rsi*r.wt;tw+=r.wt;hr=true}});
+    if(hr&&tw>0){wRI/=tw;var we=$('wRSI');if(we){we.textContent='Portfolio RSI: '+Math.round(wRI);we.style.color=wRI<35?'var(--green)':wRI>65?'var(--red)':'var(--text-secondary)';we.style.display='block'}}
     if(window.Chart){
       setTimeout(function(){
         buildPie(mgr.tk,mgr.wt);
+        buildSectorPie(mgr);
         if(mgr.tk.length>0)loadTvWidget(mgr.tk[0]);
       },50);
     }
+    // Load news for top 3
+    loadNews(top3);
   }).catch(function(e){
-    if(seq!==loadSeq){busy=false;return}  // stale load
+    if(seq!==loadSeq){busy=false;return}
     busy=false;
-    var e2=$('errMsg');
-    if(e2){e2.textContent='Fetch failed: '+e.message;e2.style.display='block'}
+    var e2=$('errMsg');if(e2){e2.textContent='Fetch failed: '+e.message;e2.style.display='block'}
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--red);">⚠️ Failed</td></tr>';
   });
-  // Update timestamp in a way that survives stale responses
   var ts=$('updateTs');
-  if(ts){
-    var nowU=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
-    if(seq===loadSeq)ts.textContent='🔄 Updated '+nowU;
-  }
+  if(ts){var nu=new Date().toLocaleString('zh-HK',{timeZone:'Asia/Hong_Kong',hour12:false,month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});if(seq===loadSeq)ts.textContent='🔄 Updated '+nu;}
 };
 
 window.refreshAll = function(){
