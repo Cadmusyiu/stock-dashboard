@@ -664,8 +664,8 @@ function boot(){
     var wth=document.querySelector('.portfolio-table th[data-sort="wt"] .sort-arrow');
     if(wth)wth.textContent='▼';
     var n=0;
-    function c(){try{if(window.Chart){buildAumChart();showLanding();}else if(n++<100){setTimeout(c,200)}}catch(e){console.error('Init error:',e);$('errMsg').textContent='Init: '+e.message;$('errMsg').style.display='block'}}
-    c();
+    showLanding();
+    if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
     setTimeout(buildAumChart,1000);
     setInterval(loadPrices,120000);
   }catch(e){console.error('Boot error:',e)}
