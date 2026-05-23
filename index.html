@@ -47,6 +47,7 @@
   <div class="manager-tags" id="managerTags"></div>
   <div class="manager-options-bar" id="managerOptionsBar" style="font-size:12px;margin-top:6px;display:none;"></div>
   <div class="manager-filing-bar" id="managerFilingBar" style="font-size:11px;margin-top:4px;color:var(--text-muted);display:none;"></div>
+  <div class="manager-changes-bar" id="managerChangesBar" style="font-size:11px;margin-top:4px;display:none;"></div>
   <div id="errMsg" style="color:#ff4757;font-size:12px;margin-top:8px;display:none;"></div>
   <div class="summary-row" id="summaryRow"></div>
   <div id="wRSI" style="font-size:13px;font-weight:500;margin-top:6px;"></div>
@@ -494,6 +495,9 @@ window.loadManager = function(id){
   // Options puts
   var oe=$('managerOptionsBar');
   if(mgr.puts){var pt=Object.keys(mgr.puts);if(pt.length>0){oe.innerHTML='🛡️ Puts: <span style="color:var(--red);font-weight:600;">'+pt.join(', ')+'</span>';oe.style.display='block'}else{oe.style.display='none'}}else{oe.style.display='none'}
+  // Changes
+  var ce=$('managerChangesBar');
+  if(mgr.chg){var ck=Object.keys(mgr.chg);if(ck.length>0){var chgIcons={new:'🆕',increased:'📈',reduced:'📉',exited:'❌',kept:'✅'};var chgHtml=ck.filter(function(t){return mgr.chg[t]!=='kept'}).map(function(t){return chgIcons[mgr.chg[t]]+' '+t}).join(' &middot; ');if(chgHtml){ce.innerHTML='Changes: '+chgHtml;ce.style.display='block'}else{ce.style.display='none'}}else{ce.style.display='none'}}else{ce.style.display='none'}
   // Top-3 summary
   var sorted=Object.keys(mgr.wt).sort(function(a,b){return mgr.wt[b]-mgr.wt[a]});
   var top3=sorted.slice(0,3);
