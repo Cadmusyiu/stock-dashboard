@@ -483,11 +483,12 @@ window.doSearch = function(q){
   res.style.display=hits.length?'block':'none';
 };
 
-window.loadManager = function(id){
-  if(busy)return;
+window.loadManager = function(id, force){
+  if(!force&&busy)return;
   busy=true;
   var lv=$('landingView'),fv=$('fundView');
   if(lv)lv.style.display='none';if(fv)fv.style.display='';
+  $('tvChart').innerHTML='';
   var mgr=CMG[id],seq=++loadSeq;
   if(!mgr){busy=false;return}
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
@@ -653,7 +654,7 @@ function showLanding(){
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
   }).catch(function(e){
     $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
-    busy=false;
+    busy=false
   });
 }
 
