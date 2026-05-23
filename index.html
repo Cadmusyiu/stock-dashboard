@@ -10,6 +10,7 @@
 <body>
 <nav class="sidebar" id="sidebar">
 <div class="sidebar-logo">📊</div>
+<div class="sidebar-item" onclick="showLanding()" id="landingBtn"><span class="icon">🏠</span><span class="label">Home</span></div>
 <div class="sidebar-item active" data-mgr="salp" onclick="loadManager('salp')"><span class="icon">🔵</span><span class="label">SALP</span></div>
 <div class="sidebar-item" data-mgr="buffett" onclick="loadManager('buffett')"><span class="icon">🟢</span><span class="label">Buffett</span></div>
 <div class="sidebar-item" data-mgr="cathie" onclick="loadManager('cathie')"><span class="icon">🟣</span><span class="label">Cathie</span></div>
@@ -612,13 +613,48 @@ function renderComparePanel(idx,id,mgr,data){
   b.innerHTML=titles+'<table class="compare-table"><thead><tr><th>Ticker</th><th>Price</th><th>Chg%</th><th>RSI</th><th>Weight</th></tr></thead><tbody>'+rows.join('')+'</tbody></table>';
 }
 
+function showLanding(){
+  busy=false;
+  document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
+  var lb=$('landingBtn');if(lb)lb.classList.add('active');
+  $('managerName').textContent='📊 All Managers Overview';
+  $('managerMeta').textContent='';$('managerTags').innerHTML='';$('managerOptionsBar').style.display='none';
+  $('managerFilingBar').style.display='none';$('managerChangesBar').style.display='none';
+  $('summaryRow').innerHTML='';$('wRSI').style.display='none';$('tvChart').innerHTML='';$('newsPanel').style.display='none';
+  if(pChart){try{pChart.destroy()}catch(e){}pChart=null}
+  if(sectorPChart){try{sectorPChart.destroy()}catch(e){}sectorPChart=null}
+  $('pieCard').innerHTML='<div class="chart-header">Weight Distribution</div><div class="chart-body" style="height:192px;position:relative;"><canvas id="pieChart"></canvas></div>';
+  $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted);">📊 Loading overview...</td></tr>';
+  var allTk=[];var mgrMap={};
+  Object.keys(CMG).forEach(function(k){
+    if(CMG[k]&&CMG[k].tk){CMG[k].tk.forEach(function(t){allTk.push(t);if(!mgrMap[t])mgrMap[t]=[];mgrMap[t].push(k)})}
+  });
+  scanTicker([...new Set(allTk)]).then(function(data){
+    var cards=Object.keys(CMG).sort(function(a,b){return CMG[b].meta?parseFloat(CMG[b].meta.replace(/[^0-9.]/g,'')):0}).map(function(k){
+      var m=CMG[k];if(!m)return'';
+      var tkPrices=m.tk.map(function(t){
+        var d=data[t];
+        if(!d)return'<div style="font-size:9px;color:var(--text-muted);">'+t+' —</div>';
+        var cc=d.ch>=0?'var(--green)':'var(--red)';
+        return'<div style="display:flex;justify-content:space-between;font-size:10px;padding:1px 0;"><span>'+t+'</span><span style="color:'+cc+';font-weight:500;">$'+fmt(d.c)+' '+(d.ch>=0?'+':'')+d.ch.toFixed(2)+'%</span></div>';
+      }).join('');
+      var aum=m.meta||'';
+      var colorMap={buffett:'#00ff88',ackman:'#ffa502',drucken:'#ff4757',salp:'#4fc3f7',burry:'#dfe6e9',cathie:'#a29bfe'};
+      return'<div class="landing-card glass" onclick="loadManager(\''+k+'\')" style="cursor:pointer;"><div class="landing-card-header" style="border-left:3px solid '+(colorMap[k]||'#636e72')+';padding-left:8px;"><span class="landing-card-name">'+m.name.split(' (')[0]+'</span><span class="landing-card-aum" style="font-size:10px;color:var(--text-muted);">'+aum+'</span></div><div style="margin-top:6px;">'+tkPrices+'</div></div>';
+    }).join('');
+    $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
+  }).catch(function(e){
+    $('tableBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--red);">⚠️ Landing failed: '+e.message+'</td></tr>';
+  });)
+}
+
 function boot(){
   loadPrices();
   // Init sort indicator: Weight ▲ (descending)
   var wth=document.querySelector('.portfolio-table th[data-sort="wt"] .sort-arrow');
   if(wth)wth.textContent='▼';
   var n=0;
-  function c(){if(window.Chart){buildAumChart();loadManager('salp')}else if(n++<100){setTimeout(c,200)}}
+  function c(){if(window.Chart){buildAumChart();showLanding();}else if(n++<100){setTimeout(c,200)}}
   c();
   setTimeout(buildAumChart,1000); // retry
   setInterval(loadPrices,120000);
