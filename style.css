@@ -116,7 +116,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helve
 /* Chart Row */
 .charts-row { display: grid; grid-template-columns: 1fr 360px; gap: 16px; margin-bottom: 20px; }
 .aum-row { display:flex; flex-wrap:nowrap; gap:16px; margin-bottom:16px; }
-.aum-row .chart-card { min-width:0; }
+.aum-row .chart-card { min-width:0; width:auto; }
+.aum-row #sectorHeatmap { flex:0 0 340px; width:340px; }
 .chart-card { padding: 16px; }
 .chart-card canvas { display:block; width:100% !important; height:100% !important; }
 #aumChart { width:100% !important; height:100% !important; }
