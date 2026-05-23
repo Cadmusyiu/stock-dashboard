@@ -31,6 +31,16 @@
   <div class="glass stat-card"><div class="stat-label">S&P 500</div><div class="stat-price" id="spyPrice">—</div><div class="stat-change" id="spyChg"></div></div>
   <div class="glass stat-card"><div class="stat-label">Macro</div><div class="stat-price" id="macroLabel" style="font-size:16px;">Loading...</div><div id="macroGrid"></div></div>
 </div>
+<div class="aum-row fade-in fade-in-3" style="margin-bottom:16px;">
+  <div class="glass chart-card" id="aumCard" style="flex:1;">
+    <div class="chart-header">Portfolio Value Overview</div>
+    <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
+  </div>
+  <div class="glass chart-card sector-heatmap" id="sectorHeatmap" style="flex:0 0 320px;padding:14px 16px;">
+    <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
+    <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
+  </div>
+</div>
 <div class="manager-header fade-in fade-in-2">
   <div class="manager-name" id="managerName">Loading...</div>
   <div class="manager-meta" id="managerMeta"></div>
@@ -42,16 +52,6 @@
   <div id="wRSI" style="font-size:13px;font-weight:500;margin-top:6px;"></div>
 </div>
 <div style="text-align:right;font-size:10px;color:var(--text-muted);margin:-8px 0 8px;opacity:0.6;" id="updateTs"></div>
-<div class="aum-row fade-in fade-in-3">
-  <div class="glass chart-card" id="aumCard" style="flex:1;">
-    <div class="chart-header">Portfolio Value Overview</div>
-    <div class="chart-body" style="height:120px;position:relative;"><canvas id="aumChart" style="width:100%;height:100%;"></canvas></div>
-  </div>
-  <div class="glass chart-card sector-heatmap" id="sectorHeatmap" style="flex:0 0 320px;padding:14px 16px;">
-    <div class="chart-header" style="margin-bottom:6px;">🏭 Sector ETFs</div>
-    <div id="sectorHeatmapGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;"></div>
-  </div>
-</div>
 <div id="newsPanel" class="glass" style="display:none;margin-bottom:16px;padding:12px 16px;">
   <div class="chart-header" style="margin-bottom:4px;">📰 Top Holdings News</div>
   <div id="newsContent" style="font-size:11px;color:var(--text-secondary);"></div>
