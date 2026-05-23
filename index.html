@@ -91,6 +91,7 @@ var exch = {
   CORZ:'NASDAQ',
   CRCL:'NYSE',
   DXY:'TVC',
+  SPX:'SP',
   SPY:'AMEX',
   VIX:'TVC',
   CRSP:'NASDAQ',
@@ -231,8 +232,8 @@ function loadPrices(){
       if(n==='ETHUSDT'){var e=$('ethPrice');e.textContent='$'+fmt(cl);var c=$('ethChg');c.textContent=(ch>=0?'+':'')+ch.toFixed(2)+'%';c.style.color=ch>=0?'var(--green)':'var(--red)';}
     });
   }).catch(function(e){console.error('crypto fail',e)});
-  scanTicker(['SPY','DXY','VIX']).then(function(d){
-    if(d.SPY){var e=$('spyPrice');e.textContent='$'+fmt(d.SPY.c);var c=$('spyChg');c.textContent=(d.SPY.ch>=0?'+':'')+d.SPY.ch.toFixed(2)+'%';c.style.color=d.SPY.ch>=0?'var(--green)':'var(--red)';}
+  scanTicker(['SPX','DXY','VIX']).then(function(d){
+    if(d.SPX){var e=$('spyPrice');e.textContent=fmt(d.SPX.c);var c=$('spyChg');c.textContent=(d.SPX.ch>=0?'+':'')+d.SPX.ch.toFixed(2)+'%';c.style.color=d.SPX.ch>=0?'var(--green)':'var(--red)';}
     $('macroLabel').textContent='DXY • VIX • 10Y';
     // Fetch US10Y yield from Yahoo Finance via ^TNX
     (function(){var u='https://query1.finance.yahoo.com/v8/finance/chart/%5ETNX?interval=1d&range=1d';
