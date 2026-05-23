@@ -201,7 +201,7 @@ function getNewsSentiment(hl){
   return{label:'📊',cls:'news-neu',txt:'Neu'};
 }
 
-function loadNews(topTickers){
+function loadNews(topTickers){console.log('loadNews called with',topTickers);
   var np=$('newsPanel'),nc=$('newsContent');
   if(!topTickers||topTickers.length===0){np.style.display='none';return}
   np.style.display='block';
@@ -221,10 +221,10 @@ function loadNews(topTickers){
       }return results;
     }).catch(function(){return[]});
   });
-  Promise.all(promises).then(function(allNews){
+  console.log('loadNews promises resolved',allNews.length);Promise.all(promises).then(function(allNews){
     var flat=[];
     allNews.forEach(function(arr){arr.forEach(function(n){flat.push(n)})});
-    if(flat.length===0){nc.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No recent news</div>';return}
+    if(flat.length===0){console.log('loadNews: flat is empty after merge');nc.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No recent news</div>';return}
     nc.innerHTML='<div style="display:flex;flex-direction:column;gap:5px;">'+flat.slice(0,9).map(function(n){
       return '<div style="display:flex;gap:6px;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);"><span style="font-size:10px;min-width:10px;">'+n.sentiment.label+'</span><div style="flex:1;min-width:0;"><div style="font-size:11px;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+n.headline+'</div><div style="display:flex;gap:8px;font-size:9px;color:var(--text-muted);margin-top:1px;"><span>'+n.ticker+'</span><span>'+n.source+'</span><span>'+n.date+'</span></div></div></div>';
     }).join('')+'</div>';
