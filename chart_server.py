@@ -75,7 +75,7 @@ class ChartHandler(BaseHTTPRequestHandler):
         pass  # silent
 
 if __name__ == '__main__':
-    server = HTTPServer(('127.0.0.1', PORT), ChartHandler)
+    server = HTTPServer(('0.0.0.0', PORT), ChartHandler)
     print(f'📈 Chart server running on http://127.0.0.1:{PORT}')
     try:
         server.serve_forever()

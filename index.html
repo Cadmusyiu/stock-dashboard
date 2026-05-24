@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>CadAI Dashboard</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 </head>
@@ -556,7 +559,7 @@ window.loadChartData = function(ticker) {
   var tfMap={'1':'1mo','D':'3mo','W':'6mo','M':'1y','12M':'2y'};
   var period = tfMap[_tvInterval] || '3mo';
   var interval = _tvInterval === '1' ? '1h' : '1d';
-  var url = 'http://127.0.0.1:8765/chart?ticker='+encodeURIComponent(ticker)+'&period='+period+'&interval='+interval;
+  var url = 'http://'+window.location.hostname+':8765/chart?ticker='+encodeURIComponent(ticker)+'&period='+period+'&interval='+interval;
   
   fetch(url)
     .then(function(r){ return r.json(); })
@@ -1009,7 +1012,7 @@ window.loadGregTv = function(ticker) {
 };
 
 window.loadGregChartData = function(ticker) {
-  var url = 'http://127.0.0.1:8765/chart?ticker='+encodeURIComponent(ticker)+'&period=6mo&interval=1d';
+  var url = 'http://'+window.location.hostname+':8765/chart?ticker='+encodeURIComponent(ticker)+'&period=6mo&interval=1d';
   fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(data){
@@ -1289,5 +1292,6 @@ function boot(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 })();
 </script>
+<div style="position:fixed;bottom:4px;right:8px;font-size:9px;color:#555;z-index:9999;pointer-events:none;">v3 · Lightweight Charts</div>
 </body>
 </html>
