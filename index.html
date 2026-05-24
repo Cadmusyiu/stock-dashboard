@@ -18,7 +18,7 @@
 <div class="sidebar-item" data-mgr="burry" onclick="loadManager('burry')"><span class="icon">⚪</span><span class="label">Burry</span></div>
 <div class="sidebar-item" data-mgr="ackman" onclick="loadManager('ackman')"><span class="icon">🟠</span><span class="label">Ackman</span></div>
 <div class="sidebar-item" data-mgr="trump" onclick="loadManager('trump')"><span class="icon">🔴</span><span class="label">Trump</span></div>
-<div class="sidebar-item" data-mgr="greg" onclick="loadGreg()"><span class="icon">📗</span><span class="label">Greg Value</span></div>
+<div class="sidebar-item" data-mgr="greg" onclick="loadGreg()"><span class="icon">📗</span><span class="label">GREG</span></div>
 <div class="sidebar-spacer"></div>
 <div class="sidebar-bottom"><div class="sidebar-item" id="compareBtn" onclick="toggleCompare()"><span class="icon">⚖️</span><span class="label">Compare</span></div><div class="sidebar-item" onclick="toggleTheme()" id="themeBtn"><span class="icon">🌙</span><span class="label">Theme</span></div><div class="sidebar-item" onclick="refreshAll()"><span class="icon">🔄</span><span class="label">Refresh</span></div></div>
 </nav>
@@ -171,6 +171,7 @@
       <th>PEG</th><th>D/E</th><th>FCF Y%</th><th>Beta</th><th>Fails</th>
     </tr></thead><tbody id="gregTableBody"><tr><td colspan="11">📡 Loading...</td></tr></tbody></table>
   </div>
+  <div id="gregPageNav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;"></div>
 </div>
 <!-- Greg TV Chart -->
 <div class="charts-row fade-in fade-in-5" id="gregChartRow" style="display:none;">
@@ -844,7 +845,7 @@ if(savedTheme) {
 }
 
 // ═══════════ Greg Value Investing Screener ═══════════
-var _gregData = null, _gregMarket = 'us', _gregFilter = '';
+var _gregData = null, _gregMarket = 'us', _gregFilter = '', _gregPage = 0, _gregPerPage = 20;
 
 window.loadGreg = function() {
   busy = false;
@@ -886,6 +887,7 @@ window.loadGreg = function() {
 
 window.switchGregMarket = function(mkt) {
   _gregMarket = mkt;
+  _gregPage = 0;
   $('gregTabUS').classList.toggle('active', mkt === 'us');
   $('gregTabHK').classList.toggle('active', mkt === 'hk');
   renderGregTable();
@@ -893,6 +895,7 @@ window.switchGregMarket = function(mkt) {
 
 window.filterGreg = function(q) {
   _gregFilter = (q || '').trim().toUpperCase();
+  _gregPage = 0;
   renderGregTable();
 };
 
@@ -901,20 +904,18 @@ window.viewYahoo = function(ticker) {
 };
 
 window.loadGregTv = function(ticker) {
-  var raw = ticker.replace('.HK','');
-  var ex = 'NASDAQ';
+  var ex = 'NASDAQ', symbol = ticker;
   if (ticker.indexOf('.HK') !== -1) {
     ex = 'HKEX';
-    ticker = raw;
+    symbol = ticker.replace('.HK', '');
   } else {
-    ex = exch[raw] || 'NASDAQ';
+    ex = exch[symbol] || 'NASDAQ';
   }
-  _tvTicker = ticker;
   $('gregChartRow').style.display = 'block';
-  $('gregTvTitle').textContent = ticker + ' — TradingView';
+  $('gregTvTitle').textContent = symbol + ' — TradingView';
   var c = $('gregTvChart');
   if (c) {
-    c.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+encodeURIComponent(ticker)+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
+    c.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+encodeURIComponent(symbol)+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
   }
 };
 
@@ -939,13 +940,19 @@ window.renderGregTable = function() {
   var showAll = _gregFilter.length > 0;
   if (!showAll) list = list.filter(function(s){ return s.passed; });
 
+  // Pagination
+  var totalPages = Math.ceil(list.length / _gregPerPage);
+  if (_gregPage >= totalPages) _gregPage = Math.max(0, totalPages - 1);
+  var pageList = list.slice(_gregPage * _gregPerPage, (_gregPage + 1) * _gregPerPage);
+
   if (list.length === 0) {
-    $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">No stocks match. Try running screener.py to update data.</td></tr>';
+    $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">No stocks match.</td></tr>';
+    $('gregPageNav').innerHTML = '';
     return;
   }
 
-  var topScore = list[0]?.score || 1;
-  $('gregTableBody').innerHTML = list.map(function(s){
+  var topScore = pageList[0]?.score || 1;
+  $('gregTableBody').innerHTML = pageList.map(function(s){
     var scorePct = Math.min((s.score / topScore) * 100, 100);
     var bg = s.passed ?
       (s.score >= 8 ? 'rgba(46,213,115,0.12)' : s.score >= 5 ? 'rgba(255,195,18,0.1)' : 'rgba(255,71,87,0.08)') :
@@ -955,7 +962,7 @@ window.renderGregTable = function() {
     var fails = (s.fails||[]).slice(0,2).join(', ') || '✅ ALL';
     var tickerDisplay = s.ticker.replace('.HK','');
     var mk = s.market === 'HK' ? '🇭🇰' : '🇺🇸';
-    return '<tr onclick="window.loadGregTv(\''+s.ticker.replace('.HK','')+'\')" style="background:'+bg+';cursor:pointer;">'+
+    return '<tr onclick="window.loadGregTv(\''+s.ticker+'\')" style="background:'+bg+';cursor:pointer;">'+
       '<td class="ticker-cell" onclick="event.stopPropagation();window.viewYahoo(\''+s.ticker+'\')">'+mk+' '+tickerDisplay+'</td>'+
       '<td style="color:'+scoreColor+';font-weight:700;cursor:pointer;">'+s.score.toFixed(1)+'</td>'+
       '<td style="cursor:pointer;">'+(s.roe!=null?s.roe.toFixed(1)+'%':na)+'</td>'+
@@ -969,6 +976,20 @@ window.renderGregTable = function() {
       '<td style="font-size:10px;color:var(--text-muted);">'+fails+'</td>'+
     '</tr>';
   }).join('');
+
+  // Pagination nav
+  var pn = $('gregPageNav');
+  if (pn && totalPages > 1) {
+    var ph = '';
+    if (_gregPage > 0) ph += '<button class="greg-tab" onclick="_gregPage=0;renderGregTable()" style="font-size:10px;">⏮</button>';
+    if (_gregPage > 0) ph += '<button class="greg-tab" onclick="_gregPage--;renderGregTable()" style="font-size:10px;">◀</button>';
+    ph += '<span style="font-size:11px;color:var(--text-muted);padding:0 8px;">' + (_gregPage + 1) + ' / ' + totalPages + '</span>';
+    if (_gregPage < totalPages - 1) ph += '<button class="greg-tab" onclick="_gregPage++;renderGregTable()" style="font-size:10px;">▶</button>';
+    if (_gregPage < totalPages - 1) ph += '<button class="greg-tab" onclick="_gregPage='+(totalPages-1)+';renderGregTable()" style="font-size:10px;">⏭</button>';
+    pn.innerHTML = ph;
+  } else if (pn) {
+    pn.innerHTML = '';
+  }
 };
 
 window.showLanding = function(){
