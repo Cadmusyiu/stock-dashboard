@@ -146,6 +146,7 @@ def fetch_stock(ticker):
             "forward_pe": info.get("forwardPE"),
             "peg": info.get("pegRatio"),
             "debt_equity": debt_equity,
+            "fcf_yield": fcf_yield,
             "beta": info.get("beta"),
             "dividend_yield": info.get("dividendYield"),
         }
