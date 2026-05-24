@@ -172,7 +172,7 @@
   <div style="overflow-x:auto;">
     <table class="portfolio-table"><thead><tr>
       <th>Ticker</th><th onclick="gregSort('score')" style="cursor:pointer;">Score ▾</th><th onclick="gregSort('roe')" style="cursor:pointer;">ROE%</th><th onclick="gregSort('gross_margin')" style="cursor:pointer;">GP%</th><th onclick="gregSort('rev_growth')" style="cursor:pointer;">RevG%</th><th onclick="gregSort('eps_growth')" style="cursor:pointer;">EPSG%</th>
-      <th onclick="gregSort('peg')" style="cursor:pointer;">PEG</th><th onclick="gregSort('debt_equity')" style="cursor:pointer;">D/E</th><th>3Y</th><th onclick="gregSort('fcf_yield')" style="cursor:pointer;">FCF Y%</th><th onclick="gregSort('beta')" style="cursor:pointer;">Beta</th><th>Status</th>
+      <th onclick="gregSort('peg')" style="cursor:pointer;">PEG</th><th onclick="gregSort('debt_equity')" style="cursor:pointer;">D/E</th><th onclick="gregSort('3y')" style="cursor:pointer;" id="gregHdr3Y">3Y 🔽</th><th onclick="gregSort('fcf_yield')" style="cursor:pointer;">FCF Y%</th><th onclick="gregSort('beta')" style="cursor:pointer;">Beta</th><th onclick="gregSort('status')" style="cursor:pointer;" id="gregHdrStatus">Status 🔽</th>
     </tr></thead><tbody id="gregTableBody"><tr><td colspan="12">📡 Loading...</td></tr></tbody></table>
   </div>
   <div id="gregPageNav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;"></div>
@@ -1110,17 +1110,31 @@ window.renderGregLwChart = function(candles, ticker) {
 
 window._gregSortBy = 'score';
 window._gregSortAsc = false;
+window._gregFilter3Y = false;   // filter: only show 3Y passes
+window._gregFilterStatus = false; // filter: only show Status passed
 
 window.gregSort = function(field) {
-  if(window._gregSortBy === field) {
-    window._gregSortAsc = !window._gregSortAsc;
+  if(field === '3y') {
+    // 3Y column: toggle filter
+    window._gregFilter3Y = !window._gregFilter3Y;
+    window._gregFilterStatus = false;
+  } else if(field === 'status') {
+    // Status column: toggle filter
+    window._gregFilterStatus = !window._gregFilterStatus;
+    window._gregFilter3Y = false;
   } else {
-    window._gregSortBy = field;
-    window._gregSortAsc = false; // default DESC for most fields
+    // Normal sort
+    window._gregFilter3Y = false;
+    window._gregFilterStatus = false;
+    if(window._gregSortBy === field) {
+      window._gregSortAsc = !window._gregSortAsc;
+    } else {
+      window._gregSortBy = field;
+      window._gregSortAsc = false;
+    }
+    var sel = $('gregSortBy');
+    if(sel) sel.value = field;
   }
-  // Update dropdown
-  var sel = $('gregSortBy');
-  if(sel) sel.value = field;
   renderGregTable();
 };
 
@@ -1145,6 +1159,28 @@ window.renderGregTable = function() {
 
   var showAll = _gregFilter.length > 0;
   if (!showAll) list = list.filter(function(s){ return s.passed; });
+
+  // ── Column Filters ──
+  if (window._gregFilter3Y) {
+    list = list.filter(function(s){
+      var c = s.consistency;
+      if(!c) return false;
+      return (c.roe_3y_pass || 0) >= 3 && (c.gp_3y_pass || 0) >= 3;
+    });
+  }
+  if (window._gregFilterStatus) {
+    list = list.filter(function(s){
+      return !s.fails || s.fails.length === 0;
+    });
+  }
+
+  // Update header filter indicators
+  var h3y = $('gregHdr3Y');
+  if(h3y) h3y.innerHTML = window._gregFilter3Y ? '3Y ✅' : '3Y 🔽';
+  if(h3y) h3y.style.color = window._gregFilter3Y ? 'var(--green)' : '';
+  var hs = $('gregHdrStatus');
+  if(hs) hs.innerHTML = window._gregFilterStatus ? 'Status ✅' : 'Status 🔽';
+  if(hs) hs.style.color = window._gregFilterStatus ? 'var(--green)' : '';
 
   // Pagination
   var totalPages = Math.ceil(list.length / _gregPerPage);
