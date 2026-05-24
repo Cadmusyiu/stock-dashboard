@@ -909,17 +909,20 @@ window.viewYahoo = function(ticker) {
 };
 
 window.loadGregTv = function(ticker) {
-  var ex = 'NYSE', symbol = ticker;
+  var ex, symbol = ticker;
   if (ticker.indexOf('.HK') !== -1) {
     ex = 'HKEX';
+    // HK ticker on TV: strip .HK, remove leading zeros
     symbol = ticker.replace('.HK', '');
+    symbol = symbol.replace(/^0+/, '');  // strip leading zeros
   } else {
-    symbol = ticker.replace('-', '.');
-    var mapped = exch[ticker] || exch[ticker.replace('-','.')];
-    if (mapped) ex = mapped;
+    // US stocks: TradingView auto-maps from NASDAQ prefix
+    ex = 'NASDAQ';
+    // Fix tickers with hyphens (BRK-B → BRK.B)
+    symbol = ticker.replace(/-/g, '.');
   }
   $('gregChartRow').style.display = 'block';
-  $('gregTvTitle').textContent = symbol + ' — TradingView';
+  $('gregTvTitle').textContent = ticker + ' — TradingView';
   var c = $('gregTvChart');
   if (c) {
     var tvUrl = 'https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+encodeURIComponent(symbol)+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0';
