@@ -171,8 +171,8 @@
   </div>
   <div style="overflow-x:auto;">
     <table class="portfolio-table"><thead><tr>
-      <th>Ticker</th><th>Score</th><th>ROE%</th><th>GP%</th><th>RevG%</th><th>EPSG%</th>
-      <th>PEG</th><th>D/E</th><th>3Y</th><th>FCF Y%</th><th>Beta</th><th>Fails</th>
+      <th>Ticker</th><th onclick="gregSort('score')" style="cursor:pointer;">Score ▾</th><th onclick="gregSort('roe')" style="cursor:pointer;">ROE%</th><th onclick="gregSort('gross_margin')" style="cursor:pointer;">GP%</th><th onclick="gregSort('rev_growth')" style="cursor:pointer;">RevG%</th><th onclick="gregSort('eps_growth')" style="cursor:pointer;">EPSG%</th>
+      <th onclick="gregSort('peg')" style="cursor:pointer;">PEG</th><th onclick="gregSort('debt_equity')" style="cursor:pointer;">D/E</th><th>3Y</th><th onclick="gregSort('fcf_yield')" style="cursor:pointer;">FCF Y%</th><th onclick="gregSort('beta')" style="cursor:pointer;">Beta</th><th>Status</th>
     </tr></thead><tbody id="gregTableBody"><tr><td colspan="12">📡 Loading...</td></tr></tbody></table>
   </div>
   <div id="gregPageNav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;"></div>
@@ -1108,6 +1108,22 @@ window.renderGregLwChart = function(candles, ticker) {
   chart.timeScale().fitContent();
 };
 
+window._gregSortBy = 'score';
+window._gregSortAsc = false;
+
+window.gregSort = function(field) {
+  if(window._gregSortBy === field) {
+    window._gregSortAsc = !window._gregSortAsc;
+  } else {
+    window._gregSortBy = field;
+    window._gregSortAsc = false; // default DESC for most fields
+  }
+  // Update dropdown
+  var sel = $('gregSortBy');
+  if(sel) sel.value = field;
+  renderGregTable();
+};
+
 window.renderGregTable = function() {
   if (!_gregData) return;
   var list = (_gregData[_gregMarket] || []).slice();
@@ -1118,12 +1134,13 @@ window.renderGregTable = function() {
              (s.sector||'').toUpperCase().indexOf(_gregFilter) !== -1;
     });
   }
-  var sortBy = ($('gregSortBy')?.value) || 'score';
+  var sortBy = window._gregSortBy || ($('gregSortBy')?.value) || 'score';
+  var sortAsc = window._gregSortAsc;
   list.sort(function(a,b){
     var va = a[sortBy], vb = b[sortBy];
     if (va == null) return 1;
     if (vb == null) return -1;
-    return vb - va;
+    return sortAsc ? (va - vb) : (vb - va);
   });
 
   var showAll = _gregFilter.length > 0;
@@ -1148,7 +1165,14 @@ window.renderGregTable = function() {
       'rgba(255,255,255,0.02)';
     var scoreColor = s.score >= 8 ? 'var(--green)' : s.score >= 5 ? '#ffc312' : 'var(--text-muted)';
     var na = '—';
-    var fails = (s.fails||[]).slice(0,2).join(', ') || '✅ ALL';
+    // Status: show passed flags or specific issues
+    var statusHtml;
+    if (!s.fails || s.fails.length === 0) {
+      statusHtml = '<span style="color:var(--green);">✅ All passed</span>';
+    } else {
+      var statusItems = (s.fails||[]).slice(0,2);
+      statusHtml = '<span style="color:var(--red);font-size:10px;">'+statusItems.join('<br>')+'</span>';
+    }
     // 3Y consistency indicator
     var c3y = s.consistency;
     var y3 = '—';
@@ -1173,7 +1197,7 @@ window.renderGregTable = function() {
       '<td style="cursor:pointer;font-size:11px;">'+y3+'</td>'+
       '<td style="cursor:pointer;">'+(s.fcf_yield!=null?s.fcf_yield.toFixed(1)+'%':na)+'</td>'+
       '<td style="cursor:pointer;">'+(s.beta!=null?s.beta.toFixed(1):na)+'</td>'+
-      '<td style="font-size:10px;color:var(--text-muted);">'+fails+'</td>'+
+      '<td style="font-size:10px;">'+statusHtml+'</td>'+
     '</tr>';
   }).join('');
 
