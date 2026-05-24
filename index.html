@@ -541,18 +541,36 @@ window._chartVolSeries = null;
 window.loadTvWidget = function(ticker){
   _tvTicker=ticker;
   var c=$('tvChart');if(!c)return;
-  // Build container for lightweight-charts
+  // Build container
   c.innerHTML = '<div style="display:flex;flex-direction:column;height:100%;">'+
     '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;">'+
       '<span style="font-size:12px;font-weight:600;">'+ticker+'</span>'+
       '<span style="font-size:10px;color:var(--text-muted);">'+
-        '<a href="https://www.tradingview.com/chart/?symbol='+(ticker.indexOf('.HK')!==-1?'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,''):ticker)+'" target="_blank" style="color:var(--accent);">TradingView ↗</a>'+
+        '<a href="'+tvLinkFor(ticker)+'" target="_blank" style="color:var(--accent);">TradingView ↗</a>'+
       '</span>'+
     '</div>'+
-    '<div id="lwChart" style="flex:1;min-height:0;"></div>'+
+    '<div id="lwChart" style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;"><span style="color:var(--text-muted);">Loading chart...</span></div>'+
   '</div>';
   $('tvTitle').textContent = ticker;
   loadChartData(ticker);
+};
+
+// Helper: TradingView chart link for any ticker
+window.tvLinkFor = function(ticker) {
+  if(ticker.indexOf('.HK')!==-1) {
+    var sym = ticker.replace('.HK','').replace(/^0+/,'');
+    return 'https://www.tradingview.com/chart/?symbol=HKEX%3A'+sym;
+  }
+  return 'https://www.tradingview.com/chart/?symbol='+ticker;
+};
+
+// Helper: TradingView widget symbol
+window.tvSymFor = function(ticker) {
+  if(ticker.indexOf('.HK')!==-1) {
+    var sym = ticker.replace('.HK','').replace(/^0+/,'');
+    return 'HKEX%3A'+sym;
+  }
+  return (exch[ticker]||'NASDAQ')+'%3A'+ticker;
 };
 
 window.loadChartData = function(ticker) {
@@ -565,16 +583,31 @@ window.loadChartData = function(ticker) {
     .then(function(r){ return r.json(); })
     .then(function(data){
       if(data.error || !data.candles || !data.candles.length) {
-        var el = $('lwChart');
-        if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ '+ticker+' — no chart data available<br><a href="https://www.tradingview.com/chart/?symbol='+(ticker.indexOf('.HK')!==-1?'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,''):ticker)+'" target="_blank" style="color:var(--accent);">Open in TradingView ↗</a></div>';
+        showTvFallback(ticker);
         return;
       }
       renderLwChart(data.candles, ticker);
     })
     .catch(function(err){
-      var el = $('lwChart');
-      if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ Chart server not running<br><small>Run: python3 chart_server.py</small></div>';
+      // Chart server unavailable (GitHub Pages) → fall back to TV widget
+      showTvFallback(ticker);
     });
+};
+
+window.showTvFallback = function(ticker) {
+  var el = $('lwChart');
+  if(!el) return;
+  var isHK = ticker.indexOf('.HK') !== -1;
+  if(isHK) {
+    // HK stocks: TV widget doesn't support HKEX → show link
+    el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">'+
+      '🇭🇰 HK stock — <a href="'+tvLinkFor(ticker)+'" target="_blank" style="color:var(--accent);font-size:14px;">Open in TradingView ↗</a>'+
+      '</div>';
+  } else {
+    // US stocks: use TV widget embed
+    var sym = tvSymFor(ticker);
+    el.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+sym+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
+  }
 };
 
 window.renderLwChart = function(candles, ticker) {
@@ -992,10 +1025,8 @@ window._gregChartInst = null;
 window._gregChartSeries = null;
 
 window.loadGregTv = function(ticker) {
-  var tvSymbol = ticker.indexOf('.HK') !== -1
-    ? 'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,'')
-    : ticker;
-  var tvLink = 'https://www.tradingview.com/chart/?symbol='+tvSymbol;
+  var tvLink = tvLinkFor(ticker);
+  var isHK = ticker.indexOf('.HK') !== -1;
   $('gregChartRow').style.display = 'block';
   $('gregTvTitle').textContent = ticker + ' — Chart';
   var c = $('gregTvChart');
@@ -1005,7 +1036,7 @@ window.loadGregTv = function(ticker) {
         '<span style="font-size:12px;font-weight:600;">'+ticker+'</span>'+
         '<span style="font-size:10px;color:var(--text-muted);"><a href="'+tvLink+'" target="_blank" style="color:var(--accent);">TradingView ↗</a></span>'+
       '</div>'+
-      '<div id="gregLwChart" style="flex:1;min-height:0;"></div>'+
+      '<div id="gregLwChart" style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;"><span style="color:var(--text-muted);">Loading chart...</span></div>'+
     '</div>';
     loadGregChartData(ticker);
   }
@@ -1017,16 +1048,28 @@ window.loadGregChartData = function(ticker) {
     .then(function(r){ return r.json(); })
     .then(function(data){
       if(data.error || !data.candles || !data.candles.length) {
-        var el = $('gregLwChart');
-        if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ No chart data for '+ticker+'</div>';
+        showGregFallback(ticker);
         return;
       }
       renderGregLwChart(data.candles, ticker);
     })
     .catch(function(err){
-      var el = $('gregLwChart');
-      if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ Chart server not running</div>';
+      showGregFallback(ticker);
     });
+};
+
+window.showGregFallback = function(ticker) {
+  var el = $('gregLwChart');
+  if(!el) return;
+  var isHK = ticker.indexOf('.HK') !== -1;
+  if(isHK) {
+    el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">'+
+      '🇭🇰 HK stock — <a href="'+tvLinkFor(ticker)+'" target="_blank" style="color:var(--accent);font-size:14px;">Open in TradingView ↗</a>'+
+      '</div>';
+  } else {
+    var sym = tvSymFor(ticker);
+    el.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+sym+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
+  }
 };
 
 window.renderGregLwChart = function(candles, ticker) {
