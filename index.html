@@ -6,6 +6,7 @@
 <title>CadAI Dashboard</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
 <nav class="sidebar" id="sidebar">
@@ -528,16 +529,92 @@ window.switchTf = function(tf){
 };
 
 
-window.showTickerDetail=function(t){loadTvWidget(t);var r=$('summaryRow');if(r)r.innerHTML='<span style="color:var(--accent);font-weight:600;font-size:12px;">🎯 '+t+'</span> <span style="font-size:11px;color:var(--text-muted);">TradingView chart updated</span>';};
+window.showTickerDetail=function(t){loadTvWidget(t);var r=$('summaryRow');if(r)r.innerHTML='<span style="color:var(--accent);font-weight:600;font-size:12px;">🎯 '+t+'</span> <span style="font-size:11px;color:var(--text-muted);">Chart updated</span>';};
+
+window._chartInst = null;
+window._chartSeries = null;
+window._chartVolSeries = null;
+
 window.loadTvWidget = function(ticker){
   _tvTicker=ticker;
   var c=$('tvChart');if(!c)return;
-  var ex=exch[ticker]||'NASDAQ';
-  var tfMap={'1':'1','D':'D','W':'W','M':'M','12M':'12M'};
-  var interval=tfMap[_tvInterval]||'D';
-  c.innerHTML='<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+ticker+'&interval='+interval+'&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
-  var lbl={'1':'1D','D':'1W','W':'1M','M':'3M','12M':'1Y'};
-  $('tvTitle').textContent=ticker+' ('+(lbl[interval]||interval)+')';
+  // Build container for lightweight-charts
+  c.innerHTML = '<div style="display:flex;flex-direction:column;height:100%;">'+
+    '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;">'+
+      '<span style="font-size:12px;font-weight:600;">'+ticker+'</span>'+
+      '<span style="font-size:10px;color:var(--text-muted);">'+
+        '<a href="https://www.tradingview.com/chart/?symbol='+(ticker.indexOf('.HK')!==-1?'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,''):ticker)+'" target="_blank" style="color:var(--accent);">TradingView ↗</a>'+
+      '</span>'+
+    '</div>'+
+    '<div id="lwChart" style="flex:1;min-height:0;"></div>'+
+  '</div>';
+  $('tvTitle').textContent = ticker;
+  loadChartData(ticker);
+};
+
+window.loadChartData = function(ticker) {
+  var tfMap={'1':'1mo','D':'3mo','W':'6mo','M':'1y','12M':'2y'};
+  var period = tfMap[_tvInterval] || '3mo';
+  var interval = _tvInterval === '1' ? '1h' : '1d';
+  var url = 'http://127.0.0.1:8765/chart?ticker='+encodeURIComponent(ticker)+'&period='+period+'&interval='+interval;
+  
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.error || !data.candles || !data.candles.length) {
+        var el = $('lwChart');
+        if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ '+ticker+' — no chart data available<br><a href="https://www.tradingview.com/chart/?symbol='+(ticker.indexOf('.HK')!==-1?'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,''):ticker)+'" target="_blank" style="color:var(--accent);">Open in TradingView ↗</a></div>';
+        return;
+      }
+      renderLwChart(data.candles, ticker);
+    })
+    .catch(function(err){
+      var el = $('lwChart');
+      if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ Chart server not running<br><small>Run: python3 chart_server.py</small></div>';
+    });
+};
+
+window.renderLwChart = function(candles, ticker) {
+  var container = $('lwChart');
+  if(!container) return;
+  
+  // Clean up previous chart
+  if(window._chartInst) { window._chartInst.remove(); window._chartInst = null; }
+  
+  var chart = LightweightCharts.createChart(container, {
+    layout: {
+      background: { type: 'solid', color: '#1a1a2e' },
+      textColor: '#888',
+    },
+    grid: {
+      vertLines: { color: '#2a2a3e' },
+      horzLines: { color: '#2a2a3e' },
+    },
+    crosshair: { mode: 0 },
+    timeScale: {
+      borderColor: '#444',
+      timeVisible: true,
+    },
+    rightPriceScale: {
+      borderColor: '#444',
+    },
+  });
+  window._chartInst = chart;
+  
+  var candleSeries = chart.addCandlestickSeries({
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderUpColor: '#26a69a',
+    borderDownColor: '#ef5350',
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350',
+  });
+  window._chartSeries = candleSeries;
+  
+  candleSeries.setData(candles.map(function(c){
+    return { time: c.time, open: c.open, high: c.high, low: c.low, close: c.close };
+  }));
+  chart.timeScale().fitContent();
 };
 
 function doSort(by){
@@ -908,26 +985,81 @@ window.viewYahoo = function(ticker) {
   window.open('https://finance.yahoo.com/quote/' + encodeURIComponent(ticker), '_blank');
 };
 
+window._gregChartInst = null;
+window._gregChartSeries = null;
+
 window.loadGregTv = function(ticker) {
-  var ex, symbol = ticker;
-  if (ticker.indexOf('.HK') !== -1) {
-    ex = 'HKEX';
-    // HK ticker on TV: strip .HK, remove leading zeros
-    symbol = ticker.replace('.HK', '');
-    symbol = symbol.replace(/^0+/, '');  // strip leading zeros
-  } else {
-    // US stocks: TradingView auto-maps from NASDAQ prefix
-    ex = 'NASDAQ';
-    // Fix tickers with hyphens (BRK-B → BRK.B)
-    symbol = ticker.replace(/-/g, '.');
-  }
+  var tvSymbol = ticker.indexOf('.HK') !== -1
+    ? 'HKEX%3A'+ticker.replace('.HK','').replace(/^0+/,'')
+    : ticker;
+  var tvLink = 'https://www.tradingview.com/chart/?symbol='+tvSymbol;
   $('gregChartRow').style.display = 'block';
-  $('gregTvTitle').textContent = ticker + ' — TradingView';
+  $('gregTvTitle').textContent = ticker + ' — Chart';
   var c = $('gregTvChart');
   if (c) {
-    var tvUrl = 'https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+encodeURIComponent(symbol)+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0';
-    c.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="'+tvUrl+'"></iframe>';
+    c.innerHTML = '<div style="display:flex;flex-direction:column;height:100%;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 8px;background:var(--surface);border-bottom:1px solid var(--border);">'+
+        '<span style="font-size:12px;font-weight:600;">'+ticker+'</span>'+
+        '<span style="font-size:10px;color:var(--text-muted);"><a href="'+tvLink+'" target="_blank" style="color:var(--accent);">TradingView ↗</a></span>'+
+      '</div>'+
+      '<div id="gregLwChart" style="flex:1;min-height:0;"></div>'+
+    '</div>';
+    loadGregChartData(ticker);
   }
+};
+
+window.loadGregChartData = function(ticker) {
+  var url = 'http://127.0.0.1:8765/chart?ticker='+encodeURIComponent(ticker)+'&period=6mo&interval=1d';
+  fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.error || !data.candles || !data.candles.length) {
+        var el = $('gregLwChart');
+        if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ No chart data for '+ticker+'</div>';
+        return;
+      }
+      renderGregLwChart(data.candles, ticker);
+    })
+    .catch(function(err){
+      var el = $('gregLwChart');
+      if(el) el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-muted);">⚠️ Chart server not running</div>';
+    });
+};
+
+window.renderGregLwChart = function(candles, ticker) {
+  var container = $('gregLwChart');
+  if(!container) return;
+  if(window._gregChartInst) { window._gregChartInst.remove(); window._gregChartInst = null; }
+  
+  var chart = LightweightCharts.createChart(container, {
+    layout: {
+      background: { type: 'solid', color: '#1a1a2e' },
+      textColor: '#888',
+    },
+    grid: {
+      vertLines: { color: '#2a2a3e' },
+      horzLines: { color: '#2a2a3e' },
+    },
+    crosshair: { mode: 0 },
+    timeScale: { borderColor: '#444', timeVisible: true },
+    rightPriceScale: { borderColor: '#444' },
+  });
+  window._gregChartInst = chart;
+  
+  var candleSeries = chart.addCandlestickSeries({
+    upColor: '#26a69a',
+    downColor: '#ef5350',
+    borderUpColor: '#26a69a',
+    borderDownColor: '#ef5350',
+    wickUpColor: '#26a69a',
+    wickDownColor: '#ef5350',
+  });
+  window._gregChartSeries = candleSeries;
+  
+  candleSeries.setData(candles.map(function(c){
+    return { time: c.time, open: c.open, high: c.high, low: c.low, close: c.close };
+  }));
+  chart.timeScale().fitContent();
 };
 
 window.renderGregTable = function() {
