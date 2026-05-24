@@ -172,8 +172,8 @@
   <div style="overflow-x:auto;">
     <table class="portfolio-table"><thead><tr>
       <th>Ticker</th><th>Score</th><th>ROE%</th><th>GP%</th><th>RevG%</th><th>EPSG%</th>
-      <th>PEG</th><th>D/E</th><th>FCF Y%</th><th>Beta</th><th>Fails</th>
-    </tr></thead><tbody id="gregTableBody"><tr><td colspan="11">📡 Loading...</td></tr></tbody></table>
+      <th>PEG</th><th>D/E</th><th>3Y</th><th>FCF Y%</th><th>Beta</th><th>Fails</th>
+    </tr></thead><tbody id="gregTableBody"><tr><td colspan="12">📡 Loading...</td></tr></tbody></table>
   </div>
   <div id="gregPageNav" style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:12px;"></div>
 </div>
@@ -979,7 +979,7 @@ window.loadGreg = function() {
     return;
   }
 
-  $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Fetching screener data from Python backend...</td></tr>';
+  $('gregTableBody').innerHTML = '<tr><td colspan="12" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Fetching screener data from Python backend...</td></tr>';
 
   fetch('screener_data.json')
     .then(function(r){ return r.json(); })
@@ -998,7 +998,7 @@ window.loadGreg = function() {
       renderGregTable();
     })
     .catch(function(e){
-      $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--red);">⚠️ Failed to load screener_data.json — run python3 screener.py first</td></tr>';
+      $('gregTableBody').innerHTML = '<tr><td colspan="12" style="text-align:center;padding:40px;color:var(--red);">⚠️ Failed to load screener_data.json — run python3 screener.py first</td></tr>';
       console.error('Greg screener fetch error:', e);
     });
 };
@@ -1135,7 +1135,7 @@ window.renderGregTable = function() {
   var pageList = list.slice(_gregPage * _gregPerPage, (_gregPage + 1) * _gregPerPage);
 
   if (list.length === 0) {
-    $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">No stocks match.</td></tr>';
+    $('gregTableBody').innerHTML = '<tr><td colspan="12" style="text-align:center;padding:40px;color:var(--text-muted);">No stocks match.</td></tr>';
     $('gregPageNav').innerHTML = '';
     return;
   }
@@ -1149,6 +1149,16 @@ window.renderGregTable = function() {
     var scoreColor = s.score >= 8 ? 'var(--green)' : s.score >= 5 ? '#ffc312' : 'var(--text-muted)';
     var na = '—';
     var fails = (s.fails||[]).slice(0,2).join(', ') || '✅ ALL';
+    // 3Y consistency indicator
+    var c3y = s.consistency;
+    var y3 = '—';
+    if(c3y) {
+      var roe3 = c3y.roe_3y_pass || 0;
+      var gp3 = c3y.gp_3y_pass || 0;
+      if(roe3 >= 3 && gp3 >= 3) y3 = '<span style="color:var(--green);">✅✅</span>';
+      else if(roe3 >= 3 || gp3 >= 3) y3 = '<span style="color:#ffc312;">⚠️ '+Math.max(roe3,gp3)+'/3</span>';
+      else y3 = '<span style="color:var(--red);">'+Math.max(roe3,gp3)+'/3</span>';
+    }
     var tickerDisplay = s.ticker.replace('.HK','');
     var mk = s.market === 'HK' ? '🇭🇰' : '🇺🇸';
     return '<tr onclick="window.loadGregTv(\''+s.ticker+'\')" style="background:'+bg+';cursor:pointer;">'+
@@ -1160,6 +1170,7 @@ window.renderGregTable = function() {
       '<td style="cursor:pointer;">'+(s.eps_growth!=null?s.eps_growth.toFixed(1)+'%':na)+'</td>'+
       '<td style="cursor:pointer;">'+(s.peg!=null?s.peg.toFixed(1):na)+'</td>'+
       '<td style="cursor:pointer;">'+(s.debt_equity!=null?s.debt_equity.toFixed(1):na)+'</td>'+
+      '<td style="cursor:pointer;font-size:11px;">'+y3+'</td>'+
       '<td style="cursor:pointer;">'+(s.fcf_yield!=null?s.fcf_yield.toFixed(1)+'%':na)+'</td>'+
       '<td style="cursor:pointer;">'+(s.beta!=null?s.beta.toFixed(1):na)+'</td>'+
       '<td style="font-size:10px;color:var(--text-muted);">'+fails+'</td>'+
