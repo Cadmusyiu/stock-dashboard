@@ -172,6 +172,13 @@
     </tr></thead><tbody id="gregTableBody"><tr><td colspan="11">📡 Loading...</td></tr></tbody></table>
   </div>
 </div>
+<!-- Greg TV Chart -->
+<div class="charts-row fade-in fade-in-5" id="gregChartRow" style="display:none;">
+  <div class="glass chart-card" id="gregLineCard" style="flex:1;">
+    <div class="chart-header"><span id="gregTvTitle">Click a stock</span></div>
+    <div id="gregTvChart" style="width:100%;height:300px;"></div>
+  </div>
+</div>
 </div>
 
 <script>
@@ -893,6 +900,24 @@ window.viewYahoo = function(ticker) {
   window.open('https://finance.yahoo.com/quote/' + encodeURIComponent(ticker), '_blank');
 };
 
+window.loadGregTv = function(ticker) {
+  var raw = ticker.replace('.HK','');
+  var ex = 'NASDAQ';
+  if (ticker.indexOf('.HK') !== -1) {
+    ex = 'HKEX';
+    ticker = raw;
+  } else {
+    ex = exch[raw] || 'NASDAQ';
+  }
+  _tvTicker = ticker;
+  $('gregChartRow').style.display = 'block';
+  $('gregTvTitle').textContent = ticker + ' — TradingView';
+  var c = $('gregTvChart');
+  if (c) {
+    c.innerHTML = '<iframe style="width:100%;height:100%;border:0;" src="https://s.tradingview.com/widgetembed/?hideideas=1&symbol='+ex+'%3A'+encodeURIComponent(ticker)+'&interval=D&theme=dark&style=1&toolbarbg=f1f3f6&withdateranges=0&saveimage=0&studies=[]&locale=en&hide_top_toolbar=1&hide_side_toolbar=1&enable_publishing=0&allow_symbol_change=0"></iframe>';
+  }
+};
+
 window.renderGregTable = function() {
   if (!_gregData) return;
   var list = (_gregData[_gregMarket] || []).slice();
@@ -930,17 +955,17 @@ window.renderGregTable = function() {
     var fails = (s.fails||[]).slice(0,2).join(', ') || '✅ ALL';
     var tickerDisplay = s.ticker.replace('.HK','');
     var mk = s.market === 'HK' ? '🇭🇰' : '🇺🇸';
-    return '<tr style="background:'+bg+';cursor:pointer;" onclick="window.open("https://finance.yahoo.com/quote/'+encodeURIComponent(s.ticker)+'","_blank")">'+
-      '<td class="ticker-cell">'+mk+' '+tickerDisplay+'</td>'+
-      '<td style="color:'+scoreColor+';font-weight:700;cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+s.score.toFixed(1)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.roe!=null?s.roe.toFixed(1)+'%':na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.gross_margin!=null?s.gross_margin.toFixed(1)+'%':na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.rev_growth!=null?s.rev_growth.toFixed(1)+'%':na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.eps_growth!=null?s.eps_growth.toFixed(1)+'%':na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.peg!=null?s.peg.toFixed(1):na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.debt_equity!=null?s.debt_equity.toFixed(1):na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.fcf_yield!=null?s.fcf_yield.toFixed(1)+'%':na)+'</td>'+
-      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.beta!=null?s.beta.toFixed(1):na)+'</td>'+
+    return '<tr onclick="window.loadGregTv(\''+s.ticker.replace('.HK','')+'\')" style="background:'+bg+';cursor:pointer;">'+
+      '<td class="ticker-cell" onclick="event.stopPropagation();window.viewYahoo(\''+s.ticker+'\')">'+mk+' '+tickerDisplay+'</td>'+
+      '<td style="color:'+scoreColor+';font-weight:700;cursor:pointer;">'+s.score.toFixed(1)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.roe!=null?s.roe.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.gross_margin!=null?s.gross_margin.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.rev_growth!=null?s.rev_growth.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.eps_growth!=null?s.eps_growth.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.peg!=null?s.peg.toFixed(1):na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.debt_equity!=null?s.debt_equity.toFixed(1):na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.fcf_yield!=null?s.fcf_yield.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;">'+(s.beta!=null?s.beta.toFixed(1):na)+'</td>'+
       '<td style="font-size:10px;color:var(--text-muted);">'+fails+'</td>'+
     '</tr>';
   }).join('');

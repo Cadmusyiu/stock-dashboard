@@ -28,6 +28,8 @@ CRITERIA = {
     "debt_equity_max": 1.5,    # FA2: moderate leverage
     "peg_max": 2.5,            # FA2/M1: reasonable valuation
     "beta_min": 0.3,           # optional reference
+    "years_consistent": 3,     # FA1: 3-year consistency for ROE/GP%/FCF
+    "eps_allowable_setbacks": 1,  # FA1: allow 1-2 major setbacks in 10 years
 }
 
 # ═══════════════════════════════════════════════
@@ -153,6 +155,124 @@ def fetch_stock(ticker):
 
     except Exception as e:
         return {"ticker": ticker, "error": str(e)}
+
+
+def check_consistency(ticker):
+    """Check 3-year consistency of ROE, GP%, Revenue via financials.
+    Returns dict with multi-year stats or None if insufficient data."""
+    try:
+        s = yf.Ticker(ticker)
+        fin = s.financials  # yearly income statement
+        bs = s.balance_sheet  # yearly balance sheet
+
+        if fin is None or fin.empty or bs is None or bs.empty:
+            return None
+
+        years = sorted(fin.columns, reverse=True)[:4]  # last 4 years
+        if len(years) < 3:
+            return None
+
+        result = {}
+
+        # ---- ROE trend (Net Income / Total Equity) ----
+        if 'Net Income' in fin.index and 'Total Equity Gross Minority Interest' in bs.index:
+            ni = fin.loc['Net Income', years[:3]]
+            te = bs.loc['Total Equity Gross Minority Interest', years[:3]]
+            roe_years = []
+            for y in years[:3]:
+                ni_v = ni.get(y) if hasattr(ni, 'get') else ni[y] if y in ni.index else None
+                te_v = te.get(y) if hasattr(te, 'get') else te[y] if y in te.index else None
+                if ni_v and te_v and te_v != 0:
+                    roe_years.append(float(ni_v) / float(te_v) * 100)
+            if len(roe_years) >= 3:
+                roe_pass = sum(1 for r in roe_years if r >= CRITERIA['roe_min'])
+                result['roe_3y'] = roe_years
+                result['roe_3y_pass'] = roe_pass
+                result['roe_3y_avg'] = sum(roe_years) / len(roe_years)
+
+        # ---- GP% trend ----
+        if 'Total Revenue' in fin.index and 'Cost Of Revenue' in fin.index:
+            rev = fin.loc['Total Revenue', years[:3]]
+            cor = fin.loc['Cost Of Revenue', years[:3]]
+            gp_years = []
+            for y in years[:3]:
+                rev_v = float(rev.get(y) if hasattr(rev, 'get') else rev[y] if y in rev.index else 0)
+                cor_v = float(cor.get(y) if hasattr(cor, 'get') else cor[y] if y in cor.index else 0)
+                if rev_v and rev_v != 0:
+                    gp = (rev_v - cor_v) / rev_v * 100
+                    gp_years.append(gp)
+            if len(gp_years) >= 3:
+                gp_pass = sum(1 for g in gp_years if g >= CRITERIA['gross_margin_min'])
+                result['gp_3y'] = gp_years
+                result['gp_3y_pass'] = gp_pass
+                result['gp_3y_avg'] = sum(gp_years) / len(gp_years)
+
+        # ---- Revenue trend (CAGR) ----
+        if 'Total Revenue' in fin.index:
+            rev_vals = []
+            for y in years[:3]:
+                rv = float(rev.get(y) if hasattr(rev, 'get') else rev[y] if y in rev.index else 0)
+                if rv:
+                    rev_vals.append(rv)
+            if len(rev_vals) >= 3:
+                result['rev_3y'] = rev_vals
+                # Check if revenue grew each year vs prior year
+                rev_growths = []
+                for i in range(1, len(rev_vals)):
+                    if rev_vals[i] and rev_vals[i-1]:
+                        rev_growths.append((rev_vals[i] / rev_vals[i-1] - 1) * 100)
+                if rev_growths:
+                    result['rev_3y_growths'] = rev_growths
+                    result['rev_3y_cagr'] = ((rev_vals[0] / rev_vals[-1]) ** (1/len(rev_vals)) - 1) * 100
+
+        return result if result else None
+
+    except Exception as e:
+        return None
+
+
+def apply_consistency_filters(stock, consistency):
+    """Apply multi-year consistency to scoring. Returns additional score and new fails."""
+    extra_score = 0
+    extra_fails = []
+
+    if not consistency:
+        extra_fails.append("3Y data N/A")
+        return extra_score, extra_fails
+
+    # ROE consistency: 3 years all ≥ 12%
+    if 'roe_3y' in consistency:
+        yrs = consistency['roe_3y']
+        passed = consistency['roe_3y_pass']
+        if passed >= 3:
+            extra_score += 2  # bonus for perfect consistency
+        elif passed >= 2:
+            extra_score += 1
+        else:
+            extra_fails.append(f"ROE3Y: {passed}/3 yrs ≥12%")
+
+    # GP% consistency: 3 years all ≥ 30%
+    if 'gp_3y' in consistency:
+        passed = consistency['gp_3y_pass']
+        if passed >= 3:
+            extra_score += 2
+        elif passed >= 2:
+            extra_score += 1
+        else:
+            extra_fails.append(f"GP3Y: {passed}/3 yrs ≥30%")
+
+    # Revenue trend: growing over 3 years
+    if 'rev_3y_up' in consistency:
+        up_years = consistency['rev_3y_up']
+        total_yrs = consistency.get('rev_3y_years', 3)
+        if up_years >= total_yrs:
+            extra_score += 1.5
+        elif up_years >= total_yrs - 1:
+            extra_score += 0.5
+        else:
+            extra_fails.append(f"Rev3Y: {up_years}/{total_yrs} yrs growth")
+
+    return extra_score, extra_fails
 
 
 def apply_criteria(stock):
@@ -283,7 +403,40 @@ def main():
             except Exception:
                 results["failed"].append(ticker)
 
-    # Sort by score descending
+    # ── Stage 2: Multi-year consistency check for passed stocks ──
+    passed_stocks = [s for s in stocks if s.get("passed")]
+    print(f"\n📅 Stage 2: Checking 3-year consistency for {len(passed_stocks)} passed stocks...")
+
+    c2_start = time.time()
+    c2_checked = 0
+
+    with ThreadPoolExecutor(max_workers=6) as pool:
+        c2_futures = {pool.submit(check_consistency, s["ticker"]): s["ticker"] for s in passed_stocks}
+
+        for future in as_completed(c2_futures):
+            ticker = c2_futures[future]
+            c2_checked += 1
+            try:
+                consistency = future.result(timeout=20)
+                # Find the stock and update
+                for s in stocks:
+                    if s["ticker"] == ticker:
+                        s["consistency"] = consistency
+                        if consistency:
+                            extra_score, extra_fails = apply_consistency_filters(s, consistency)
+                            s["score"] += extra_score
+                            s["fails"].extend(extra_fails)
+                            # Re-evaluate passed: if consistency reveals issues, may downgrade
+                            if any("ROE3Y" in f for f in s["fails"]) or any("GP3Y" in f for f in s["fails"]):
+                                s["consistency_warn"] = True
+                        break
+            except Exception:
+                pass
+
+    c2_elapsed = time.time() - c2_start
+    print(f"  ... checked {c2_checked} in {c2_elapsed:.1f}s")
+
+    # Re-sort by updated score
     stocks.sort(key=lambda x: x.get("score", 0), reverse=True)
 
     # Split by market

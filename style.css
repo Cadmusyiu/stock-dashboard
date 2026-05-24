@@ -369,14 +369,15 @@ canvas { border-radius:8px; }
 
 /* === Greg Value Investing Tab === */
 .greg-tab {
-  background: var(--card-bg);
+  background: rgba(255,255,255,0.03);
   color: var(--text-muted);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255,255,255,0.06);
   border-radius: 6px;
-  padding: 6px 14px;
+  padding: 7px 16px;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;
+  font-family: inherit;
 }
 .greg-tab.active {
   background: var(--accent);
@@ -387,5 +388,6 @@ canvas { border-radius:8px; }
 .greg-tab:hover:not(.active) {
   border-color: var(--accent);
   color: var(--text-primary);
+  background: rgba(255,255,255,0.06);
 }
 
