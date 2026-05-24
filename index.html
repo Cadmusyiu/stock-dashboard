@@ -19,6 +19,7 @@
 <div class="sidebar-item" data-mgr="ackman" onclick="loadManager('ackman')"><span class="icon">🟠</span><span class="label">Ackman</span></div>
 <div class="sidebar-item" data-mgr="trump" onclick="loadManager('trump')"><span class="icon">🔴</span><span class="label">Trump</span></div>
 <div class="sidebar-spacer"></div>
+<div class="sidebar-item" data-mgr="greg" onclick="loadGreg()"><span class="icon">📗</span><span class="label">Greg Value</span></div>
 <div class="sidebar-bottom"><div class="sidebar-item" id="compareBtn" onclick="toggleCompare()"><span class="icon">⚖️</span><span class="label">Compare</span></div><div class="sidebar-item" onclick="toggleTheme()" id="themeBtn"><span class="icon">🌙</span><span class="label">Theme</span></div><div class="sidebar-item" onclick="refreshAll()"><span class="icon">🔄</span><span class="label">Refresh</span></div></div>
 </nav>
 <div class="compare-overlay" id="compareOverlay" style="display:none;">
@@ -130,6 +131,47 @@
   </div>
 </div>
 
+</div>
+<div id="gregView" hidden>
+<div class="manager-header fade-in fade-in-2">
+  <div class="manager-name">📗 Greg Value Investing Screener</div>
+  <div class="manager-meta" id="gregMeta">Global 5 FA Criteria — 價值投資選股</div>
+  <div class="manager-tags" id="gregTags"></div>
+  <div class="summary-row" id="gregSummary"></div>
+</div>
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+  <div style="display:flex;gap:4px;" id="gregMarketBtns">
+    <button class="greg-tab active" onclick="switchGregMarket('us')" id="gregTabUS">🇺🇸 US Stocks</button>
+    <button class="greg-tab" onclick="switchGregMarket('hk')" id="gregTabHK">🇭🇰 HK Stocks</button>
+  </div>
+  <span style="font-size:11px;color:var(--text-muted);margin-left:auto;" id="gregTimestamp"></span>
+</div>
+<div class="glass chart-card" style="padding:12px 16px;margin-bottom:12px;">
+  <div class="chart-header">📐 Global 5 FA Criteria</div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--text-secondary);">
+    <span>✅ ROE ≥ 12%</span><span>✅ GP% ≥ 30%</span><span>✅ Rev Growth > 5%</span>
+    <span>✅ EPS Growth > 5%</span><span>✅ FCF > 0</span><span>✅ D/E &lt; 1.5</span>
+    <span>✅ PEG &lt; 2.5</span>
+  </div>
+</div>
+<div class="glass portfolio-section fade-in fade-in-4">
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px;">
+    <div class="ticker-search-bar" style="flex:1;margin-bottom:0;"><input type="text" id="gregSearch" placeholder="🔍 Search screened stocks…" oninput="window.filterGreg(this.value)"></div>
+    <select id="gregSortBy" onchange="window.renderGregTable()" style="background:var(--card-bg);color:var(--text-primary);border:1px solid var(--border);border-radius:6px;padding:6px 10px;font-size:11px;">
+      <option value="score">Sort: Score</option>
+      <option value="roe">Sort: ROE</option>
+      <option value="gross_margin">Sort: GP%</option>
+      <option value="peg">Sort: PEG</option>
+      <option value="rev_growth">Sort: Rev G</option>
+    </select>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="portfolio-table"><thead><tr>
+      <th>Ticker</th><th>Score</th><th>ROE%</th><th>GP%</th><th>RevG%</th><th>EPSG%</th>
+      <th>PEG</th><th>D/E</th><th>FCF Y%</th><th>Beta</th><th>Fails</th>
+    </tr></thead><tbody id="gregTableBody"><tr><td colspan="11">📡 Loading...</td></tr></tbody></table>
+  </div>
+</div>
 </div>
 
 <script>
@@ -561,7 +603,7 @@ window.loadManager = function(id, force){
   if(!force&&busy)return;
   busy=true;
   var lv=$('landingView'),fv=$('fundView');
-  if(lv)lv.hidden=true;if(fv)fv.hidden=false;
+  if(lv)lv.hidden=true;if(fv)fv.hidden=false;$('gregView').hidden=true;
   $('tvChart').innerHTML='';
   var mgr=CMG[id],seq=++loadSeq;
   if(!mgr){busy=false;return}
@@ -794,12 +836,124 @@ if(savedTheme) {
   }
 }
 
+}
+
+// ═══════════ Greg Value Investing Screener ═══════════
+var _gregData = null, _gregMarket = 'us', _gregFilter = '';
+
+window.loadGreg = function() {
+  busy = false;
+  document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
+  var si = document.querySelector('.sidebar-item[data-mgr="greg"]');
+  if(si) si.classList.add('active');
+  $('landingView').hidden = true;
+  $('fundView').hidden = true;
+  $('gregView').hidden = false;
+
+  if (_gregData) {
+    renderGregTable();
+    return;
+  }
+
+  $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">📡 Fetching screener data from Python backend...</td></tr>';
+
+  fetch('screener_data.json')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      _gregData = data;
+      $('gregTimestamp').textContent = 'Data: ' + (data.generated || 'Unknown');
+      var tags = [];
+      if(data.summary){
+        tags.push('Scanned: ' + data.summary.total_scanned + ' stocks');
+        tags.push('US: ' + data.summary.us_passed + ' passed');
+        tags.push('HK: ' + data.summary.hk_passed + ' passed');
+      }
+      $('gregTags').innerHTML = tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('');
+      $('gregSummary').innerHTML = '<span class="summary-holdings">' + (data.summary?.us_passed||0) + '+' + (data.summary?.hk_passed||0) + ' eligible</span><span>ROE≥12% | GP≥30% | PEG&lt;2.5</span>';
+      $('gregTableBody').innerHTML = '';
+      renderGregTable();
+    })
+    .catch(function(e){
+      $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--red);">⚠️ Failed to load screener_data.json — run python3 screener.py first</td></tr>';
+      console.error('Greg screener fetch error:', e);
+    });
+};
+
+window.switchGregMarket = function(mkt) {
+  _gregMarket = mkt;
+  $('gregTabUS').classList.toggle('active', mkt === 'us');
+  $('gregTabHK').classList.toggle('active', mkt === 'hk');
+  renderGregTable();
+};
+
+window.filterGreg = function(q) {
+  _gregFilter = (q || '').trim().toUpperCase();
+  renderGregTable();
+};
+
+window.viewYahoo = function(ticker) {
+  window.open('https://finance.yahoo.com/quote/' + encodeURIComponent(ticker), '_blank');
+};
+
+window.renderGregTable = function() {
+  if (!_gregData) return;
+  var list = (_gregData[_gregMarket] || []).slice();
+  if (_gregFilter) {
+    list = list.filter(function(s){
+      return (s.ticker||'').toUpperCase().indexOf(_gregFilter) !== -1 ||
+             (s.name||'').toUpperCase().indexOf(_gregFilter) !== -1 ||
+             (s.sector||'').toUpperCase().indexOf(_gregFilter) !== -1;
+    });
+  }
+  var sortBy = ($('gregSortBy')?.value) || 'score';
+  list.sort(function(a,b){
+    var va = a[sortBy], vb = b[sortBy];
+    if (va == null) return 1;
+    if (vb == null) return -1;
+    return vb - va;
+  });
+
+  var showAll = _gregFilter.length > 0;
+  if (!showAll) list = list.filter(function(s){ return s.passed; });
+
+  if (list.length === 0) {
+    $('gregTableBody').innerHTML = '<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text-muted);">No stocks match. Try running screener.py to update data.</td></tr>';
+    return;
+  }
+
+  var topScore = list[0]?.score || 1;
+  $('gregTableBody').innerHTML = list.map(function(s){
+    var scorePct = Math.min((s.score / topScore) * 100, 100);
+    var bg = s.passed ?
+      (s.score >= 8 ? 'rgba(46,213,115,0.12)' : s.score >= 5 ? 'rgba(255,195,18,0.1)' : 'rgba(255,71,87,0.08)') :
+      'rgba(255,255,255,0.02)';
+    var scoreColor = s.score >= 8 ? 'var(--green)' : s.score >= 5 ? '#ffc312' : 'var(--text-muted)';
+    var na = '—';
+    var fails = (s.fails||[]).slice(0,2).join(', ') || '✅ ALL';
+    var tickerDisplay = s.ticker.replace('.HK','');
+    var mk = s.market === 'HK' ? '🇭🇰' : '🇺🇸';
+    return '<tr style="background:'+bg+';cursor:pointer;" onclick="window.open("https://finance.yahoo.com/quote/'+encodeURIComponent(s.ticker)+'","_blank")">'+
+      '<td class="ticker-cell">'+mk+' '+tickerDisplay+'</td>'+
+      '<td style="color:'+scoreColor+';font-weight:700;cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+s.score.toFixed(1)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.roe!=null?s.roe.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.gross_margin!=null?s.gross_margin.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.rev_growth!=null?s.rev_growth.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.eps_growth!=null?s.eps_growth.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.peg!=null?s.peg.toFixed(1):na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.debt_equity!=null?s.debt_equity.toFixed(1):na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.fcf_yield!=null?s.fcf_yield.toFixed(1)+'%':na)+'</td>'+
+      '<td style="cursor:pointer;" onclick="window.viewYahoo("'+s.ticker+'")">'+(s.beta!=null?s.beta.toFixed(1):na)+'</td>'+
+      '<td style="font-size:10px;color:var(--text-muted);">'+fails+'</td>'+
+    '</tr>';
+  }).join('');
+};
+
 window.showLanding = function(){
   busy=false;
   document.querySelectorAll('.sidebar-item').forEach(function(e){e.classList.remove('active')});
   var li=$('landingBtn');if(li)li.classList.add('active');
   var lv=$('landingView'),fv=$('fundView');
-  if(lv)lv.hidden=false;if(fv)fv.hidden=true;
+  if(lv)lv.hidden=false;if(fv)fv.hidden=true;$('gregView').hidden=true;
   $('searchResults').innerHTML='';$('searchResults').style.display='none';$('tableBody').style.display='';$('tickerSearch').value='';
   $('managerName').textContent='📊 All Managers Overview';
   $('managerMeta').textContent='';$('managerTags').innerHTML='';$('managerOptionsBar').style.display='none';

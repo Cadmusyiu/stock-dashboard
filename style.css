@@ -367,3 +367,25 @@ canvas { border-radius:8px; }
 [data-theme="light"] .top-movers-section .glass,
 [data-theme="light"] .news-panel { background: var(--card-bg); }
 
+/* === Greg Value Investing Tab === */
+.greg-tab {
+  background: var(--card-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.greg-tab.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+.greg-tab:hover:not(.active) {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
