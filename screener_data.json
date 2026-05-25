@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-24 14:21 HKT",
+  "generated": "2026-05-25 09:00 HKT",
   "criteria": {
     "roe_min": 12.0,
     "gross_margin_min": 30.0,
@@ -946,7 +946,7 @@
       "eps_growth": 35.6,
       "pe": 55.896774,
       "forward_pe": 29.229881,
-      "peg": 1.45,
+      "peg": 1.49,
       "debt_equity": 0.43579,
       "fcf_yield": 1.9321078051155343,
       "beta": 1.261,
@@ -1239,56 +1239,6 @@
       }
     },
     {
-      "ticker": "ANET",
-      "name": "Arista Networks, Inc.",
-      "sector": "Technology",
-      "industry": "Computer Hardware",
-      "market": "US",
-      "price": 154.03,
-      "market_cap": 193949859840,
-      "roe": 31.520998,
-      "gross_margin": 63.537,
-      "rev_growth": 35.099999999999994,
-      "eps_growth": 25.0,
-      "pe": 52.93127,
-      "forward_pe": 34.617138,
-      "peg": 1.91,
-      "debt_equity": null,
-      "fcf_yield": 2.249157304675885,
-      "beta": 1.673,
-      "dividend_yield": null,
-      "passed": true,
-      "score": 19.1,
-      "fails": [],
-      "checks": 6,
-      "consistency": {
-        "roe_3y": [
-          28.385271411826523,
-          28.535838636090766,
-          28.913740696675287
-        ],
-        "roe_3y_pass": 3,
-        "roe_3y_avg": 28.61161691486419,
-        "gp_3y": [
-          64.05609780472368,
-          64.13302680241607,
-          61.94839766560868
-        ],
-        "gp_3y_pass": 3,
-        "gp_3y_avg": 63.37917409091614,
-        "rev_3y": [
-          9005700000.0,
-          7003100000.0,
-          5860200000.0
-        ],
-        "rev_3y_growths": [
-          -22.237027660259614,
-          -16.319915466007906
-        ],
-        "rev_3y_cagr": 15.398902675909332
-      }
-    },
-    {
       "ticker": "FTNT",
       "name": "Fortinet, Inc.",
       "sector": "Technology",
@@ -1390,6 +1340,56 @@
           -4.707002500697676
         ],
         "rev_3y_cagr": 5.122104245384573
+      }
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks, Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market": "US",
+      "price": 154.03,
+      "market_cap": 193949859840,
+      "roe": 31.520998,
+      "gross_margin": 63.537,
+      "rev_growth": 35.099999999999994,
+      "eps_growth": 25.0,
+      "pe": 52.93127,
+      "forward_pe": 34.617138,
+      "peg": 1.98,
+      "debt_equity": null,
+      "fcf_yield": 2.249157304675885,
+      "beta": 1.673,
+      "dividend_yield": null,
+      "passed": true,
+      "score": 19.0,
+      "fails": [],
+      "checks": 6,
+      "consistency": {
+        "roe_3y": [
+          28.385271411826523,
+          28.535838636090766,
+          28.913740696675287
+        ],
+        "roe_3y_pass": 3,
+        "roe_3y_avg": 28.61161691486419,
+        "gp_3y": [
+          64.05609780472368,
+          64.13302680241607,
+          61.94839766560868
+        ],
+        "gp_3y_pass": 3,
+        "gp_3y_avg": 63.37917409091614,
+        "rev_3y": [
+          9005700000.0,
+          7003100000.0,
+          5860200000.0
+        ],
+        "rev_3y_growths": [
+          -22.237027660259614,
+          -16.319915466007906
+        ],
+        "rev_3y_cagr": 15.398902675909332
       }
     },
     {
@@ -1597,6 +1597,58 @@
           1.32654428514003
         ],
         "rev_3y_cagr": -0.13683530665438148
+      }
+    },
+    {
+      "ticker": "VST",
+      "name": "Vistra Corp.",
+      "sector": "Utilities",
+      "industry": "Utilities - Independent Power Producers",
+      "market": "US",
+      "price": 156.27,
+      "market_cap": 52691505152,
+      "roe": 42.897999999999996,
+      "gross_margin": 38.637,
+      "rev_growth": 43.4,
+      "eps_growth": null,
+      "pe": 26.088482,
+      "forward_pe": 14.261791,
+      "peg": 0.47,
+      "debt_equity": 3.55187,
+      "fcf_yield": 0.9050320476220052,
+      "beta": 1.447,
+      "dividend_yield": 0.59,
+      "passed": true,
+      "score": 18.6,
+      "fails": [
+        "D/E 3.6 > 1.5"
+      ],
+      "checks": 6,
+      "consistency": {
+        "roe_3y": [
+          18.47358121330724,
+          47.6267239835214,
+          28.053363397219087
+        ],
+        "roe_3y_pass": 3,
+        "roe_3y_avg": 31.38455619801591,
+        "gp_3y": [
+          32.88984101928064,
+          43.689038550859266,
+          37.35029433655863
+        ],
+        "gp_3y_pass": 3,
+        "gp_3y_avg": 37.97639130223285,
+        "rev_3y": [
+          17738000000.0,
+          17224000000.0,
+          14779000000.0
+        ],
+        "rev_3y_growths": [
+          -2.8977336791070063,
+          -14.195308871342316
+        ],
+        "rev_3y_cagr": 6.272247936517106
       }
     },
     {
@@ -3767,7 +3819,7 @@
       "eps_growth": 3.25,
       "pe": 153.79776,
       "forward_pe": 65.98917,
-      "peg": 1.98,
+      "peg": 1.97,
       "debt_equity": 0.02477,
       "fcf_yield": 0.5342156559914194,
       "beta": 1.521,
@@ -3989,56 +4041,6 @@
       }
     },
     {
-      "ticker": "HUBB",
-      "name": "Hubbell Inc",
-      "sector": "Industrials",
-      "industry": "Electrical Equipment & Parts",
-      "market": "US",
-      "price": 475.01,
-      "market_cap": 25100371968,
-      "roe": 25.822001999999998,
-      "gross_margin": 35.685003,
-      "rev_growth": 11.1,
-      "eps_growth": 12.5,
-      "pe": 28.090479,
-      "forward_pe": 21.81121,
-      "peg": 2.23,
-      "debt_equity": 0.72468,
-      "fcf_yield": 2.157139283395021,
-      "beta": 0.949,
-      "dividend_yield": 1.2,
-      "passed": true,
-      "score": 15.5,
-      "fails": [],
-      "checks": 7,
-      "consistency": {
-        "roe_3y": [
-          22.994375178205757,
-          22.840555913915438,
-          26.006299103589104
-        ],
-        "roe_3y_pass": 3,
-        "roe_3y_avg": 23.947076731903433,
-        "gp_3y": [
-          35.31636040105396,
-          33.85626721151284,
-          34.93457909136593
-        ],
-        "gp_3y_pass": 3,
-        "gp_3y_avg": 34.70240223464425,
-        "rev_3y": [
-          5844600000.0,
-          5628500000.0,
-          5372900000.0
-        ],
-        "rev_3y_growths": [
-          -3.6974301064230275,
-          -4.541174380385538
-        ],
-        "rev_3y_cagr": 2.8447228228015264
-      }
-    },
-    {
       "ticker": "MKC",
       "name": "McCormick & Company, Incorporat",
       "sector": "Consumer Defensive",
@@ -4115,55 +4117,53 @@
       "checks": 6
     },
     {
-      "ticker": "VST",
-      "name": "Vistra Corp.",
-      "sector": "Utilities",
-      "industry": "Utilities - Independent Power Producers",
+      "ticker": "HUBB",
+      "name": "Hubbell Inc",
+      "sector": "Industrials",
+      "industry": "Electrical Equipment & Parts",
       "market": "US",
-      "price": 156.27,
-      "market_cap": 52691505152,
-      "roe": 42.897999999999996,
-      "gross_margin": 38.637,
-      "rev_growth": 43.4,
-      "eps_growth": null,
-      "pe": 26.088482,
-      "forward_pe": 14.261791,
-      "peg": 1.28,
-      "debt_equity": 3.55187,
-      "fcf_yield": 0.9050320476220052,
-      "beta": 1.447,
-      "dividend_yield": 0.59,
+      "price": 475.01,
+      "market_cap": 25100371968,
+      "roe": 25.822001999999998,
+      "gross_margin": 35.685003,
+      "rev_growth": 11.1,
+      "eps_growth": 12.5,
+      "pe": 28.090479,
+      "forward_pe": 21.81121,
+      "peg": 2.3,
+      "debt_equity": 0.72468,
+      "fcf_yield": 2.157139283395021,
+      "beta": 0.949,
+      "dividend_yield": 1.2,
       "passed": true,
-      "score": 15.2,
-      "fails": [
-        "D/E 3.6 > 1.5"
-      ],
-      "checks": 6,
+      "score": 15.4,
+      "fails": [],
+      "checks": 7,
       "consistency": {
         "roe_3y": [
-          18.47358121330724,
-          47.6267239835214,
-          28.053363397219087
+          22.994375178205757,
+          22.840555913915438,
+          26.006299103589104
         ],
         "roe_3y_pass": 3,
-        "roe_3y_avg": 31.38455619801591,
+        "roe_3y_avg": 23.947076731903433,
         "gp_3y": [
-          32.88984101928064,
-          43.689038550859266,
-          37.35029433655863
+          35.31636040105396,
+          33.85626721151284,
+          34.93457909136593
         ],
         "gp_3y_pass": 3,
-        "gp_3y_avg": 37.97639130223285,
+        "gp_3y_avg": 34.70240223464425,
         "rev_3y": [
-          17738000000.0,
-          17224000000.0,
-          14779000000.0
+          5844600000.0,
+          5628500000.0,
+          5372900000.0
         ],
         "rev_3y_growths": [
-          -2.8977336791070063,
-          -14.195308871342316
+          -3.6974301064230275,
+          -4.541174380385538
         ],
-        "rev_3y_cagr": 6.272247936517106
+        "rev_3y_cagr": 2.8447228228015264
       }
     },
     {
@@ -5684,7 +5684,7 @@
       "rev_growth": 6.5,
       "eps_growth": 27.1,
       "pe": 17.825468,
-      "forward_pe": 15.17063,
+      "forward_pe": 15.166126,
       "peg": 2.58,
       "debt_equity": 1.5505000000000002,
       "fcf_yield": 4.817415007975817,
@@ -5738,7 +5738,7 @@
       "eps_growth": 49.1,
       "pe": 33.55473,
       "forward_pe": 26.210863,
-      "peg": 1.87,
+      "peg": 1.89,
       "debt_equity": null,
       "fcf_yield": 2.8177481892129417,
       "beta": 1.235,
@@ -5843,7 +5843,7 @@
       "rev_growth": 8.5,
       "eps_growth": 6.1,
       "pe": 30.972223,
-      "forward_pe": 23.502134,
+      "forward_pe": 23.492744,
       "peg": 1.96,
       "debt_equity": 0.61637,
       "fcf_yield": 3.5572499430235287,
@@ -5947,7 +5947,7 @@
       "eps_growth": -84.6,
       "pe": 17.821339,
       "forward_pe": 16.545338,
-      "peg": 5.97,
+      "peg": 5.83,
       "debt_equity": 0.48113,
       "fcf_yield": 4.471115969266424,
       "beta": 1.158,
@@ -5956,7 +5956,7 @@
       "score": 13.7,
       "fails": [
         "EPSG -84.6%",
-        "PEG 6.0"
+        "PEG 5.8"
       ],
       "checks": 7,
       "consistency": {
@@ -8495,32 +8495,6 @@
       "checks": 7
     },
     {
-      "ticker": "DELL",
-      "name": "Dell Technologies Inc.",
-      "sector": "Technology",
-      "industry": "Computer Hardware",
-      "market": "US",
-      "price": 295.19,
-      "market_cap": 191746048000,
-      "roe": null,
-      "gross_margin": 20.125,
-      "rev_growth": 39.5,
-      "eps_growth": 57.3,
-      "pe": 34.008064,
-      "forward_pe": 19.754559,
-      "peg": 1.05,
-      "debt_equity": null,
-      "fcf_yield": 3.445573077991156,
-      "beta": 1.062,
-      "dividend_yield": 0.85,
-      "passed": false,
-      "score": 11.4,
-      "fails": [
-        "GP% 20.1% < 30.0%"
-      ],
-      "checks": 5
-    },
-    {
       "ticker": "STE",
       "name": "STERIS plc (Ireland)",
       "sector": "Healthcare",
@@ -8598,33 +8572,6 @@
         ],
         "rev_3y_cagr": 4.226649043690434
       }
-    },
-    {
-      "ticker": "DDOG",
-      "name": "Datadog, Inc.",
-      "sector": "Technology",
-      "industry": "Software - Application",
-      "market": "US",
-      "price": 222.32,
-      "market_cap": 79137071104,
-      "roe": 3.9300002000000003,
-      "gross_margin": 79.906,
-      "rev_growth": 32.2,
-      "eps_growth": 1.04,
-      "pe": 555.8,
-      "forward_pe": 78.15456,
-      "peg": 1.36,
-      "debt_equity": 0.32220999999999994,
-      "fcf_yield": 1.183676012938332,
-      "beta": 1.295,
-      "dividend_yield": null,
-      "passed": false,
-      "score": 11.2,
-      "fails": [
-        "ROE 3.9% < 12.0%",
-        "EPSG 1.0%"
-      ],
-      "checks": 7
     },
     {
       "ticker": "ZBRA",
@@ -8787,6 +8734,33 @@
       "consistency_warn": true
     },
     {
+      "ticker": "DDOG",
+      "name": "Datadog, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "market": "US",
+      "price": 222.32,
+      "market_cap": 79137071104,
+      "roe": 3.9300002000000003,
+      "gross_margin": 79.906,
+      "rev_growth": 32.2,
+      "eps_growth": 1.04,
+      "pe": 555.8,
+      "forward_pe": 78.15456,
+      "peg": 1.39,
+      "debt_equity": 0.32220999999999994,
+      "fcf_yield": 1.183676012938332,
+      "beta": 1.295,
+      "dividend_yield": null,
+      "passed": false,
+      "score": 11.1,
+      "fails": [
+        "ROE 3.9% < 12.0%",
+        "EPSG 1.0%"
+      ],
+      "checks": 7
+    },
+    {
       "ticker": "CB",
       "name": "Chubb Limited",
       "sector": "Financial Services",
@@ -8892,6 +8866,32 @@
         "ROE 5.1% < 12.0%"
       ],
       "checks": 7
+    },
+    {
+      "ticker": "DELL",
+      "name": "Dell Technologies Inc.",
+      "sector": "Technology",
+      "industry": "Computer Hardware",
+      "market": "US",
+      "price": 295.19,
+      "market_cap": 191746048000,
+      "roe": null,
+      "gross_margin": 20.125,
+      "rev_growth": 39.5,
+      "eps_growth": 57.3,
+      "pe": 34.008064,
+      "forward_pe": 19.754559,
+      "peg": 1.22,
+      "debt_equity": null,
+      "fcf_yield": 3.445573077991156,
+      "beta": 1.062,
+      "dividend_yield": 0.85,
+      "passed": false,
+      "score": 11.0,
+      "fails": [
+        "GP% 20.1% < 30.0%"
+      ],
+      "checks": 5
     },
     {
       "ticker": "VTR",
@@ -9026,33 +9026,6 @@
       "consistency": null
     },
     {
-      "ticker": "CI",
-      "name": "The Cigna Group",
-      "sector": "Healthcare",
-      "industry": "Healthcare Plans",
-      "market": "US",
-      "price": 286.24,
-      "market_cap": 75719753728,
-      "roe": 16.268998,
-      "gross_margin": 9.149000000000001,
-      "rev_growth": 4.6,
-      "eps_growth": 29.099999999999998,
-      "pe": 2.5170593,
-      "forward_pe": 8.542397,
-      "peg": 0.84,
-      "debt_equity": 0.7280500000000001,
-      "fcf_yield": 9.143419996940432,
-      "beta": 0.313,
-      "dividend_yield": 2.18,
-      "passed": false,
-      "score": 10.6,
-      "fails": [
-        "GP% 9.1% < 30.0%",
-        "RevG 4.6%"
-      ],
-      "checks": 7
-    },
-    {
       "ticker": "MET",
       "name": "MetLife, Inc.",
       "sector": "Financial Services",
@@ -9166,6 +9139,33 @@
       "checks": 7
     },
     {
+      "ticker": "CI",
+      "name": "The Cigna Group",
+      "sector": "Healthcare",
+      "industry": "Healthcare Plans",
+      "market": "US",
+      "price": 286.24,
+      "market_cap": 75719753728,
+      "roe": 16.268998,
+      "gross_margin": 9.149000000000001,
+      "rev_growth": 4.6,
+      "eps_growth": 29.099999999999998,
+      "pe": 2.5170593,
+      "forward_pe": 8.542397,
+      "peg": 0.86,
+      "debt_equity": 0.7280500000000001,
+      "fcf_yield": 9.143419996940432,
+      "beta": 0.313,
+      "dividend_yield": 2.18,
+      "passed": false,
+      "score": 10.5,
+      "fails": [
+        "GP% 9.1% < 30.0%",
+        "RevG 4.6%"
+      ],
+      "checks": 7
+    },
+    {
       "ticker": "NKE",
       "name": "Nike, Inc.",
       "sector": "Consumer Cyclical",
@@ -9219,32 +9219,6 @@
       }
     },
     {
-      "ticker": "IR",
-      "name": "Ingersoll Rand Inc.",
-      "sector": "Industrials",
-      "industry": "Specialty Industrial Machinery",
-      "market": "US",
-      "price": 70.91,
-      "market_cap": 27749695488,
-      "roe": 5.7150003,
-      "gross_margin": 43.222,
-      "rev_growth": 7.6,
-      "eps_growth": 6.5,
-      "pe": 47.912163,
-      "forward_pe": 18.437338,
-      "peg": 0.68,
-      "debt_equity": 0.48353,
-      "fcf_yield": 3.731302292840497,
-      "beta": 1.247,
-      "dividend_yield": 0.11,
-      "passed": false,
-      "score": 10.5,
-      "fails": [
-        "ROE 5.7% < 12.0%"
-      ],
-      "checks": 7
-    },
-    {
       "ticker": "WAB",
       "name": "Westinghouse Air Brake Technolo",
       "sector": "Industrials",
@@ -9267,6 +9241,32 @@
       "score": 10.5,
       "fails": [
         "ROE 11.3% < 12.0%"
+      ],
+      "checks": 7
+    },
+    {
+      "ticker": "IR",
+      "name": "Ingersoll Rand Inc.",
+      "sector": "Industrials",
+      "industry": "Specialty Industrial Machinery",
+      "market": "US",
+      "price": 70.91,
+      "market_cap": 27749695488,
+      "roe": 5.7150003,
+      "gross_margin": 43.222,
+      "rev_growth": 7.6,
+      "eps_growth": 6.5,
+      "pe": 47.912163,
+      "forward_pe": 18.437338,
+      "peg": 0.68,
+      "debt_equity": 0.48353,
+      "fcf_yield": 3.731302292840497,
+      "beta": 1.247,
+      "dividend_yield": 0.11,
+      "passed": false,
+      "score": 10.5,
+      "fails": [
+        "ROE 5.7% < 12.0%"
       ],
       "checks": 7
     },
@@ -10117,7 +10117,7 @@
       "eps_growth": null,
       "pe": null,
       "forward_pe": 107.72588,
-      "peg": 5.35,
+      "peg": 5.47,
       "debt_equity": 0.18336,
       "fcf_yield": 0.9501802575601758,
       "beta": 1.06,
@@ -10126,7 +10126,7 @@
       "score": 9.3,
       "fails": [
         "ROE -4.1% < 12.0%",
-        "PEG 5.3"
+        "PEG 5.5"
       ],
       "checks": 6
     },
@@ -10362,7 +10362,7 @@
       "eps_growth": 42.6,
       "pe": 19.353722,
       "forward_pe": 15.412441,
-      "peg": 1.36,
+      "peg": 1.39,
       "debt_equity": null,
       "fcf_yield": 6.024152531650908,
       "beta": 0.943,
@@ -11979,33 +11979,6 @@
       "consistency_warn": true
     },
     {
-      "ticker": "TFC",
-      "name": "Truist Financial Corporation",
-      "sector": "Financial Services",
-      "industry": "Banks - Regional",
-      "market": "US",
-      "price": 48.38,
-      "market_cap": 60275630080,
-      "roe": 8.579001,
-      "gross_margin": 0.0,
-      "rev_growth": 5.2,
-      "eps_growth": 25.3,
-      "pe": 11.975248,
-      "forward_pe": 9.440056,
-      "peg": 1.13,
-      "debt_equity": null,
-      "fcf_yield": null,
-      "beta": 0.906,
-      "dividend_yield": 4.3,
-      "passed": false,
-      "score": 7.3,
-      "fails": [
-        "ROE 8.6% < 12.0%",
-        "GP% 0.0% < 30.0%"
-      ],
-      "checks": 5
-    },
-    {
       "ticker": "CVX",
       "name": "Chevron Corporation",
       "sector": "Energy",
@@ -12030,6 +12003,61 @@
         "ROE 6.6% < 12.0%",
         "RevG 2.3%",
         "EPSG -44.5%"
+      ],
+      "checks": 7
+    },
+    {
+      "ticker": "TFC",
+      "name": "Truist Financial Corporation",
+      "sector": "Financial Services",
+      "industry": "Banks - Regional",
+      "market": "US",
+      "price": 48.38,
+      "market_cap": 60275630080,
+      "roe": 8.579001,
+      "gross_margin": 0.0,
+      "rev_growth": 5.2,
+      "eps_growth": 25.3,
+      "pe": 11.975248,
+      "forward_pe": 9.440056,
+      "peg": 1.14,
+      "debt_equity": null,
+      "fcf_yield": null,
+      "beta": 0.906,
+      "dividend_yield": 4.3,
+      "passed": false,
+      "score": 7.2,
+      "fails": [
+        "ROE 8.6% < 12.0%",
+        "GP% 0.0% < 30.0%"
+      ],
+      "checks": 5
+    },
+    {
+      "ticker": "VZ",
+      "name": "Verizon Communications Inc.",
+      "sector": "Communication Services",
+      "industry": "Telecom Services",
+      "market": "US",
+      "price": 48.35,
+      "market_cap": 201888268288,
+      "roe": 17.198,
+      "gross_margin": 58.909,
+      "rev_growth": 2.9000000000000004,
+      "eps_growth": 4.3,
+      "pe": 11.792683,
+      "forward_pe": 9.167979,
+      "peg": 0.91,
+      "debt_equity": 1.9204499999999998,
+      "fcf_yield": 9.71255060548038,
+      "beta": 0.224,
+      "dividend_yield": 5.85,
+      "passed": false,
+      "score": 7.1,
+      "fails": [
+        "RevG 2.9%",
+        "EPSG 4.3%",
+        "D/E 1.9 > 1.5"
       ],
       "checks": 7
     },
@@ -12087,34 +12115,6 @@
         "rev_3y_cagr": 4.939536311945347
       },
       "consistency_warn": true
-    },
-    {
-      "ticker": "VZ",
-      "name": "Verizon Communications Inc.",
-      "sector": "Communication Services",
-      "industry": "Telecom Services",
-      "market": "US",
-      "price": 48.35,
-      "market_cap": 201888268288,
-      "roe": 17.198,
-      "gross_margin": 58.909,
-      "rev_growth": 2.9000000000000004,
-      "eps_growth": 4.3,
-      "pe": 11.792683,
-      "forward_pe": 9.167979,
-      "peg": 0.91,
-      "debt_equity": 1.9204499999999998,
-      "fcf_yield": 9.71255060548038,
-      "beta": 0.224,
-      "dividend_yield": 5.85,
-      "passed": false,
-      "score": 7.1,
-      "fails": [
-        "RevG 2.9%",
-        "EPSG 4.3%",
-        "D/E 1.9 > 1.5"
-      ],
-      "checks": 7
     },
     {
       "ticker": "UNP",
@@ -14193,35 +14193,6 @@
       "checks": 4
     },
     {
-      "ticker": "ETR",
-      "name": "Entergy Corporation",
-      "sector": "Utilities",
-      "industry": "Utilities - Regulated Electric",
-      "market": "US",
-      "price": 112.4,
-      "market_cap": 51466481664,
-      "roe": 10.751,
-      "gross_margin": 46.976003,
-      "rev_growth": 12.0,
-      "eps_growth": 1.2,
-      "pe": 28.67347,
-      "forward_pe": 22.36914,
-      "peg": 2.22,
-      "debt_equity": 1.92883,
-      "fcf_yield": -7.603196491158537,
-      "beta": 0.529,
-      "dividend_yield": 2.28,
-      "passed": false,
-      "score": 5.1,
-      "fails": [
-        "ROE 10.8% < 12.0%",
-        "EPSG 1.2%",
-        "FCF Yield -7.6%",
-        "D/E 1.9 > 1.5"
-      ],
-      "checks": 7
-    },
-    {
       "ticker": "EIX",
       "name": "Edison International",
       "sector": "Utilities",
@@ -14247,6 +14218,35 @@
         "FCF Yield -4.1%",
         "D/E 2.3 > 1.5",
         "PEG 3.4"
+      ],
+      "checks": 7
+    },
+    {
+      "ticker": "ETR",
+      "name": "Entergy Corporation",
+      "sector": "Utilities",
+      "industry": "Utilities - Regulated Electric",
+      "market": "US",
+      "price": 112.4,
+      "market_cap": 51466481664,
+      "roe": 10.751,
+      "gross_margin": 46.976003,
+      "rev_growth": 12.0,
+      "eps_growth": 1.2,
+      "pe": 28.67347,
+      "forward_pe": 22.36914,
+      "peg": 2.22,
+      "debt_equity": 1.92883,
+      "fcf_yield": -7.603196491158537,
+      "beta": 0.529,
+      "dividend_yield": 2.28,
+      "passed": false,
+      "score": 5.1,
+      "fails": [
+        "ROE 10.8% < 12.0%",
+        "EPSG 1.2%",
+        "FCF Yield -7.6%",
+        "D/E 1.9 > 1.5"
       ],
       "checks": 7
     },
@@ -15693,7 +15693,7 @@
       "rev_growth": -45.4,
       "eps_growth": null,
       "pe": 1.6714286,
-      "forward_pe": -0.32792848,
+      "forward_pe": -0.32742983,
       "peg": 0.12,
       "debt_equity": 3.5364299999999997,
       "fcf_yield": 383.2308572570318,
@@ -15722,7 +15722,7 @@
       "rev_growth": 30.0,
       "eps_growth": 40.1,
       "pe": 26.296295,
-      "forward_pe": 20.97302,
+      "forward_pe": 20.93845,
       "peg": 2.43,
       "debt_equity": 0.11382999999999999,
       "fcf_yield": 2.5384415750162406,
@@ -15772,7 +15772,7 @@
       "rev_growth": -2.1999999999999997,
       "eps_growth": 1.9,
       "pe": 10.83,
-      "forward_pe": 9.363818,
+      "forward_pe": 9.349579,
       "peg": 0.17,
       "debt_equity": 0.24074,
       "fcf_yield": 1.7473676717262405,
@@ -16011,7 +16011,7 @@
       "rev_growth": -17.5,
       "eps_growth": null,
       "pe": 30.599998,
-      "forward_pe": 6.774715,
+      "forward_pe": 6.7644134,
       "peg": 0.17,
       "debt_equity": 0.5892000000000001,
       "fcf_yield": 23.751045441006656,
@@ -16275,7 +16275,7 @@
       "rev_growth": 21.3,
       "eps_growth": 83.8,
       "pe": 14.97955,
-      "forward_pe": 14.480633,
+      "forward_pe": 14.458612,
       "peg": 0.97,
       "debt_equity": 0.20978000000000002,
       "fcf_yield": -0.8929091996415163,
@@ -16302,7 +16302,7 @@
       "rev_growth": 28.000000000000004,
       "eps_growth": 29.799999999999997,
       "pe": 20.917526,
-      "forward_pe": 14.381013,
+      "forward_pe": 14.359145,
       "peg": 1.57,
       "debt_equity": 0.010589999999999999,
       "fcf_yield": 5.56842195456295,
@@ -16356,7 +16356,7 @@
       "rev_growth": -7.6,
       "eps_growth": null,
       "pe": 36.369564,
-      "forward_pe": 10.385674,
+      "forward_pe": 10.369882,
       "peg": 0.33,
       "debt_equity": 0.53815,
       "fcf_yield": 7.057953248209111,
@@ -16411,7 +16411,7 @@
       "rev_growth": 6.0,
       "eps_growth": 9.4,
       "pe": 18.625542,
-      "forward_pe": 12.870596,
+      "forward_pe": 12.868075,
       "peg": 1.01,
       "debt_equity": 0.47195,
       "fcf_yield": 0.5680974257293214,
@@ -16436,7 +16436,7 @@
       "rev_growth": 27.1,
       "eps_growth": 4.213,
       "pe": 14.449541,
-      "forward_pe": 10.163766,
+      "forward_pe": 10.161776,
       "peg": 1.36,
       "debt_equity": 0.6106900000000001,
       "fcf_yield": 1.1116591416348243,
@@ -16463,7 +16463,7 @@
       "rev_growth": 9.8,
       "eps_growth": null,
       "pe": 34.799995,
-      "forward_pe": 16.95474,
+      "forward_pe": 16.928959,
       "peg": 2.58,
       "debt_equity": 0.38183999999999996,
       "fcf_yield": 7.0900815487325906,
@@ -16681,7 +16681,7 @@
       "rev_growth": 2.9000000000000004,
       "eps_growth": 1.041,
       "pe": 20.031546,
-      "forward_pe": 13.119152,
+      "forward_pe": 13.099202,
       "peg": 0.44,
       "debt_equity": 0.25014,
       "fcf_yield": -1.8081595090919396,
@@ -16820,7 +16820,7 @@
       "rev_growth": -1.2,
       "eps_growth": -59.3,
       "pe": null,
-      "forward_pe": 14.482622,
+      "forward_pe": 14.4606,
       "peg": 0.74,
       "debt_equity": 0.322,
       "fcf_yield": 2.280649092070903,
@@ -17045,7 +17045,7 @@
       "rev_growth": 7.3,
       "eps_growth": -6.1,
       "pe": 9.572916,
-      "forward_pe": 8.9943905,
+      "forward_pe": 8.992628,
       "peg": 23.75,
       "debt_equity": 0.32198,
       "fcf_yield": 1.2896520901254231,
@@ -17220,7 +17220,7 @@
       "rev_growth": -1.5,
       "eps_growth": -23.1,
       "pe": 10.770909,
-      "forward_pe": 7.1412377,
+      "forward_pe": 7.1294665,
       "peg": null,
       "debt_equity": 0.5118,
       "fcf_yield": 7.266302428274724,
@@ -17248,7 +17248,7 @@
       "rev_growth": 11.5,
       "eps_growth": 0.0,
       "pe": 114.07143,
-      "forward_pe": 58.089443,
+      "forward_pe": 58.078064,
       "peg": 9.58,
       "debt_equity": 0.40547,
       "fcf_yield": -0.7364855253932967,
@@ -17278,7 +17278,7 @@
       "rev_growth": -0.5,
       "eps_growth": null,
       "pe": 10.153847,
-      "forward_pe": 10.180751,
+      "forward_pe": 10.163968,
       "peg": 4.0,
       "debt_equity": 0.09191,
       "fcf_yield": null,
