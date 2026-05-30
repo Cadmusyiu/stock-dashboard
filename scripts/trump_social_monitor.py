@@ -17,6 +17,8 @@ import html
 from datetime import datetime, timezone, timedelta
 
 import requests
+from bs4 import BeautifulSoup
+from textblob import TextBlob
 
 HKT = timezone(timedelta(hours=8))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -100,6 +102,35 @@ KEYWORDS_ALERT = [
     "trade", "nuclear",
 ]
 
+def analyze_sentiment(text: str) -> dict:
+    """Return polarity (-1 to 1) and subjectivity (0 to 1).
+    Label: very_negative, negative, neutral, positive, very_positive"""
+    if not text or len(text) < 10:
+        return {"polarity": 0.0, "subjectivity": 0.0, "label": "neutral"}
+    blob = TextBlob(text[:2000])
+    pol = blob.sentiment.polarity
+    subj = blob.sentiment.subjectivity
+    if pol <= -0.5:
+        label = "very_negative"
+    elif pol <= -0.1:
+        label = "negative"
+    elif pol >= 0.5:
+        label = "very_positive"
+    elif pol >= 0.1:
+        label = "positive"
+    else:
+        label = "neutral"
+    return {"polarity": round(pol, 3), "subjectivity": round(subj, 3), "label": label}
+
+def sentiment_emoji(label: str) -> str:
+    return {
+        "very_negative": "🔴📉",
+        "negative": "🔴",
+        "neutral": "⚪",
+        "positive": "🟢",
+        "very_positive": "🟢📈",
+    }.get(label, "⚪")
+
 def check_keywords(text: str) -> list:
     tl = text.lower()
     return [kw for kw in KEYWORDS_ALERT if kw in tl]
@@ -112,6 +143,7 @@ def strip_html(t: str) -> str:
     return re.sub(r"<[^>]+>", "", t).strip()
 
 def fetch_truth_social(dedup: set) -> list:
+    """Fetch Trump's Truth Social posts via trumpstruth.org RSS."""
     new_posts = []
     try:
         resp = requests.get(TRUTH_RSS, timeout=20, headers={"User-Agent": USER_AGENT})
@@ -127,7 +159,13 @@ def fetch_truth_social(dedup: set) -> list:
             orig_url_el = item.find("{https://truthsocial.com/ns}originalUrl")
             orig_url = orig_url_el.text if orig_url_el is not None else link
 
-            text = strip_html(desc or title)
+            # Extract actual text from description HTML
+            if desc:
+                soup = BeautifulSoup(desc, "html.parser")
+                text = ' '.join(soup.stripped_strings)
+            else:
+                text = ""
+
             if not text or len(text) < 5:
                 continue
 
@@ -141,6 +179,7 @@ def fetch_truth_social(dedup: set) -> list:
             if not clean_title or clean_title.startswith("Post from"):
                 clean_title = ""
 
+            sentiment = analyze_sentiment(text)
             new_posts.append({
                 "id": pid,
                 "source": "Truth Social",
@@ -149,6 +188,7 @@ def fetch_truth_social(dedup: set) -> list:
                 "url": orig_url,
                 "timestamp": pub,
                 "detected_at": datetime.now(HKT).isoformat(),
+                "sentiment": sentiment,
             })
         print(f"  Truth Social: {len(new_posts)} new")
     except Exception as e:
@@ -200,6 +240,7 @@ def fetch_x_twitter(dedup: set) -> list:
                 else:
                     clean_title = title.strip()
 
+                sentiment = analyze_sentiment(text)
                 new_posts.append({
                     "id": pid,
                     "source": "X (Twitter)",
@@ -208,6 +249,7 @@ def fetch_x_twitter(dedup: set) -> list:
                     "url": f"https://x.com/realDonaldTrump/status/{hashlib.md5(text.encode()).hexdigest()[:12]}",
                     "timestamp": pub,
                     "detected_at": datetime.now(HKT).isoformat(),
+                    "sentiment": sentiment,
                 })
             print(f"  X/Twitter ({inst}): {count} new")
             if new_posts:
@@ -234,35 +276,108 @@ def main():
     if os.path.exists(FEED_FILE):
         try:
             with open(FEED_FILE) as f:
-                existing = json.load(f)
+                raw = json.load(f)
+                # Support both old (list) and new (dict with posts key) formats
+                if isinstance(raw, dict):
+                    existing = raw.get("posts", [])
+                else:
+                    existing = raw
         except:
             pass
 
     merged = all_new + existing
     merged = merged[:200]  # cap
 
+    # ── Sentiment metrics (last 24h) ──────────────────────────
+    from datetime import timedelta
+    now_hkt = datetime.now(HKT)
+    recent = [p for p in merged if "detected_at" in p and (now_hkt - datetime.fromisoformat(p["detected_at"])).total_seconds() < 86400]
+    if recent:
+        polarities = [p.get("sentiment", {}).get("polarity", 0) for p in recent if p.get("sentiment")]
+        labels = [p.get("sentiment", {}).get("label", "neutral") for p in recent if p.get("sentiment")]
+        metrics = {
+            "24h_post_count": len(recent),
+            "24h_avg_polarity": round(sum(polarities)/len(polarities), 3) if polarities else 0,
+            "24h_sentiment_breakdown": {
+                "very_negative": labels.count("very_negative"),
+                "negative": labels.count("negative"),
+                "neutral": labels.count("neutral"),
+                "positive": labels.count("positive"),
+                "very_positive": labels.count("very_positive"),
+            },
+        }
+        # Most extreme posts
+        mn = min(recent, key=lambda x: x.get("sentiment", {}).get("polarity", 5))
+        mx = max(recent, key=lambda x: x.get("sentiment", {}).get("polarity", -5))
+        if mn.get("sentiment",{}).get("polarity",0) < 0:
+            metrics["most_negative"] = {
+                "text": (mn.get("text","") or "")[:200],
+                "polarity": mn.get("sentiment",{}).get("polarity",0),
+                "source": mn.get("source",""),
+            }
+        if mx.get("sentiment",{}).get("polarity",0) > 0:
+            metrics["most_positive"] = {
+                "text": (mx.get("text","") or "")[:200],
+                "polarity": mx.get("sentiment",{}).get("polarity",0),
+                "source": mx.get("source",""),
+            }
+    else:
+        metrics = {"24h_post_count": 0, "24h_avg_polarity": 0, "24h_sentiment_breakdown": {}}
+
+    output = {
+        "posts": merged,
+        "metrics": metrics,
+        "updated_at": datetime.now(HKT).isoformat(),
+    }
+
     with open(FEED_FILE, "w") as f:
-        json.dump(merged, f, ensure_ascii=False, indent=2)
+        json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"\nFeed: {len(merged)} posts total ({len(all_new)} new)")
+    print(f"Feed: {len(merged)} posts total ({len(all_new)} new)")
+    print(f"  📊 24h sentiment avg: {metrics.get('24h_avg_polarity',0)} | breakdown: {metrics.get('24h_sentiment_breakdown',{})}")
 
-    # Telegram alerts for keyword matches
+    # Telegram alerts: only for strong sentiment + keywords, or very strong sentiment alone
+    sent_alerts = []
     for post in all_new:
-        kw = check_keywords(post.get("text", "") or post.get("title", ""))
-        if kw:
+        txt = post.get("text", "") or post.get("title", "") or ""
+        kw = check_keywords(txt)
+        sent = post.get("sentiment", {})
+        label = sent.get("label", "neutral") if sent else "neutral"
+        polarity = sent.get("polarity", 0) if sent else 0
+        
+        should_alert = False
+        alert_reason = []
+        
+        # Strong sentiment alone → alert
+        if label in ("very_negative", "very_positive"):
+            should_alert = True
+            alert_reason.append(f"{label} ({polarity:+.2f})")
+        
+        # Keyword match with non-neutral sentiment → alert
+        if kw and label in ("negative", "positive", "very_negative", "very_positive"):
+            should_alert = True
+            alert_reason.extend(kw[:3])
+        
+        if should_alert:
             src = post["source"]
-            txt = (post.get("text", "") or post.get("title", "") or "")[:300]
             ts = post["timestamp"][:19] if post["timestamp"] else ""
+            sent_str = sentiment_emoji(label) + f" {polarity:+.2f}"
             msg = (
-                f"🔴 <b>Trump Alert</b> | {src}\n"
-                f"📌 {', '.join(kw[:5])}\n"
+                f"🔴 <b>Trump Alert</b> | {src} {sent_str}\n"
+                f"📌 {', '.join(alert_reason[:4])}\n"
                 f"🕐 {ts} HKT\n\n"
-                f"{txt}"
+                f"{txt[:400]}"
             )
             if post.get("url"):
                 msg += f"\n\n<a href='{post['url']}'>🔗 View Post</a>"
-            send_telegram(msg)
-            print(f"  🔔 Telegram alert: {kw}")
+            sent_alerts.append(msg)
+            print(f"  🔔 Alert: {alert_reason}")
+    
+    # Send alerts (max 5 per run to avoid spam)
+    for msg in sent_alerts[:5]:
+        send_telegram(msg)
+    if len(sent_alerts) > 5:
+        send_telegram(f"🔴 <b>Trump Social Summary</b> — {len(sent_alerts)} notable posts in this check.\nCheck dashboard for details: https://cadmusyiu.github.io/stock-dashboard/")
 
     print(f"\n[{datetime.now(HKT).isoformat()}] ✅ Done.")
 
