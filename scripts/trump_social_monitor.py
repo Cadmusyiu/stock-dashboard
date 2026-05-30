@@ -19,6 +19,7 @@ from datetime import datetime, timezone, timedelta
 import requests
 from bs4 import BeautifulSoup
 from textblob import TextBlob
+from collections import Counter
 
 HKT = timezone(timedelta(hours=8))
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -102,14 +103,131 @@ KEYWORDS_ALERT = [
     "trade", "nuclear",
 ]
 
+# ── Financial/Political Keyword Lexicon ─────────────────────────────
+FINANCIAL_LEXICON = [
+    (r"tariff(s)?", -0.40, "trade", "Tariffs = trade war risk, bearish for equities"),
+    (r"tariff (man|wom)", -0.60, "trade", "Tariff Man persona = aggressive trade stance"),
+    (r"trade (war|dispute|tension)", -0.50, "trade", "Trade war escalation = bearish"),
+    (r"trade (deal|agreement|negotiation)", 0.25, "trade", "Trade deal progress = mildly bullish"),
+    (r"reciprocal", -0.20, "trade", "Reciprocal tariffs = retaliation risk"),
+    (r"(unfair|unjust) trade", -0.30, "trade", "Claims unfair trade = escalation risk"),
+    (r"america first", 0.15, "policy", "America First = protectionist, mixed"),
+    (r"(fed|federal reserve)", -0.05, "monetary", "Fed mention — neutral by itself"),
+    (r"(rate cut|lower(ing)? (interest )?rate)", 0.35, "monetary", "Rate cuts = bullish equities"),
+    (r"(rate hike|raise (interest )?rate)", -0.40, "monetary", "Rate hikes = bearish equities"),
+    (r"interest rate(s)?", -0.05, "monetary", "Interest rate mention — context needed"),
+    (r"quantitative easing", 0.25, "monetary", "QE = bullish liquidity"),
+    (r"tighten(ing)?", -0.30, "monetary", "Tightening = bearish liquidity"),
+    (r"inflation", -0.35, "macro", "Inflation = stagflation risk, bearish"),
+    (r"(disinflation|deflation)", 0.10, "macro", "Disinflation = mildly positive"),
+    (r"(hyperinflation|runaway inflation)", -0.70, "macro", "Hyperinflation threat = very bearish"),
+    (r"(cpi|consumer price)", -0.20, "macro", "CPI high = rate pressure"),
+    (r"recession", -0.60, "macro", "Recession mention = very bearish"),
+    (r"(economic (slowdown|downturn|weakness))", -0.45, "macro", "Economic weakness = bearish"),
+    (r"(depression|great depression)", -0.80, "macro", "Depression comparison = extremely bearish"),
+    (r"(soft landing|economic resilience)", 0.30, "macro", "Soft landing = bullish"),
+    (r"(strong|powerful) dollar", 0.20, "fx", "Strong dollar = mixed"),
+    (r"(weak|weakening) dollar", -0.25, "fx", "Weak dollar = inflationary"),
+    (r"(devalue|devaluation)", -0.40, "fx", "Currency devaluation = bearish"),
+    (r"(reserve currency|petrodollar)", 0.30, "fx", "Reserve currency status = bullish USD"),
+    (r"de-dollarization", -0.50, "fx", "De-dollarization threat = very bearish USD"),
+    (r"(oil (price|supply|production))", -0.10, "energy", "Oil mention — context dependent"),
+    (r"(drill|fracking|energy independence)", 0.20, "energy", "Drill baby drill = bullish energy stocks"),
+    (r"(opec|oil cut|supply cut)", -0.25, "energy", "OPEC cuts = higher oil = mixed"),
+    (r"(gas price|petrol)", -0.15, "energy", "Gas prices rising = consumer pain"),
+    (r"(green energy|renewable|climate)", 0.10, "energy", "Green energy = positive for renewables"),
+    (r"(defense|military spending|pentagon)", 0.10, "defense", "Defense spending = bullish defense stocks"),
+    (r"(war|military action|strike|bomb)", -0.50, "conflict", "Military action = geopolitical risk, bearish"),
+    (r"(nuclear (weapon|program|threat))", -0.45, "conflict", "Nuclear threat = high geopolitical risk"),
+    (r"(sanction|embargo)", -0.20, "conflict", "Sanctions = trade disruption risk"),
+    (r"(peace (deal|agreement|negotiation))", 0.40, "conflict", "Peace progress = risk down, bullish"),
+    (r"ceasefire", 0.35, "conflict", "Ceasefire = de-escalation, mildly bullish"),
+    (r"(troop|deploy|escalat)", -0.35, "conflict", "Troop deployment = escalation risk"),
+    (r"iran", -0.25, "geopolitics", "Iran mention = geopolitical risk"),
+    (r"(iran deal|jcpoa)", 0.30, "geopolitics", "Iran deal diplomacy = de-escalation"),
+    (r"iran.*(nuclear|weapon|missile)", -0.50, "geopolitics", "Iran nuclear threat = high risk"),
+    (r"(maximum pressure|snapback|iran sanction)", -0.25, "geopolitics", "Iran pressure = tension"),
+    (r"(stock market|dow|s&p|nasdaq)", 0.10, "markets", "Stock market mention — bullish claims"),
+    (r"(new high|record high|all.?time high)", 0.50, "markets", "Record highs = bullish confidence"),
+    (r"(market (crash|plunge|tumble|sell.?off))", -0.70, "markets", "Market crash = very bearish"),
+    (r"(rally|surge|soar|boom)", 0.40, "markets", "Market rally = bullish"),
+    (r"(volatility|uncertainty|turbulence)", -0.25, "markets", "Volatility/uncertainty = mildly bearish"),
+    (r"(bitcoin|crypto|blockchain)", 0.20, "crypto", "Crypto mention = positive (Trump pro-crypto)"),
+    (r"(digital asset|web3|defi)", 0.25, "crypto", "Digital asset mention = positive signal"),
+    (r"(cbdc|central bank digital currency)", -0.10, "crypto", "CBDC = mixed for decentralized crypto"),
+    (r"(crypto (reserve|regulation|bill|policy))", 0.30, "crypto", "Crypto policy progress = bullish"),
+    (r"china", -0.20, "geopolitics", "China mention = trade tension, mildly bearish"),
+    (r"(china.*(tariff|trade|sanction))", -0.40, "geopolitics", "China tariff/sanction = trade war escalation"),
+    (r"(china.*(deal|agreement|cooperation))", 0.20, "geopolitics", "China deal = de-escalation, mildly bullish"),
+    (r"(taiwan|south china sea)", -0.35, "geopolitics", "Taiwan/SCS = geopolitical flashpoint"),
+    (r"tax cut(s)?", 0.40, "fiscal", "Tax cuts = bullish for equities"),
+    (r"tax (increase|hike|raise)", -0.45, "fiscal", "Tax hikes = bearish for equities"),
+    (r"(corporate|business) tax", 0.30, "fiscal", "Corporate tax = positive if cuts"),
+    (r"(deficit|national debt|fiscal)", -0.30, "fiscal", "Deficit/debt = fiscal risk, bearish"),
+    (r"(government shutdown|debt ceiling)", -0.40, "fiscal", "Govt shutdown = uncertainty, bearish"),
+    (r"infrastructure", 0.20, "fiscal", "Infrastructure spending = mildly bullish"),
+    (r"(election|vote|ballot)", -0.10, "politics", "Election mention = political uncertainty"),
+    (r"(landslide|win|victory)", 0.25, "politics", "Electoral win = stability, mildly bullish"),
+    (r"(impeach|indict|investigat|prosecute)", -0.35, "politics", "Legal trouble = political risk, bearish"),
+    (r"(fake news|witch hunt|hoax)", -0.20, "politics", "Attack rhetoric = combative"),
+    (r"(rigged|fraud|corrupt)", -0.35, "politics", "Corruption claims = instability, bearish"),
+    (r"(nvda|nvidia)", 0.15, "stocks", "NVIDIA = AI leader, mildly positive"),
+    (r"(apple|aapl)", 0.10, "stocks", "Apple = market bellwether"),
+    (r"(googl|google)", 0.10, "stocks", "Google = tech bellwether"),
+    (r"(meta|facebook)", 0.10, "stocks", "Meta = tech bellwether"),
+    (r"(amzn|amazon)", 0.10, "stocks", "Amazon = consumer/cloud bellwether"),
+    (r"(msft|microsoft)", 0.15, "stocks", "Microsoft = AI leader"),
+    (r"(pltr|palantir)", 0.20, "stocks", "Palantir = defense/AI correlation"),
+    (r"(ba|boeing)", -0.10, "stocks", "Boeing = mixed"),
+    (r"(tsla|tesla)", 0.15, "stocks", "Tesla = Trump/Musk alignment"),
+    (r"(djia|trump media|djt)", 0.20, "stocks", "Trump Media = correlation"),
+    (r"(border|immigration|deport)", -0.15, "policy", "Immigration policy = political uncertainty"),
+    (r"(wall|border security)", 0.10, "policy", "Border wall = base signal"),
+    (r"(great (again|job|economy|day|honor))" , 0.30, "general", "Positive rhetoric"),
+    (r"(disaster|catastrophe|terrible|worst|horrible)", -0.45, "general", "Negative rhetoric = bearish"),
+    (r"(wonderful|beautiful|fantastic|incredible|unprecedented)", 0.20, "general", "Trump positive adjectives"),
+    (r"(sad|pathetic|disgrace|weak|dumb|stupid)", -0.30, "general", "Trump negative adjectives"),
+    (r"(we will win|we are winning|we won)", 0.25, "general", "Confidence signal"),
+    (r"(they are killing us|they are destroying)", -0.40, "general", "Victim rhetoric = negative outlook"),
+]
+
 def analyze_sentiment(text: str) -> dict:
-    """Return polarity (-1 to 1) and subjectivity (0 to 1).
-    Label: very_negative, negative, neutral, positive, very_positive"""
+    """
+    Hybrid financial/political sentiment analysis:
+    1. Check keyword lexicon first (domain-specific financial/political terms)
+    2. Fallback to TextBlob for general English sentiment
+    
+    Returns polarity, subjectivity, label, matched terms, method, and confidence.
+    """
     if not text or len(text) < 10:
-        return {"polarity": 0.0, "subjectivity": 0.0, "label": "neutral"}
-    blob = TextBlob(text[:2000])
-    pol = blob.sentiment.polarity
-    subj = blob.sentiment.subjectivity
+        return {
+            "polarity": 0.0, "subjectivity": 0.0, "label": "neutral",
+            "method": "none", "matches": [], "confidence": 0
+        }
+    txt_lower = text.lower()
+    matched_terms = []
+    total_impact = 0.0
+    for pattern, impact, category, explanation in FINANCIAL_LEXICON:
+        if re.search(pattern, txt_lower):
+            matched_terms.append({
+                "term": pattern.strip("()").replace("\\","").split("|")[0].rstrip("?s"),
+                "impact": impact,
+                "category": category,
+                "explanation": explanation,
+            })
+            total_impact += impact
+    if matched_terms:
+        n = len(matched_terms)
+        avg_impact = total_impact / n
+        confidence = min(1.0, (n * abs(avg_impact)) / 0.5)
+        pol = max(-1.0, min(1.0, avg_impact))
+        subj = min(1.0, 0.3 + confidence * 0.4)
+    else:
+        blob = TextBlob(text[:2000])
+        pol = blob.sentiment.polarity
+        subj = blob.sentiment.subjectivity
+        confidence = min(1.0, len(text) / 500)
+        matched_terms = []
     if pol <= -0.5:
         label = "very_negative"
     elif pol <= -0.1:
@@ -120,7 +238,14 @@ def analyze_sentiment(text: str) -> dict:
         label = "positive"
     else:
         label = "neutral"
-    return {"polarity": round(pol, 3), "subjectivity": round(subj, 3), "label": label}
+    return {
+        "polarity": round(pol, 3),
+        "subjectivity": round(subj, 3),
+        "label": label,
+        "method": "lexicon" if matched_terms else "textblob",
+        "matches": matched_terms[:10],
+        "confidence": round(confidence, 2),
+    }
 
 def sentiment_emoji(label: str) -> str:
     return {
