@@ -953,13 +953,24 @@ window.renderSocialFeed = function(data, content, tsEl){
     var avgEmoji = avg > 0.2 ? '🟢📈' : avg < -0.2 ? '🔴📉' : '⚪';
     var mostNeg = metrics.most_negative;
     var mostPos = metrics.most_positive;
-    html += '<div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;font-size:11px;">' +
+    // Multi-category averages
+    var posts = data.posts || data;
+    var lexPosts = posts.filter(function(p){ return p.sentiment && p.sentiment.method === 'lexicon'; });
+    var avgEq = lexPosts.length ? lexPosts.reduce(function(s,p){ return s + (p.sentiment.us_equities||0); }, 0) / lexPosts.length : 0;
+    var avgFx = lexPosts.length ? lexPosts.reduce(function(s,p){ return s + (p.sentiment.fx||0); }, 0) / lexPosts.length : 0;
+    var avgCr = lexPosts.length ? lexPosts.reduce(function(s,p){ return s + (p.sentiment.crypto||0); }, 0) / lexPosts.length : 0;
+    var avgGr = lexPosts.length ? lexPosts.reduce(function(s,p){ return s + (p.sentiment.geo_risk||0); }, 0) / lexPosts.length : 0;
+    html += '<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;font-size:11px;">' +
       '<span style="background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:6px;">📊 <b>24h</b> ' + metrics['24h_post_count'] + ' posts</span>' +
       '<span style="background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:6px;">' + avgEmoji + ' Avg ' + avg.toFixed(2) + '</span>' +
       '<span style="background:rgba(255,255,255,0.06);padding:4px 10px;border-radius:6px;font-size:10px;">🔴' + bd.negative + ' ⚪' + bd.neutral + ' 🟢' + bd.positive + '</span>' +
-      (mostNeg ? '<span style="background:rgba(255,71,87,0.15);padding:4px 10px;border-radius:6px;color:#ff6b6b;font-size:10px;cursor:pointer;" title="' + escapeHtml(mostNeg.text) + '">🔴 Most negative: ' + mostNeg.polarity.toFixed(2) + '</span>' : '') +
-      (mostPos ? '<span style="background:rgba(46,213,115,0.15);padding:4px 10px;border-radius:6px;color:#2ed573;font-size:10px;cursor:pointer;" title="' + escapeHtml(mostPos.text) + '">🟢 Most positive: ' + mostPos.polarity.toFixed(2) + '</span>' : '') +
-      '</div>';
+      '</div>' +
+      '<div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;font-size:10px;">' +
+      '<span style="background:rgba(46,125,255,0.1);padding:2px 8px;border-radius:4px;">🇺🇸 US Eq <b style="color:'+(avgEq>0?'#4caf50':'#ff5252')+'">'+avgEq.toFixed(3)+'</b></span>' +
+      '<span style="background:rgba(46,125,255,0.1);padding:2px 8px;border-radius:4px;">💵 USD <b style="color:'+(avgFx>0?'#4caf50':'#ff5252')+'">'+avgFx.toFixed(3)+'</b></span>' +
+      '<span style="background:rgba(46,125,255,0.1);padding:2px 8px;border-radius:4px;">₿ Crypto <b style="color:'+(avgCr>0?'#4caf50':'#ff5252')+'">'+avgCr.toFixed(3)+'</b></span>' +
+      '<span style="background:rgba(255,71,87,0.15);padding:2px 8px;border-radius:4px;">⚠️ Geo Risk <b style="color:'+(avgGr>0.3?'#ff5252':'#888')+'">'+avgGr.toFixed(3)+'</b></span>' +
+      '</div>'
   }
 
   // ── Posts ─────────────────────────────────────────
@@ -989,11 +1000,15 @@ window.renderSocialFeed = function(data, content, tsEl){
       '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
       '<span style="font-size:10px;color:var(--text-muted);">' + (post.sentiment ? sentEmoji[post.sentiment.label] || '' : '') + ' ' + sourceIcon + ' ' + source + isNew + '</span>' +
       '<span style="font-size:9px;color:var(--text-muted);">' +
-        (post.sentiment ? '<span style="color:'+sentColors[post.sentiment.label]+'">'+post.sentiment.polarity.toFixed(2)+'</span>' +
-          (post.sentiment.matches && post.sentiment.matches.length > 0 ?
-            ' <span style="opacity:0.5">|</span> ' + post.sentiment.matches.map(function(m){ return m.term }).slice(0,3).join(', ') : '') +
-          ' | ' + post.sentiment.method : '') +
-        tsFormatted + '</span></div>' +
+        (post.sentiment ? '<span style="color:'+sentColors[post.sentiment.label]+'">'+post.sentiment.polarity.toFixed(2)+'</span>' : '') +
+        (post.sentiment && post.sentiment.method === 'lexicon' ?
+          ' 🇺🇸'+post.sentiment.us_equities.toFixed(2) +
+          (post.sentiment.fx ? ' 💵'+post.sentiment.fx.toFixed(2) : '') +
+          (post.sentiment.crypto ? ' ₿'+post.sentiment.crypto.toFixed(2) : '') +
+          (post.sentiment.geo_risk > 0.3 ? ' ⚠️'+post.sentiment.geo_risk.toFixed(2) : '') : '') +
+        (post.sentiment && post.sentiment.matches && post.sentiment.matches.length > 0 ?
+          ' <span style="opacity:0.4">|</span> ' + post.sentiment.matches.map(function(m){ return m.term }).slice(0,3).join(', ') : '') +
+        ' | ' + tsFormatted + '</span></div>' +
       '<div style="font-size:11px;line-height:1.5;">' + displayText + '</div>' +
       (url ? '<div style="margin-top:3px;"><a href="' + url + '" target="_blank" style="color:var(--accent);font-size:10px;text-decoration:none;">🔗 View on ' + source + '</a></div>' : '') +
       '</div>';

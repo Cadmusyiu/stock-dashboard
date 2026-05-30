@@ -7,14 +7,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116661706730496718",
       "url": "https://truthsocial.com/@realDonaldTrump/116661707551593139",
       "timestamp": "Sat, 30 May 2026 04:46:27 +0000",
-      "detected_at": "2026-05-30T22:34:16.292694+08:00",
+      "detected_at": "2026-05-30T22:46:27.244067+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -24,14 +27,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116661451693288924",
       "url": "https://truthsocial.com/@realDonaldTrump/116661452379709751",
       "timestamp": "Sat, 30 May 2026 03:41:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.293367+08:00",
+      "detected_at": "2026-05-30T22:46:27.244749+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -41,21 +47,17 @@
       "text": "Dhillon wants judge who allegedly attended a Fani Willis event off Georgia election integrity case: https:// justthenews.com/government/cou rts-law/dhillon-moves-recuse-atlanta-judge-over-alleged-attendance-democratic-event",
       "url": "https://truthsocial.com/@realDonaldTrump/116661444515288014",
       "timestamp": "Sat, 30 May 2026 03:39:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.294281+08:00",
+      "detected_at": "2026-05-30T22:46:27.245410+08:00",
       "sentiment": {
-        "polarity": -0.1,
-        "subjectivity": 0.38,
-        "label": "negative",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          }
-        ],
-        "confidence": 0.2
+        "polarity": 0.05,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.45,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -65,27 +67,29 @@
       "text": "The Failing New York Times is doing everything possible to criticize the magnificent restoration of the Reflecting Pool, located between two of America’s most important Landmarks, The Lincoln Memorial, and The Washington Monument. Hundreds of Millions of Dollars have been spent throughout the years trying to fix it, and even from its inception, in 1922, it never really worked! Finally, we have professionals doing the right job for a tiny fraction of the money that has been spent, and The Failing New York Times continues to demean the work of these wonderful, talented, and proud construction professionals that are bringing this over 2,000 foot long pool, the largest in the World, BACK TO LIFE! It is happening before your very eyes, and will soon be completed at a much higher level, and after doing much more work than was originally anticipated. As an example, in addition to doing the interior Pool, we are restoring the walkway surfaces on each side, fixing the water system, drainage, an",
       "url": "https://truthsocial.com/@realDonaldTrump/116660696782546784",
       "timestamp": "Sat, 30 May 2026 00:29:24 +0000",
-      "detected_at": "2026-05-30T22:34:16.295535+08:00",
+      "detected_at": "2026-05-30T22:46:27.246487+08:00",
       "sentiment": {
-        "polarity": 0.05,
-        "subjectivity": 0.38,
+        "polarity": -0.047,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 0.2
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -95,51 +99,62 @@
       "text": "It is my Great Honor to endorse MAGA Warrior, Mike Mazzei, who is running for Governor of Oklahoma, a State which I love, and WON BIG — All 77 out of 77 Counties in 2016, 2020, and 2024, and with the Highest Popular Vote Count, EVER! As a successful Businessman, and former Chairman of the State Senate Finance Committee, and later, as Oklahoma’s Secretary of Budget, Mike knows the AMERICA FIRST Policies required to Grow our Economy, Create GREAT Jobs, Cut Taxes and Regulations, Promote MADE IN THE U.S.A., and Unleash American Energy DOMINANCE. As your next Governor, Mike will fight tirelessly to Support our Amazing Farmers and Ranchers, Keep our Border SECURE, Stop Migrant Crime, Ensure LAW AND ORDER, Strengthen our Military/Veterans, and Defend our always under siege Second Amendment. Mike Mazzei has my Complete and Total Endorsement to be the next Governor of Oklahoma — HE WILL NEVER LET YOU DOWN!",
       "url": "https://truthsocial.com/@realDonaldTrump/116660095799513934",
       "timestamp": "Fri, 29 May 2026 21:56:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.296110+08:00",
+      "detected_at": "2026-05-30T22:46:27.246987+08:00",
       "sentiment": {
-        "polarity": -0.033,
-        "subjectivity": 0.46,
+        "polarity": -0.059,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "america first",
-            "impact": 0.15,
-            "category": "policy",
-            "explanation": "America First = protectionist, mixed"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.4
+        "confidence": 0.48,
+        "us_equities": -0.046,
+        "fx": 0.212,
+        "crypto": -0.085,
+        "geo_risk": 0.45
       }
     },
     {
@@ -149,51 +164,40 @@
       "text": "Highly Respected and very popular Lieutenant Governor of South Carolina, Pam Evette, is an America First Patriot who has been with me from the very beginning. She never wavered, never let me down, and was the only South Carolina Gubernatorial Candidate to Endorse me as soon as I launched my 2024 Presidential Campaign. She crisscrossed South Carolina and other States for me, and I said, at the time, that this is truly something which I cannot forget! Now Pam is running to be the next Governor of South Carolina, a place I love and WON BIG in 2016, 2020, and 2024, getting the Highest Vote, BY FAR, in the State’s History. A successful Entrepreneur, Businesswoman, and Civic Leader, prior to becoming a distinguished Lieutenant Governor, and working with my friend, and GREAT Governor, Henry McMaster, Pam has proven she has the Courage and Wisdom to deliver strong results for the people of her wonderful State, and our Nation. As your next Governor, Pam will fight hard to Grow the Economy, Cut ",
       "url": "https://truthsocial.com/@realDonaldTrump/116660051960105935",
       "timestamp": "Fri, 29 May 2026 21:45:24 +0000",
-      "detected_at": "2026-05-30T22:34:16.296934+08:00",
+      "detected_at": "2026-05-30T22:46:27.247686+08:00",
       "sentiment": {
-        "polarity": 0.075,
-        "subjectivity": 0.66,
+        "polarity": 0.068,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "america first",
-            "impact": 0.15,
-            "category": "policy",
-            "explanation": "America First = protectionist, mixed"
-          },
-          {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.9
+        "confidence": 0.24,
+        "us_equities": 0.085,
+        "fx": 0.0,
+        "crypto": 0.035,
+        "geo_risk": 0.07
       }
     },
     {
@@ -203,57 +207,51 @@
       "text": "Shockingly, a Judge appointed by Barack Hussein Obama, Christopher Cooper, ruled that The Kennedy Center, which was going to close in early July for largescale renovations and construction due to years of neglect, decay, and poor maintenance, and which was to be transformed by the Trump Administration into the Finest Facility of its kind, anywhere in the World, is not allowed to close for these renovations, which would not be possible to properly do without such a closure. Additionally, Judge Cooper ruled that the 36 Member Board of Trustees, which unanimously voted to add the name “TRUMP” onto the former Kennedy Center, making it The Trump Kennedy Center, did not have the right to do such an addition, and the name, “TRUMP,” must be removed. The Kennedy Center has lost, over the years, prior to our getting involved a short while ago, Hundreds of Millions of Dollars — In some cases, including ridiculous construction jobs that were done, over 100 Million Dollars a year. I took great prid",
       "url": "https://truthsocial.com/@realDonaldTrump/116659958155235373",
       "timestamp": "Fri, 29 May 2026 21:21:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.298553+08:00",
+      "detected_at": "2026-05-30T22:46:27.249059+08:00",
       "sentiment": {
-        "polarity": 0.064,
-        "subjectivity": 0.66,
+        "polarity": 0.034,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "rally",
-            "impact": 0.4,
             "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
             "explanation": "Market rally = bullish"
           },
           {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 0.9
+        "confidence": 0.36,
+        "us_equities": 0.03,
+        "fx": 0.07,
+        "crypto": 0.043,
+        "geo_risk": 0.49
       }
     },
     {
@@ -263,14 +261,17 @@
       "text": "https:// trumprx.gov",
       "url": "https://truthsocial.com/@realDonaldTrump/116659423633673489",
       "timestamp": "Fri, 29 May 2026 19:05:37 +0000",
-      "detected_at": "2026-05-30T22:34:16.298894+08:00",
+      "detected_at": "2026-05-30T22:46:27.249341+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.04
+        "confidence": 0.04,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -280,39 +281,51 @@
       "text": "RT @ realDonaldTrump Highly Respected American First Congressman, Randy Feenstra, is running for Governor of Iowa, a place I love and WON BIG in 2016, 2020, and 2024, getting the highest Vote in the History of Iowa. Randy is MAGA all the way! A Fourth Generation Iowan, successful Businessman, former Treasurer of Sioux County, State Senator, and now, as a distinguished U.S. Congressman, Randy has delivered strong results for the Hawkeye State. As your next Governor, Randy will fight tirelessly to Grow the Economy, Cut Taxes and Regulations, Promote MADE IN THE U.S.A., Unleash American Energy DOMINANCE, Champion our Amazing Farmers and Ranchers, Empower Ethanol, Keep our Border SECURE, Stop Migrant Crime, Ensure LAW AND ORDER, Strengthen our incredible Military, Veterans, and Law Enforcement, Advance Election Integrity, and Defend our always under siege Second Amendment. Randy Feenstra has my Complete and Total Endorsement to be the next Governor of Iowa — RANDY WILL NEVER LET YOU DOWN! ",
       "url": "https://truthsocial.com/@realDonaldTrump/116659206325360030",
       "timestamp": "Fri, 29 May 2026 18:10:21 +0000",
-      "detected_at": "2026-05-30T22:34:16.299615+08:00",
+      "detected_at": "2026-05-30T22:46:27.249908+08:00",
       "sentiment": {
-        "polarity": 0.013,
-        "subjectivity": 0.34,
+        "polarity": 0.092,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "stock market",
-            "impact": 0.1,
-            "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
+            "term": "stock market",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.1
+        "confidence": 0.36,
+        "us_equities": 0.12,
+        "fx": 0.105,
+        "crypto": 0.035,
+        "geo_risk": 0.043
       }
     },
     {
@@ -322,63 +335,62 @@
       "text": "RT @ realDonaldTrump It is my Great Honor to endorse America First Patriot, David Flippo, who is running to represent the fantastic people of Nevada’s 2nd Congressional District! He is strongly supported by the most Highly Respected MAGA Warriors in Nevada, and many Republicans in the U.S. House of Representatives. I won Nevada in a virtual Landslide in 2024, and have always done phenomenally well there. I love the State — The People are special! I will never let you down and, with David Flippo, I am just adding to that Statement. He will be GREAT for you, for the State, and for our Country! The Democrats, and some of David’s Republican Opponents, would like to end NO TAX ON TIPS. That won’t happen with David and I on watch! A retired U.S. Air Force Lieutenant Colonel, David knows the Wisdom and Courage required to Defend our Country, Support our incredible Military/Veterans, and Ensure PEACE THROUGH STRENGTH. A successful Small Business Owner and Civic Leader, prior to running for Con",
       "url": "https://truthsocial.com/@realDonaldTrump/116659206146484408",
       "timestamp": "Fri, 29 May 2026 18:10:18 +0000",
-      "detected_at": "2026-05-30T22:34:16.300582+08:00",
+      "detected_at": "2026-05-30T22:46:27.250605+08:00",
       "sentiment": {
-        "polarity": 0.031,
-        "subjectivity": 0.5,
+        "polarity": -0.059,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "america first",
-            "impact": 0.15,
-            "category": "policy",
-            "explanation": "America First = protectionist, mixed"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.5
+        "confidence": 0.48,
+        "us_equities": -0.046,
+        "fx": 0.212,
+        "crypto": -0.085,
+        "geo_risk": 0.45
       }
     },
     {
@@ -388,45 +400,62 @@
       "text": "RT @ NewtGingrich After spending this week reviewing the Iranian war I am now convinced President Trump is on the edge of an historic victory. The real breakthrough for me came as I reviewed President Trump’s decisions and maneuvers not from the standpoint of American unilateralism but from the standpoint of the leader of a remarkable historic coalition, the largest coalition ever put together in the modern Middle East. Everyone understands that Israel is an important ally. What is little discussed is the depth of support from the United Arab Emirates, Qatar, Bahrain, Saudi Arabia and other countries in the region. It has to be sobering for the Iranian dictatorship to realize that it does not have a  single ally willing to challenge the American naval blockade. Slowly, gradually, timidly, our European allies are lining up to help with the Persian Gulf and the Strait of Hormuz. A great deal of President Trump’s maneuvers against Iran make sense once he is seen as a coalition leader and ",
       "url": "https://truthsocial.com/@realDonaldTrump/116659205867536088",
       "timestamp": "Fri, 29 May 2026 18:10:14 +0000",
-      "detected_at": "2026-05-30T22:34:16.301943+08:00",
+      "detected_at": "2026-05-30T22:46:27.251748+08:00",
       "sentiment": {
-        "polarity": -0.08,
-        "subjectivity": 0.62,
-        "label": "neutral",
+        "polarity": -0.128,
+        "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "infrastructure",
-            "impact": 0.2,
             "category": "fiscal",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Infrastructure spending = mildly bullish"
           },
           {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.8
+        "confidence": 0.48,
+        "us_equities": -0.139,
+        "fx": 0.128,
+        "crypto": -0.105,
+        "geo_risk": 0.892
       }
     },
     {
@@ -436,57 +465,84 @@
       "text": "RT @ realDonaldTrump Iran must agree that they will never have a Nuclear Weapon or Bomb. The Hormuz Strait must be immediately open, no tolls, for unrestricted shipping traffic, in both directions. All water mines (bombs), if any, will be terminated (we have removed, through detonation, numerous such mines with our great underwater mine sweepers. Iran will complete the immediate removal and/or detonation of any mines that are left, which will not be many!). Ships caught in the Strait due to our amazing and unprecedented Naval Blockade, which will now be lifted, may start the process of “heading home!” Say HELLO to your wives, husbands, parents, and families from me, your favorite President! The enriched material, sometimes referred to as “Nuclear Dust,” which is buried deep underground with virtually collapsed mountains, caused by our powerful B2 Bomber attack 11 months ago, sitting on top of it, will be unearthed by the United States (which, it is agreed, is the only Country, along wi",
       "url": "https://truthsocial.com/@realDonaldTrump/116659205590853554",
       "timestamp": "Fri, 29 May 2026 18:10:10 +0000",
-      "detected_at": "2026-05-30T22:34:16.302714+08:00",
+      "detected_at": "2026-05-30T22:46:27.252426+08:00",
       "sentiment": {
-        "polarity": -0.257,
-        "subjectivity": 0.7,
+        "polarity": -0.268,
         "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "nuclear (weapon",
-            "impact": -0.45,
             "category": "conflict",
+            "impacts": {
+              "us_equities": -0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
             "explanation": "Nuclear threat = high geopolitical risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "iran.*(nuclear",
-            "impact": -0.5,
             "category": "geopolitics",
-            "explanation": "Iran nuclear threat = high risk"
+            "impacts": {
+              "us_equities": -0.25,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
+            "explanation": "Iran nuclear = serious geopolitical risk"
           },
           {
             "term": "china",
-            "impact": -0.2,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.15,
+              "fx": -0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.25
+            },
             "explanation": "China mention = trade tension, mildly bearish"
           },
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.72,
+        "us_equities": -0.349,
+        "fx": 0.06,
+        "crypto": -0.105,
+        "geo_risk": 0.978
       }
     },
     {
@@ -496,14 +552,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116659199101518195",
       "url": "https://truthsocial.com/@realDonaldTrump/116659200660268047",
       "timestamp": "Fri, 29 May 2026 18:08:55 +0000",
-      "detected_at": "2026-05-30T22:34:16.303110+08:00",
+      "detected_at": "2026-05-30T22:46:27.252785+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -513,14 +572,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116659197799313118",
       "url": "https://truthsocial.com/@realDonaldTrump/116659199101518195",
       "timestamp": "Fri, 29 May 2026 18:08:31 +0000",
-      "detected_at": "2026-05-30T22:34:16.303379+08:00",
+      "detected_at": "2026-05-30T22:46:27.253026+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -530,21 +592,29 @@
       "text": "So unfair to Tina Peters — 9 years vs. ZERO! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116659197463770070",
       "timestamp": "Fri, 29 May 2026 18:08:06 +0000",
-      "detected_at": "2026-05-30T22:34:16.303562+08:00",
+      "detected_at": "2026-05-30T22:46:27.253190+08:00",
       "sentiment": {
-        "polarity": 0.2,
-        "subjectivity": 0.46,
-        "label": "positive",
+        "polarity": 0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           }
         ],
-        "confidence": 0.4
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -554,33 +624,40 @@
       "text": "RT @ LeeSmith Who Wants This War? Answer: Winners like Trump That’s epic fury revising in fire and steel 47 years of American defeat at the hands of an anti-American regime that no U.S. president dared to challenge until Trump. Me in Tablet Mag https://www. tabletmag.com/sections/news/ar ticles/war-iran-winners-donald-trump",
       "url": "https://truthsocial.com/@realDonaldTrump/116659188555902468",
       "timestamp": "Fri, 29 May 2026 18:05:50 +0000",
-      "detected_at": "2026-05-30T22:34:16.304188+08:00",
+      "detected_at": "2026-05-30T22:46:27.254515+08:00",
       "sentiment": {
-        "polarity": -0.167,
-        "subjectivity": 0.7,
+        "polarity": -0.262,
         "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.24,
+        "us_equities": -0.34,
+        "fx": 0.128,
+        "crypto": -0.105,
+        "geo_risk": 0.892
       }
     },
     {
@@ -590,14 +667,17 @@
       "text": "How a Trump Loyalist Manages One of the Toughest Jobs in Diplomacy: https://www. wsj.com/world/europe/how-a-tru mp-loyalist-manages-one-of-the-toughest-jobs-in-diplomacy-d56cc978",
       "url": "https://truthsocial.com/@realDonaldTrump/116659181152746981",
       "timestamp": "Fri, 29 May 2026 18:03:57 +0000",
-      "detected_at": "2026-05-30T22:34:16.304601+08:00",
+      "detected_at": "2026-05-30T22:46:27.255150+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.36
+        "confidence": 0.36,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -607,33 +687,40 @@
       "text": "US ambassador: EU must honor its trade deal with Trump: https://www. politico.eu/article/us-ambassa dor-andrew-puzder-eu-honor-trade-deal-donald-trump/",
       "url": "https://truthsocial.com/@realDonaldTrump/116659174350335809",
       "timestamp": "Fri, 29 May 2026 18:02:13 +0000",
-      "detected_at": "2026-05-30T22:34:16.304870+08:00",
+      "detected_at": "2026-05-30T22:46:27.255489+08:00",
       "sentiment": {
-        "polarity": -0.05,
-        "subjectivity": 0.42,
-        "label": "neutral",
+        "polarity": 0.137,
+        "label": "positive",
         "method": "lexicon",
         "matches": [
           {
             "term": "trade (deal",
-            "impact": 0.25,
             "category": "trade",
-            "explanation": "Trade deal progress = mildly bullish"
+            "impacts": {
+              "us_equities": 0.3,
+              "fx": 0.1,
+              "crypto": 0.1,
+              "geo_risk": -0.3
+            },
+            "explanation": "Trade deal = bullish risk assets"
           },
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "sad",
-            "impact": -0.3,
-            "category": "general",
-            "explanation": "Trump negative adjectives"
           }
         ],
-        "confidence": 0.3
+        "confidence": 0.24,
+        "us_equities": 0.17,
+        "fx": 0.07,
+        "crypto": 0.07,
+        "geo_risk": -0.21
       }
     },
     {
@@ -643,39 +730,51 @@
       "text": "Highly Respected American First Congressman, Randy Feenstra, is running for Governor of Iowa, a place I love and WON BIG in 2016, 2020, and 2024, getting the highest Vote in the History of Iowa. Randy is MAGA all the way! A Fourth Generation Iowan, successful Businessman, former Treasurer of Sioux County, State Senator, and now, as a distinguished U.S. Congressman, Randy has delivered strong results for the Hawkeye State. As your next Governor, Randy will fight tirelessly to Grow the Economy, Cut Taxes and Regulations, Promote MADE IN THE U.S.A., Unleash American Energy DOMINANCE, Champion our Amazing Farmers and Ranchers, Empower Ethanol, Keep our Border SECURE, Stop Migrant Crime, Ensure LAW AND ORDER, Strengthen our incredible Military, Veterans, and Law Enforcement, Advance Election Integrity, and Defend our always under siege Second Amendment. Randy Feenstra has my Complete and Total Endorsement to be the next Governor of Iowa — RANDY WILL NEVER LET YOU DOWN! President DONALD J. T",
       "url": "https://truthsocial.com/@realDonaldTrump/116659120590376779",
       "timestamp": "Fri, 29 May 2026 17:48:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.305360+08:00",
+      "detected_at": "2026-05-30T22:46:27.256003+08:00",
       "sentiment": {
-        "polarity": 0.013,
-        "subjectivity": 0.34,
+        "polarity": 0.092,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "stock market",
-            "impact": 0.1,
-            "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
+            "term": "stock market",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.1
+        "confidence": 0.36,
+        "us_equities": 0.12,
+        "fx": 0.105,
+        "crypto": 0.035,
+        "geo_risk": 0.043
       }
     },
     {
@@ -685,63 +784,62 @@
       "text": "It is my Great Honor to endorse America First Patriot, David Flippo, who is running to represent the fantastic people of Nevada’s 2nd Congressional District! He is strongly supported by the most Highly Respected MAGA Warriors in Nevada, and many Republicans in the U.S. House of Representatives. I won Nevada in a virtual Landslide in 2024, and have always done phenomenally well there. I love the State — The People are special! I will never let you down and, with David Flippo, I am just adding to that Statement. He will be GREAT for you, for the State, and for our Country! The Democrats, and some of David’s Republican Opponents, would like to end NO TAX ON TIPS. That won’t happen with David and I on watch! A retired U.S. Air Force Lieutenant Colonel, David knows the Wisdom and Courage required to Defend our Country, Support our incredible Military/Veterans, and Ensure PEACE THROUGH STRENGTH. A successful Small Business Owner and Civic Leader, prior to running for Congress, David has dedi",
       "url": "https://truthsocial.com/@realDonaldTrump/116659073646327175",
       "timestamp": "Fri, 29 May 2026 17:36:36 +0000",
-      "detected_at": "2026-05-30T22:34:16.306000+08:00",
+      "detected_at": "2026-05-30T22:46:27.256641+08:00",
       "sentiment": {
-        "polarity": 0.031,
-        "subjectivity": 0.5,
+        "polarity": -0.059,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "america first",
-            "impact": 0.15,
-            "category": "policy",
-            "explanation": "America First = protectionist, mixed"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.5
+        "confidence": 0.48,
+        "us_equities": -0.046,
+        "fx": 0.212,
+        "crypto": -0.085,
+        "geo_risk": 0.45
       }
     },
     {
@@ -751,45 +849,62 @@
       "text": "RT @ NewtGingrich After spending this week reviewing the Iranian war I am now convinced President Trump is on the edge of an historic victory. The real breakthrough for me came as I reviewed President Trump’s decisions and maneuvers not from the standpoint of American unilateralism but from the standpoint of the leader of a remarkable historic coalition, the largest coalition ever put together in the modern Middle East. Everyone understands that Israel is an important ally. What is little discussed is the depth of support from the United Arab Emirates, Qatar, Bahrain, Saudi Arabia and other countries in the region. It has to be sobering for the Iranian dictatorship to realize that it does not have a  single ally willing to challenge the American naval blockade. Slowly, gradually, timidly, our European allies are lining up to help with the Persian Gulf and the Strait of Hormuz. A great deal of President Trump’s maneuvers against Iran make sense once he is seen as a coalition leader and ",
       "url": "https://truthsocial.com/@realDonaldTrump/116659026234891069",
       "timestamp": "Fri, 29 May 2026 17:24:33 +0000",
-      "detected_at": "2026-05-30T22:34:16.307173+08:00",
+      "detected_at": "2026-05-30T22:46:27.257726+08:00",
       "sentiment": {
-        "polarity": -0.08,
-        "subjectivity": 0.62,
-        "label": "neutral",
+        "polarity": -0.128,
+        "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "infrastructure",
-            "impact": 0.2,
             "category": "fiscal",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Infrastructure spending = mildly bullish"
           },
           {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.8
+        "confidence": 0.48,
+        "us_equities": -0.139,
+        "fx": 0.128,
+        "crypto": -0.105,
+        "geo_risk": 0.892
       }
     },
     {
@@ -799,57 +914,84 @@
       "text": "Iran must agree that they will never have a Nuclear Weapon or Bomb. The Hormuz Strait must be immediately open, no tolls, for unrestricted shipping traffic, in both directions. All water mines (bombs), if any, will be terminated (we have removed, through detonation, numerous such mines with our great underwater mine sweepers. Iran will complete the immediate removal and/or detonation of any mines that are left, which will not be many!). Ships caught in the Strait due to our amazing and unprecedented Naval Blockade, which will now be lifted, may start the process of “heading home!” Say HELLO to your wives, husbands, parents, and families from me, your favorite President! The enriched material, sometimes referred to as “Nuclear Dust,” which is buried deep underground with virtually collapsed mountains, caused by our powerful B2 Bomber attack 11 months ago, sitting on top of it, will be unearthed by the United States (which, it is agreed, is the only Country, along with China, with the me",
       "url": "https://truthsocial.com/@realDonaldTrump/116658423998920803",
       "timestamp": "Fri, 29 May 2026 14:51:24 +0000",
-      "detected_at": "2026-05-30T22:34:16.307781+08:00",
+      "detected_at": "2026-05-30T22:46:27.258261+08:00",
       "sentiment": {
-        "polarity": -0.257,
-        "subjectivity": 0.7,
+        "polarity": -0.268,
         "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "nuclear (weapon",
-            "impact": -0.45,
             "category": "conflict",
+            "impacts": {
+              "us_equities": -0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
             "explanation": "Nuclear threat = high geopolitical risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "iran.*(nuclear",
-            "impact": -0.5,
             "category": "geopolitics",
-            "explanation": "Iran nuclear threat = high risk"
+            "impacts": {
+              "us_equities": -0.25,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
+            "explanation": "Iran nuclear = serious geopolitical risk"
           },
           {
             "term": "china",
-            "impact": -0.2,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.15,
+              "fx": -0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.25
+            },
             "explanation": "China mention = trade tension, mildly bearish"
           },
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.72,
+        "us_equities": -0.349,
+        "fx": 0.06,
+        "crypto": -0.105,
+        "geo_risk": 0.978
       }
     },
     {
@@ -859,21 +1001,29 @@
       "text": "Jill Biden is now out there finally admitting that she did NOT know what went wrong with Sleepy Joe during our spectacular, and highly rated, 2024 Presidential Debate, where Joe was not exactly performing to the highest level of debate standards. She said that she thought he was having a “stroke,” and various other really bad things, and yet never rushed onto the stage to help her troubled husband, as any good wife would do. The only thing she failed to mention was how well I was doing prior to his near total collapse. In other words, as many have asked, did my strong performance in that debate cause him to plain and simple “choke,” leading to his ignominious defeat, or were other reasons the cause? Nobody else knows the answer to that, BUT I DO!!!",
       "url": "https://truthsocial.com/@realDonaldTrump/116657564100142546",
       "timestamp": "Fri, 29 May 2026 11:12:43 +0000",
-      "detected_at": "2026-05-30T22:34:16.308148+08:00",
+      "detected_at": "2026-05-30T22:46:27.258572+08:00",
       "sentiment": {
-        "polarity": -0.1,
-        "subjectivity": 0.38,
-        "label": "negative",
+        "polarity": -0.047,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.2
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -883,45 +1033,62 @@
       "text": "After spending this week reviewing the Iranian war I am now convinced President Trump is on the edge of an historic victory. The real breakthrough for me came as I reviewed President Trump’s decisions and maneuvers not from the standpoint of American unilateralism but from the standpoint of the leader of a remarkable historic coalition, the largest coalition ever put together in the modern Middle East. Everyone understands that Israel is an important ally. What is little discussed is the depth of support from the United Arab Emirates, Qatar, Bahrain, Saudi Arabia and other countries in the region. It has to be sobering for the Iranian dictatorship to realize that it does not have a  single ally willing to challenge the American naval blockade. Slowly, gradually, timidly, our European allies are lining up to help with the Persian Gulf and the Strait of Hormuz. A great deal of President Trump’s maneuvers against Iran make sense once he is seen as a coalition leader and not just as a unil",
       "url": "https://truthsocial.com/@NewtGingrich/116657026406833922",
       "timestamp": "Fri, 29 May 2026 08:55:58 +0000",
-      "detected_at": "2026-05-30T22:34:16.309229+08:00",
+      "detected_at": "2026-05-30T22:46:27.259501+08:00",
       "sentiment": {
-        "polarity": -0.08,
-        "subjectivity": 0.62,
-        "label": "neutral",
+        "polarity": -0.128,
+        "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           },
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "infrastructure",
-            "impact": 0.2,
             "category": "fiscal",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Infrastructure spending = mildly bullish"
           },
           {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.8
+        "confidence": 0.48,
+        "us_equities": -0.139,
+        "fx": 0.128,
+        "crypto": -0.105,
+        "geo_risk": 0.892
       }
     },
     {
@@ -931,21 +1098,29 @@
       "text": "John Solomon unpacks a bombshell revelation about James Comey: https:// justthenews.com/podcasts/john- solomon-reports/john-solomon-unpacks-bombshell-revelation-about-james-comey",
       "url": "https://truthsocial.com/@realDonaldTrump/116655761993842171",
       "timestamp": "Fri, 29 May 2026 03:34:25 +0000",
-      "detected_at": "2026-05-30T22:34:16.309519+08:00",
+      "detected_at": "2026-05-30T22:46:27.259750+08:00",
       "sentiment": {
-        "polarity": -0.5,
-        "subjectivity": 0.7,
-        "label": "very_negative",
+        "polarity": -0.175,
+        "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.12,
+        "us_equities": -0.21,
+        "fx": 0.07,
+        "crypto": -0.105,
+        "geo_risk": 0.49
       }
     },
     {
@@ -955,27 +1130,29 @@
       "text": "Judge clears Trump’s voter citizenship checks and mail-in voting crackdown, slapping down Democrats: https:// justthenews.com/politics-polic y/elections/judge-clears-trumps-voter-citizenship-checks-and-mail-voting-crackdown",
       "url": "https://truthsocial.com/@realDonaldTrump/116655760562356563",
       "timestamp": "Fri, 29 May 2026 03:34:03 +0000",
-      "detected_at": "2026-05-30T22:34:16.309860+08:00",
+      "detected_at": "2026-05-30T22:46:27.260006+08:00",
       "sentiment": {
-        "polarity": 0.0,
-        "subjectivity": 0.3,
+        "polarity": 0.082,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           }
         ],
-        "confidence": 0.0
+        "confidence": 0.12,
+        "us_equities": 0.105,
+        "fx": 0.0,
+        "crypto": 0.035,
+        "geo_risk": 0.0
       }
     },
     {
@@ -985,21 +1162,29 @@
       "text": "FBI and DOJ concerns on Mar-a-Lago raid bolster Florida-based anti-Trump ‘grand conspiracy’ inquiry: https:// justthenews.com/government/cou rts-law/fbi-and-doj-concerns-mar-lago-raid-bolster-florida-based-anti-trump-grand",
       "url": "https://truthsocial.com/@realDonaldTrump/116655756027637495",
       "timestamp": "Fri, 29 May 2026 03:32:54 +0000",
-      "detected_at": "2026-05-30T22:34:16.310149+08:00",
+      "detected_at": "2026-05-30T22:46:27.260254+08:00",
       "sentiment": {
-        "polarity": -0.1,
-        "subjectivity": 0.38,
-        "label": "negative",
+        "polarity": -0.047,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.2
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1009,27 +1194,29 @@
       "text": "Claude Lemieux, a true Legend of the Game, and one of the fiercest competitors Hockey has ever seen, has passed away. Claude was a friend to the family, and a tremendous “TRUMP” supporter. He won 4 Stanley Cups with 3 different Teams — Montreal, New Jersey, and Colorado — His 80 Career Playoff Goals rank among the All Time Greats. Brendan, my thoughts are with you, Deborah, and the whole Lemieux family — You and your Dad were Warriors on the Ice. Claude will be missed by all who love Winning and Toughness. 🇺🇸 # MAGA President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116655731323552591",
       "timestamp": "Fri, 29 May 2026 03:26:37 +0000",
-      "detected_at": "2026-05-30T22:34:16.310539+08:00",
+      "detected_at": "2026-05-30T22:46:27.260585+08:00",
       "sentiment": {
-        "polarity": -0.125,
-        "subjectivity": 0.5,
+        "polarity": -0.175,
         "label": "negative",
         "method": "lexicon",
         "matches": [
           {
             "term": "war",
-            "impact": -0.5,
             "category": "conflict",
-            "explanation": "Military action = geopolitical risk, bearish"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
           }
         ],
-        "confidence": 0.5
+        "confidence": 0.12,
+        "us_equities": -0.21,
+        "fx": 0.07,
+        "crypto": -0.105,
+        "geo_risk": 0.49
       }
     },
     {
@@ -1039,14 +1226,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116653310430151495",
       "url": "https://truthsocial.com/@realDonaldTrump/116653311782130303",
       "timestamp": "Thu, 28 May 2026 17:11:18 +0000",
-      "detected_at": "2026-05-30T22:34:16.310830+08:00",
+      "detected_at": "2026-05-30T22:46:27.260848+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1056,14 +1246,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116653308990055722",
       "url": "https://truthsocial.com/@realDonaldTrump/116653310430151495",
       "timestamp": "Thu, 28 May 2026 17:10:57 +0000",
-      "detected_at": "2026-05-30T22:34:16.311079+08:00",
+      "detected_at": "2026-05-30T22:46:27.261069+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1073,27 +1266,17 @@
       "text": "GREGG JARRETT: Long-hidden documents reveal first Trump impeachment was a total fraud: https://www. foxnews.com/opinion/gregg-jarr ett-long-hidden-documents-reveal-first-trump-impeachment-total-fraud",
       "url": "https://truthsocial.com/@realDonaldTrump/116649467728859592",
       "timestamp": "Thu, 28 May 2026 00:53:42 +0000",
-      "detected_at": "2026-05-30T22:34:16.311600+08:00",
+      "detected_at": "2026-05-30T22:46:27.261662+08:00",
       "sentiment": {
-        "polarity": -0.35,
-        "subjectivity": 0.7,
-        "label": "negative",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "impeach",
-            "impact": -0.35,
-            "category": "politics",
-            "explanation": "Legal trouble = political risk, bearish"
-          },
-          {
-            "term": "rigged",
-            "impact": -0.35,
-            "category": "politics",
-            "explanation": "Corruption claims = instability, bearish"
-          }
-        ],
-        "confidence": 1.0
+        "polarity": 0.125,
+        "label": "positive",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.4,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1103,14 +1286,17 @@
       "text": "GREGG JARRETT: Release the Biden tapes and let Americans hear the truth for themselves: https://www. foxnews.com/opinion/gregg-jarr ett-release-biden-tapes-let-americans-hear-truth",
       "url": "https://truthsocial.com/@realDonaldTrump/116649465703521507",
       "timestamp": "Thu, 28 May 2026 00:53:11 +0000",
-      "detected_at": "2026-05-30T22:34:16.311974+08:00",
+      "detected_at": "2026-05-30T22:46:27.262003+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.36
+        "confidence": 0.36,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1120,33 +1306,17 @@
       "text": "Prime Minister Nikol Pashinyan, of Armenia, a great friend and Leader, is making his Country strong, wealthy, and very secure! Nikol completely shares my vision of PEACE and PROSPERITY for Armenia and the entire South Caucasus region. Our Secretary of State, Marco Rubio, just traveled to Armenia, where he advanced several important Deals for both our Countries. Soon, the United States and Armenia will break ground together on the Trump Route for International Peace and Prosperity, which will transform the South Caucasus, and help our wonderful American Energy Companies gain access from Central Asia all the way to the United States. For these reasons, Nikol has my COMPLETE and TOTAL Endorsement for Re-Election on June 7, 2026. With Nikol's help, we will bring the United States, Armenia, the South Caucasus, and Central Asia to greater heights than ever before. Make (Armenia) Great Again — MAGA! President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116648998520896910",
       "timestamp": "Wed, 27 May 2026 22:54:22 +0000",
-      "detected_at": "2026-05-30T22:34:16.312415+08:00",
+      "detected_at": "2026-05-30T22:46:27.262898+08:00",
       "sentiment": {
-        "polarity": 0.133,
-        "subjectivity": 0.62,
+        "polarity": 0.327,
         "label": "positive",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
-          }
-        ],
-        "confidence": 0.8
+        "method": "textblob",
+        "matches": [],
+        "confidence": 1.0,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1156,39 +1326,62 @@
       "text": "Gary Gensler and the “Anti-Crypto Army” nearly DESTROYED the American Crypto Industry by driving Bitcoin, Crypto Perpetuals, and INNOVATION offshore, but “TRUMP” SAVED IT. America is now the CRYPTO CAPITAL of the WORLD, and Builders and Entrepreneurs are coming BACK to the United States where they belong. Under my Leadership, we will codify a FUTURE-PROOF Digital Asset Market Structure that cannot be undone by the Crypto Haters. The new Frontier of Finance is being Built in America, and “TRUMP” will NEVER let Crypto down! President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116648950505497613",
       "timestamp": "Wed, 27 May 2026 22:42:10 +0000",
-      "detected_at": "2026-05-30T22:34:16.312722+08:00",
+      "detected_at": "2026-05-30T22:46:27.263174+08:00",
       "sentiment": {
-        "polarity": 0.113,
-        "subjectivity": 0.66,
+        "polarity": 0.2,
         "label": "positive",
         "method": "lexicon",
         "matches": [
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "bitcoin",
-            "impact": 0.2,
             "category": "crypto",
-            "explanation": "Crypto mention = positive (Trump pro-crypto)"
+            "impacts": {
+              "us_equities": 0.05,
+              "fx": 0.0,
+              "crypto": 0.4,
+              "geo_risk": 0.0
+            },
+            "explanation": "Crypto mention = positive (Trump pro-crypto stance)"
           },
           {
             "term": "digital asset",
-            "impact": 0.25,
             "category": "crypto",
-            "explanation": "Digital asset mention = positive signal"
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.35,
+              "geo_risk": 0.0
+            },
+            "explanation": "Digital asset mention = pro-crypto signal"
           },
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.9
+        "confidence": 0.48,
+        "us_equities": 0.06,
+        "fx": 0.0,
+        "crypto": 0.48,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1198,27 +1391,29 @@
       "text": "I am pleased to announce the nomination of Matthew Byrne to serve as Judge on the U.S. District Court for the Southern District of Ohio. As Judge on the Ohio Twelfth District Court of Appeals, Matt has distinguished himself, and delivered strong results for The Buckeye State. He comes strongly recommended by our Great Vice President, JD Vance, and Senators Bernie Moreno and Jon Husted! Matt previously worked as an attorney at two major Cincinnati Law Firms, received his J.D. from The Ohio State University Moritz College of Law, and earned his B.A. from Xavier University. The Constitutional Rights of the incredible people of Ohio are in good hands with Matt on the Federal Bench. Congratulations Matt! President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116647893653015989",
       "timestamp": "Wed, 27 May 2026 18:13:23 +0000",
-      "detected_at": "2026-05-30T22:34:16.313056+08:00",
+      "detected_at": "2026-05-30T22:46:27.263466+08:00",
       "sentiment": {
-        "polarity": 0.075,
-        "subjectivity": 0.42,
+        "polarity": 0.0,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "fed",
-            "impact": -0.05,
             "category": "monetary",
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Fed mention — neutral by itself"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 0.3
+        "confidence": 0.12,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1228,39 +1423,40 @@
       "text": "Congratulations to the Dumocrat Party! Al Green, one of the most mentally deficient Congressmen in the history of our Country, has lost, in a landslide, his seat in Congress - But I will miss that lunatic not screaming and violently waving his cane at me during my next State of the Union Speech. MAKE AMERICA GREAT AGAIN. GOD BLESS AMERICA!!! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116647052759264072",
       "timestamp": "Wed, 27 May 2026 14:39:32 +0000",
-      "detected_at": "2026-05-30T22:34:16.313287+08:00",
+      "detected_at": "2026-05-30T22:46:27.263686+08:00",
       "sentiment": {
-        "polarity": 0.25,
-        "subjectivity": 0.7,
+        "polarity": 0.175,
         "label": "positive",
         "method": "lexicon",
         "matches": [
           {
             "term": "digital asset",
-            "impact": 0.25,
             "category": "crypto",
-            "explanation": "Digital asset mention = positive signal"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.35,
+              "geo_risk": 0.0
+            },
+            "explanation": "Digital asset mention = pro-crypto signal"
           },
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.24,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.245,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1270,33 +1466,40 @@
       "text": "This Weak on Crime, Open Borders Dumocrat, can never be allowed to represent the Great People of Texas. His “values” are the exact opposite!!! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116647016538665889",
       "timestamp": "Wed, 27 May 2026 14:30:20 +0000",
-      "detected_at": "2026-05-30T22:34:16.313484+08:00",
+      "detected_at": "2026-05-30T22:46:27.263881+08:00",
       "sentiment": {
-        "polarity": -0.083,
-        "subjectivity": 0.5,
+        "polarity": 0.085,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "sad",
-            "impact": -0.3,
-            "category": "general",
-            "explanation": "Trump negative adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.5
+        "confidence": 0.24,
+        "us_equities": 0.128,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.07
       }
     },
     {
@@ -1306,27 +1509,29 @@
       "text": "Thank you America for this unprecedented support!!! President DJT https://www. thegatewaypundit.com/2026/05/t rump-dynasty-president-trump-goes-118-118-primary/",
       "url": "https://truthsocial.com/@realDonaldTrump/116646638944585333",
       "timestamp": "Wed, 27 May 2026 12:54:18 +0000",
-      "detected_at": "2026-05-30T22:34:16.313768+08:00",
+      "detected_at": "2026-05-30T22:46:27.264187+08:00",
       "sentiment": {
-        "polarity": 0.2,
-        "subjectivity": 0.62,
-        "label": "positive",
+        "polarity": 0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 0.8
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1336,57 +1541,40 @@
       "text": "Congratulations to Ken Paxton on such a tremendous win, and to John Cornyn for having run a strong and powerful race but, more importantly, having had a truly great career. John will remain my friend for a long time to come, as we both watch Ken become a fantastic, common sense Senator, one who is respected by all. His opponent, Alfred E. Neuman, may be the worst TEXAS candidate I have ever seen. A strong Open Borders advocate, he is WEAK ON CRIME, believes there are 6 genders, is insulting to Jesus Christ, will never support the Military, was a big Mask Wearer until recently, and is a Vegan who dislikes meat, not exactly a good way to be if you’re wanting to win an Election in Texas. Jasmine Crockett, a very low IQ individual, who is no relation to the legendary frontiersman, Davy Crockett, would have been a far better choice for the Dumocrats. I will do some nice, big, beautiful rallies for Ken. Texas, this will be FUN! GOD BLESS AMERICA. President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116646308242618920",
       "timestamp": "Wed, 27 May 2026 11:30:12 +0000",
-      "detected_at": "2026-05-30T22:34:16.314242+08:00",
+      "detected_at": "2026-05-30T22:46:27.264629+08:00",
       "sentiment": {
-        "polarity": -0.05,
-        "subjectivity": 0.58,
+        "polarity": 0.085,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "disaster",
-            "impact": -0.45,
-            "category": "general",
-            "explanation": "Negative rhetoric = bearish"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
-          },
-          {
-            "term": "sad",
-            "impact": -0.3,
-            "category": "general",
-            "explanation": "Trump negative adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.7
+        "confidence": 0.24,
+        "us_equities": 0.128,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.07
       }
     },
     {
@@ -1396,57 +1584,40 @@
       "text": "Congratulations to Ken Paxton on such a tremendous win, and to John Cornyn for having run a strong and powerful race but, more importantly, having had a truly great career. John will remain my friend for a long time to come, as we both watch Ken become a fantastic, common sense Senator, one who is respected by all. His opponent, Alfred E. Neuman, may be the worst TEXAS candidate I have ever seen. A strong Open Borders advocate, he is WEAK ON CRIME, believes there are 6 genders, is insulting to Jesus Christ, will never support the Military, was a big Mask Wearer until recently, and is a Vegan who dislikes meat, not exactly a good way to be if your wanting to win an Election in Texas. Jasmine Crockett, a very low IQ individual, who is no relation to the legendary frontiersman, Davy Crockett, would have been a far better choice for the Dumocrats. I will do some nice, big, beautiful rallies for Ken. Texas, this will be FUN! GOD BLESS AMERICA. President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116646286868516993",
       "timestamp": "Wed, 27 May 2026 11:24:46 +0000",
-      "detected_at": "2026-05-30T22:34:16.314600+08:00",
+      "detected_at": "2026-05-30T22:46:27.264956+08:00",
       "sentiment": {
-        "polarity": -0.05,
-        "subjectivity": 0.58,
+        "polarity": 0.085,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "disaster",
-            "impact": -0.45,
-            "category": "general",
-            "explanation": "Negative rhetoric = bearish"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
-          },
-          {
-            "term": "sad",
-            "impact": -0.3,
-            "category": "general",
-            "explanation": "Trump negative adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 0.7
+        "confidence": 0.24,
+        "us_equities": 0.128,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.07
       }
     },
     {
@@ -1456,14 +1627,17 @@
       "text": "RT @ realDonaldTrump A Crooked Politician!!!",
       "url": "https://truthsocial.com/@realDonaldTrump/116644198848350274",
       "timestamp": "Wed, 27 May 2026 02:33:45 +0000",
-      "detected_at": "2026-05-30T22:34:16.314849+08:00",
+      "detected_at": "2026-05-30T22:46:27.265222+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.1,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.09
+        "confidence": 0.09,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1473,14 +1647,17 @@
       "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116644190724261689 A Crooked Politician!!!",
       "url": "https://truthsocial.com/@realDonaldTrump/116644191612081208",
       "timestamp": "Wed, 27 May 2026 02:31:55 +0000",
-      "detected_at": "2026-05-30T22:34:16.315155+08:00",
+      "detected_at": "2026-05-30T22:46:27.265522+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.1,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.2
+        "confidence": 0.2,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1490,14 +1667,17 @@
       "text": "Joe Biden sues DOJ to stop release of audio recordings connected to special counsel probe: https:// justthenews.com/government/cou rts-law/joe-biden-sues-doj-stop-release-audio-recordings-connected-special-counsel",
       "url": "https://truthsocial.com/@realDonaldTrump/116644190724261689",
       "timestamp": "Wed, 27 May 2026 02:31:41 +0000",
-      "detected_at": "2026-05-30T22:34:16.315578+08:00",
+      "detected_at": "2026-05-30T22:46:27.265953+08:00",
       "sentiment": {
         "polarity": 0.357,
-        "subjectivity": 0.571,
         "label": "positive",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.43
+        "confidence": 0.43,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1507,33 +1687,29 @@
       "text": "It is critically important that the CFTC’s exclusive authority over Prediction Markets is maintained, and that they will thrive. Under my leadership, we are setting “rules of the road” that are the Gold Standard for the States. We cannot have SCUM like Chris Christie, Letitia James, Tim Walz, and JB Pritzker setting the rules! Other Countries are after this new form of Financial Market, and we want to remain at the top. Likewise, and even more importantly, where we are currently the Crypto (Bitcoin, etc.) Capital of the World, other Countries are trying diligently to replace us in that capacity, but we won’t let that happen. It is a major Industry, and we must protect it. Mike Selig, CFTC Chairman, and respected by all, is doing a great job. Thank you Mike! President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116642964849373081",
       "timestamp": "Tue, 26 May 2026 21:19:56 +0000",
-      "detected_at": "2026-05-30T22:34:16.316038+08:00",
+      "detected_at": "2026-05-30T22:46:27.266356+08:00",
       "sentiment": {
-        "polarity": 0.25,
-        "subjectivity": 0.7,
+        "polarity": 0.117,
         "label": "positive",
         "method": "lexicon",
         "matches": [
           {
             "term": "bitcoin",
-            "impact": 0.2,
             "category": "crypto",
-            "explanation": "Crypto mention = positive (Trump pro-crypto)"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
-          },
-          {
-            "term": "we will win",
-            "impact": 0.25,
-            "category": "general",
-            "explanation": "Confidence signal"
+            "impacts": {
+              "us_equities": 0.05,
+              "fx": 0.0,
+              "crypto": 0.4,
+              "geo_risk": 0.0
+            },
+            "explanation": "Crypto mention = positive (Trump pro-crypto stance)"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.12,
+        "us_equities": 0.035,
+        "fx": 0.0,
+        "crypto": 0.28,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1543,21 +1719,29 @@
       "text": "Based on the possible bad weather conditions tomorrow, we will be having our Cabinet Meeting in the White House, and will be postponing the Cabinet trip to Camp David. Thank you for your attention to this matter! President DONALD J. TRUMP",
       "url": "https://truthsocial.com/@realDonaldTrump/116642836649690961",
       "timestamp": "Tue, 26 May 2026 20:47:20 +0000",
-      "detected_at": "2026-05-30T22:34:16.316203+08:00",
+      "detected_at": "2026-05-30T22:46:27.266500+08:00",
       "sentiment": {
-        "polarity": -0.1,
-        "subjectivity": 0.38,
-        "label": "negative",
+        "polarity": -0.047,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           }
         ],
-        "confidence": 0.2
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1567,45 +1751,51 @@
       "text": "Highly Respected Congressman Byron Donalds is running for Governor of Florida, a State that I love, and WON BIG, in 2016, 2020, and 2024. I know Byron well, have seen him tested at the highest and most difficult levels, and he is a TOTAL WINNER! Byron has a great wife, Erika, and three beautiful sons. They are very proud of him! As Governor, Byron will have a BIG Voice, and work closely with me to advance our America First Agenda. He will fight tirelessly to help Keep our Border SECURE, Stop Migrant Crime, Strengthen our Military, Protect our Veterans, Advance American Energy DOMINANCE, Cut Taxes and Regulations, Promote MADE IN THE U.S.A., and Defend our always under siege Second Amendment. Byron Donalds will be a truly Great and Powerful Governor for Florida, and has my Complete and Total Endorsement — HE WILL NOT LET YOU DOWN!",
       "url": "https://truthsocial.com/@realDonaldTrump/116642799421262985",
       "timestamp": "Tue, 26 May 2026 20:37:52 +0000",
-      "detected_at": "2026-05-30T22:34:16.316596+08:00",
+      "detected_at": "2026-05-30T22:46:27.266841+08:00",
       "sentiment": {
-        "polarity": 0.11,
-        "subjectivity": 0.7,
-        "label": "positive",
+        "polarity": 0.092,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
-            "term": "america first",
-            "impact": 0.15,
-            "category": "policy",
-            "explanation": "America First = protectionist, mixed"
+            "term": "drill",
+            "category": "energy",
+            "impacts": {
+              "us_equities": 0.1,
+              "fx": 0.15,
+              "crypto": 0.0,
+              "geo_risk": -0.05
+            },
+            "explanation": "Drill = positive energy sector, USD"
           },
           {
             "term": "stock market",
-            "impact": 0.1,
             "category": "markets",
-            "explanation": "Stock market mention — bullish claims"
-          },
-          {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
           },
           {
             "term": "border",
-            "impact": -0.15,
             "category": "policy",
-            "explanation": "Immigration policy = political uncertainty"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
+            "impacts": {
+              "us_equities": -0.05,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.1
+            },
+            "explanation": "Immigration = political uncertainty"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.36,
+        "us_equities": 0.12,
+        "fx": 0.105,
+        "crypto": 0.035,
+        "geo_risk": 0.043
       }
     },
     {
@@ -1615,57 +1805,62 @@
       "text": "If Iran surrenders, admits their Navy is gone and resting at the bottom of the sea, and their Air Force is no longer with us, and if their entire Military walks out of Tehran, weapons dropped and hands held high, each shouting “I surrender, I surrender” while wildly waving the representative White Flag, and if their entire remaining Leadership signs all necessary “Documents of Surrender,” and admit their defeat to the great power and force of the magnificent U.S.A., The Failing New York Times, The China Street Journal (WSJ!), Corrupt and now Irrelevant CNN, and all other members of the Fake News Media, will headline that Iran had a Masterful and Brilliant Victory over The United States of America, it wasn’t even close. The Dumacrats and Media have totally lost their way. They have gone absolutely CRAZY!!! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116642543193922330",
       "timestamp": "Tue, 26 May 2026 19:32:42 +0000",
-      "detected_at": "2026-05-30T22:34:16.316971+08:00",
+      "detected_at": "2026-05-30T22:46:27.267171+08:00",
       "sentiment": {
-        "polarity": -0.15,
-        "subjectivity": 0.7,
-        "label": "negative",
+        "polarity": -0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "iran",
-            "impact": -0.25,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
             "explanation": "Iran mention = geopolitical risk"
           },
           {
             "term": "iran.*(nuclear",
-            "impact": -0.5,
             "category": "geopolitics",
-            "explanation": "Iran nuclear threat = high risk"
+            "impacts": {
+              "us_equities": -0.25,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
+            "explanation": "Iran nuclear = serious geopolitical risk"
           },
           {
             "term": "china",
-            "impact": -0.2,
             "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.15,
+              "fx": -0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.25
+            },
             "explanation": "China mention = trade tension, mildly bearish"
           },
           {
-            "term": "landslide",
-            "impact": 0.25,
-            "category": "politics",
-            "explanation": "Electoral win = stability, mildly bullish"
-          },
-          {
-            "term": "fake new",
-            "impact": -0.2,
-            "category": "politics",
-            "explanation": "Attack rhetoric = combative"
-          },
-          {
-            "term": "rigged",
-            "impact": -0.35,
-            "category": "politics",
-            "explanation": "Corruption claims = instability, bearish"
-          },
-          {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.48,
+        "us_equities": -0.139,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.75
       }
     },
     {
@@ -1675,27 +1870,29 @@
       "text": "Teen takeover in Chicago. Five officers badly hurt. Mayor and Governor are terrible. Should call for help!",
       "url": "https://truthsocial.com/@realDonaldTrump/116641893088020729",
       "timestamp": "Tue, 26 May 2026 16:47:22 +0000",
-      "detected_at": "2026-05-30T22:34:16.317087+08:00",
+      "detected_at": "2026-05-30T22:46:27.267277+08:00",
       "sentiment": {
-        "polarity": -0.275,
-        "subjectivity": 0.7,
-        "label": "negative",
+        "polarity": -0.047,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
-          },
-          {
-            "term": "disaster",
-            "impact": -0.45,
-            "category": "general",
-            "explanation": "Negative rhetoric = bearish"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1705,27 +1902,40 @@
       "text": "Just finished my 6 month physical at Walter Reed Military Medical Center. Everything checked out PERFECTLY. Thank you to the great Doctors and Staff! Heading back to the White House. President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116641867405994600",
       "timestamp": "Tue, 26 May 2026 16:40:50 +0000",
-      "detected_at": "2026-05-30T22:34:16.317230+08:00",
+      "detected_at": "2026-05-30T22:46:27.267405+08:00",
       "sentiment": {
-        "polarity": 0.05,
-        "subjectivity": 0.38,
+        "polarity": 0.057,
         "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "ba",
-            "impact": -0.1,
             "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Boeing = mixed"
           },
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
           }
         ],
-        "confidence": 0.2
+        "confidence": 0.24,
+        "us_equities": 0.085,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1735,27 +1945,29 @@
       "text": "Great job by Congressman Derrick Van Orden on FoxNews. A real PRO! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116640837468653063",
       "timestamp": "Tue, 26 May 2026 12:18:55 +0000",
-      "detected_at": "2026-05-30T22:34:16.317337+08:00",
+      "detected_at": "2026-05-30T22:46:27.267504+08:00",
       "sentiment": {
-        "polarity": 0.25,
-        "subjectivity": 0.7,
-        "label": "positive",
+        "polarity": 0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1765,27 +1977,29 @@
       "text": "Historian, and far beyond that, Victor Davis Hanson, is GREAT. That’s all I have to say. There is no further explanation needed. A fantastic man! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116640630404037479",
       "timestamp": "Tue, 26 May 2026 11:26:15 +0000",
-      "detected_at": "2026-05-30T22:34:16.317540+08:00",
+      "detected_at": "2026-05-30T22:46:27.267688+08:00",
       "sentiment": {
-        "polarity": 0.2,
-        "subjectivity": 0.62,
-        "label": "positive",
+        "polarity": 0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
-          },
-          {
-            "term": "wonderful",
-            "impact": 0.2,
-            "category": "general",
-            "explanation": "Trump positive adjectives"
           }
         ],
-        "confidence": 0.8
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1795,14 +2009,17 @@
       "text": "Exclusive: Key Biden DOJ official raised red flags about FBI’s Mar-a-Lago raid, memo shows: https:// justthenews.com/government/cou rts-law/biden-doj-official-had-concerns-trump-declassified-documents-seized-fbis-mar",
       "url": "https://truthsocial.com/@realDonaldTrump/116640602660695683",
       "timestamp": "Tue, 26 May 2026 11:19:12 +0000",
-      "detected_at": "2026-05-30T22:34:16.317953+08:00",
+      "detected_at": "2026-05-30T22:46:27.268075+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.5,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.43
+        "confidence": 0.43,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1812,21 +2029,17 @@
       "text": "U.S. attorney in Miami sends ‘message’ to deep state with indictment against ex-prosecutor: https:// justthenews.com/accountability /political-ethics/us-attorney-miami-sends-message-deep-state-indictment-against-ex",
       "url": "https://truthsocial.com/@realDonaldTrump/116640601110526474",
       "timestamp": "Tue, 26 May 2026 11:18:48 +0000",
-      "detected_at": "2026-05-30T22:34:16.318203+08:00",
+      "detected_at": "2026-05-30T22:46:27.268448+08:00",
       "sentiment": {
-        "polarity": -0.35,
-        "subjectivity": 0.58,
-        "label": "negative",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "impeach",
-            "impact": -0.35,
-            "category": "politics",
-            "explanation": "Legal trouble = political risk, bearish"
-          }
-        ],
-        "confidence": 0.7
+        "polarity": 0.0,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.43,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1836,27 +2049,29 @@
       "text": "Great job on FoxNews by Alex Gray. Thanks Alex!!! President DJT",
       "url": "https://truthsocial.com/@realDonaldTrump/116640319334016190",
       "timestamp": "Tue, 26 May 2026 10:07:08 +0000",
-      "detected_at": "2026-05-30T22:34:16.318310+08:00",
+      "detected_at": "2026-05-30T22:46:27.268554+08:00",
       "sentiment": {
-        "polarity": 0.25,
-        "subjectivity": 0.7,
-        "label": "positive",
+        "polarity": 0.093,
+        "label": "neutral",
         "method": "lexicon",
         "matches": [
           {
             "term": "djia",
-            "impact": 0.2,
             "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
             "explanation": "Trump Media = correlation"
-          },
-          {
-            "term": "great (again",
-            "impact": 0.3,
-            "category": "general",
-            "explanation": "Positive rhetoric"
           }
         ],
-        "confidence": 1.0
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1866,14 +2081,17 @@
       "text": "https:// truthsocial.com/users/Spiritua lStreetfighter/statuses/116635950751637260",
       "url": "https://truthsocial.com/@realDonaldTrump/116640302390587616",
       "timestamp": "Tue, 26 May 2026 10:02:50 +0000",
-      "detected_at": "2026-05-30T22:34:16.318560+08:00",
+      "detected_at": "2026-05-30T22:46:27.268802+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.16
+        "confidence": 0.16,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1883,14 +2101,17 @@
       "text": "https:// truthsocial.com/users/Imalucky angel/statuses/116634887599602834",
       "url": "https://truthsocial.com/@realDonaldTrump/116640296501012524",
       "timestamp": "Tue, 26 May 2026 10:01:20 +0000",
-      "detected_at": "2026-05-30T22:34:16.318831+08:00",
+      "detected_at": "2026-05-30T22:46:27.269036+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1900,14 +2121,17 @@
       "text": "https:// truthsocial.com/users/IStandWi thTrump47/statuses/116634844670581336",
       "url": "https://truthsocial.com/@realDonaldTrump/116640294393468349",
       "timestamp": "Tue, 26 May 2026 10:00:48 +0000",
-      "detected_at": "2026-05-30T22:34:16.319110+08:00",
+      "detected_at": "2026-05-30T22:46:27.269254+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1917,14 +2141,17 @@
       "text": "https:// truthsocial.com/users/1776WeTh ePeople1776Q/statuses/116634771557391388",
       "url": "https://truthsocial.com/@realDonaldTrump/116640292118558842",
       "timestamp": "Tue, 26 May 2026 10:00:13 +0000",
-      "detected_at": "2026-05-30T22:34:16.319440+08:00",
+      "detected_at": "2026-05-30T22:46:27.269542+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.16
+        "confidence": 0.16,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1934,14 +2161,17 @@
       "text": "https:// truthsocial.com/users/Imalucky angel/statuses/116634918808075195",
       "url": "https://truthsocial.com/@realDonaldTrump/116640290568039212",
       "timestamp": "Tue, 26 May 2026 09:59:50 +0000",
-      "detected_at": "2026-05-30T22:34:16.319695+08:00",
+      "detected_at": "2026-05-30T22:46:27.269756+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1951,21 +2181,17 @@
       "text": "https:// truthsocial.com/users/Imalucky angel/statuses/116634885298397647 . Texas, Vote for Ken Paxton, our Country’s BEST Attorney General!",
       "url": "https://truthsocial.com/@realDonaldTrump/116640289354505970",
       "timestamp": "Tue, 26 May 2026 09:59:31 +0000",
-      "detected_at": "2026-05-30T22:34:16.319910+08:00",
+      "detected_at": "2026-05-30T22:46:27.270051+08:00",
       "sentiment": {
-        "polarity": -0.1,
-        "subjectivity": 0.38,
-        "label": "negative",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "election",
-            "impact": -0.1,
-            "category": "politics",
-            "explanation": "Election mention = political uncertainty"
-          }
-        ],
-        "confidence": 0.2
+        "polarity": 0.531,
+        "label": "very_positive",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.28,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1975,14 +2201,17 @@
       "text": "https:// truthsocial.com/users/dpritsky /statuses/116634739174498414",
       "url": "https://truthsocial.com/@realDonaldTrump/116640277391760989",
       "timestamp": "Tue, 26 May 2026 09:56:28 +0000",
-      "detected_at": "2026-05-30T22:34:16.320147+08:00",
+      "detected_at": "2026-05-30T22:46:27.270288+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.14
+        "confidence": 0.14,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -1992,14 +2221,17 @@
       "text": "https:// truthsocial.com/users/lpsychol ogy/statuses/116634696012655362",
       "url": "https://truthsocial.com/@realDonaldTrump/116640276418472460",
       "timestamp": "Tue, 26 May 2026 09:56:14 +0000",
-      "detected_at": "2026-05-30T22:34:16.320393+08:00",
+      "detected_at": "2026-05-30T22:46:27.270507+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.14
+        "confidence": 0.14,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2009,14 +2241,17 @@
       "text": "https:// truthsocial.com/users/IStandWi thTrump47/statuses/116634874790791060",
       "url": "https://truthsocial.com/@realDonaldTrump/116640270261424904",
       "timestamp": "Tue, 26 May 2026 09:54:40 +0000",
-      "detected_at": "2026-05-30T22:34:16.320637+08:00",
+      "detected_at": "2026-05-30T22:46:27.270727+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2026,14 +2261,17 @@
       "text": "https:// truthsocial.com/users/lauramar ks/statuses/116634728742534171",
       "url": "https://truthsocial.com/@realDonaldTrump/116640266798821002",
       "timestamp": "Tue, 26 May 2026 09:53:47 +0000",
-      "detected_at": "2026-05-30T22:34:16.320857+08:00",
+      "detected_at": "2026-05-30T22:46:27.270940+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.14
+        "confidence": 0.14,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2043,14 +2281,17 @@
       "text": "https:// truthsocial.com/users/lauramar ks/statuses/116634724803550055",
       "url": "https://truthsocial.com/@realDonaldTrump/116640265599728280",
       "timestamp": "Tue, 26 May 2026 09:53:29 +0000",
-      "detected_at": "2026-05-30T22:34:16.321086+08:00",
+      "detected_at": "2026-05-30T22:46:27.271150+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.14
+        "confidence": 0.14,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2060,14 +2301,17 @@
       "text": "https:// truthsocial.com/users/IStandWi thTrump47/statuses/116634832160073750",
       "url": "https://truthsocial.com/@realDonaldTrump/116640262926602501",
       "timestamp": "Tue, 26 May 2026 09:52:48 +0000",
-      "detected_at": "2026-05-30T22:34:16.321315+08:00",
+      "detected_at": "2026-05-30T22:46:27.271365+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.0,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.15
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2077,21 +2321,17 @@
       "text": "U.S. attorney in Miami sends ‘message’ to deep state with indictment against ex-prosecutor https:// justthenews.com/accountability /political-ethics/us-attorney-miami-sends-message-deep-state-indictment-against-ex",
       "url": "https://truthsocial.com/@realDonaldTrump/116638460441254303",
       "timestamp": "Tue, 26 May 2026 02:14:24 +0000",
-      "detected_at": "2026-05-30T22:34:16.321560+08:00",
+      "detected_at": "2026-05-30T22:46:27.271760+08:00",
       "sentiment": {
-        "polarity": -0.35,
-        "subjectivity": 0.58,
-        "label": "negative",
-        "method": "lexicon",
-        "matches": [
-          {
-            "term": "impeach",
-            "impact": -0.35,
-            "category": "politics",
-            "explanation": "Legal trouble = political risk, bearish"
-          }
-        ],
-        "confidence": 0.7
+        "polarity": 0.0,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.43,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     },
     {
@@ -2101,37 +2341,40 @@
       "text": "Exclusive: Key Biden DOJ official raised red flags about FBI’s Mar-a-Lago raid, memo shows: https:// justthenews.com/government/cou rts-law/biden-doj-official-had-concerns-trump-declassified-documents-seized-fbis-mar",
       "url": "https://truthsocial.com/@realDonaldTrump/116638455077643701",
       "timestamp": "Tue, 26 May 2026 02:13:02 +0000",
-      "detected_at": "2026-05-30T22:34:16.321903+08:00",
+      "detected_at": "2026-05-30T22:46:27.272083+08:00",
       "sentiment": {
         "polarity": 0.0,
-        "subjectivity": 0.5,
         "label": "neutral",
         "method": "textblob",
         "matches": [],
-        "confidence": 0.43
+        "confidence": 0.43,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
       }
     }
   ],
   "metrics": {
     "24h_post_count": 68,
-    "24h_avg_polarity": -0.016,
+    "24h_avg_polarity": 0.018,
     "24h_sentiment_breakdown": {
-      "very_negative": 1,
-      "negative": 14,
-      "neutral": 42,
-      "positive": 11,
-      "very_positive": 0
+      "very_negative": 0,
+      "negative": 8,
+      "neutral": 52,
+      "positive": 7,
+      "very_positive": 1
     },
     "most_negative": {
-      "text": "John Solomon unpacks a bombshell revelation about James Comey: https:// justthenews.com/podcasts/john- solomon-reports/john-solomon-unpacks-bombshell-revelation-about-james-comey",
-      "polarity": -0.5,
+      "text": "RT @ realDonaldTrump Iran must agree that they will never have a Nuclear Weapon or Bomb. The Hormuz Strait must be immediately open, no tolls, for unrestricted shipping traffic, in both directions. Al",
+      "polarity": -0.268,
       "source": "Truth Social"
     },
     "most_positive": {
-      "text": "Joe Biden sues DOJ to stop release of audio recordings connected to special counsel probe: https:// justthenews.com/government/cou rts-law/joe-biden-sues-doj-stop-release-audio-recordings-connected-sp",
-      "polarity": 0.357,
+      "text": "https:// truthsocial.com/users/Imalucky angel/statuses/116634885298397647 . Texas, Vote for Ken Paxton, our Country’s BEST Attorney General!",
+      "polarity": 0.531,
       "source": "Truth Social"
     }
   },
-  "updated_at": "2026-05-30T22:34:18.058608+08:00"
+  "updated_at": "2026-05-30T22:46:28.827760+08:00"
 }

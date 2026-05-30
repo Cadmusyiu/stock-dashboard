@@ -103,131 +103,196 @@ KEYWORDS_ALERT = [
     "trade", "nuclear",
 ]
 
-# ── Financial/Political Keyword Lexicon ─────────────────────────────
-FINANCIAL_LEXICON = [
-    (r"tariff(s)?", -0.40, "trade", "Tariffs = trade war risk, bearish for equities"),
-    (r"tariff (man|wom)", -0.60, "trade", "Tariff Man persona = aggressive trade stance"),
-    (r"trade (war|dispute|tension)", -0.50, "trade", "Trade war escalation = bearish"),
-    (r"trade (deal|agreement|negotiation)", 0.25, "trade", "Trade deal progress = mildly bullish"),
-    (r"reciprocal", -0.20, "trade", "Reciprocal tariffs = retaliation risk"),
-    (r"(unfair|unjust) trade", -0.30, "trade", "Claims unfair trade = escalation risk"),
-    (r"america first", 0.15, "policy", "America First = protectionist, mixed"),
-    (r"(fed|federal reserve)", -0.05, "monetary", "Fed mention — neutral by itself"),
-    (r"(rate cut|lower(ing)? (interest )?rate)", 0.35, "monetary", "Rate cuts = bullish equities"),
-    (r"(rate hike|raise (interest )?rate)", -0.40, "monetary", "Rate hikes = bearish equities"),
-    (r"interest rate(s)?", -0.05, "monetary", "Interest rate mention — context needed"),
-    (r"quantitative easing", 0.25, "monetary", "QE = bullish liquidity"),
-    (r"tighten(ing)?", -0.30, "monetary", "Tightening = bearish liquidity"),
-    (r"inflation", -0.35, "macro", "Inflation = stagflation risk, bearish"),
-    (r"(disinflation|deflation)", 0.10, "macro", "Disinflation = mildly positive"),
-    (r"(hyperinflation|runaway inflation)", -0.70, "macro", "Hyperinflation threat = very bearish"),
-    (r"(cpi|consumer price)", -0.20, "macro", "CPI high = rate pressure"),
-    (r"recession", -0.60, "macro", "Recession mention = very bearish"),
-    (r"(economic (slowdown|downturn|weakness))", -0.45, "macro", "Economic weakness = bearish"),
-    (r"(depression|great depression)", -0.80, "macro", "Depression comparison = extremely bearish"),
-    (r"(soft landing|economic resilience)", 0.30, "macro", "Soft landing = bullish"),
-    (r"(strong|powerful) dollar", 0.20, "fx", "Strong dollar = mixed"),
-    (r"(weak|weakening) dollar", -0.25, "fx", "Weak dollar = inflationary"),
-    (r"(devalue|devaluation)", -0.40, "fx", "Currency devaluation = bearish"),
-    (r"(reserve currency|petrodollar)", 0.30, "fx", "Reserve currency status = bullish USD"),
-    (r"de-dollarization", -0.50, "fx", "De-dollarization threat = very bearish USD"),
-    (r"(oil (price|supply|production))", -0.10, "energy", "Oil mention — context dependent"),
-    (r"(drill|fracking|energy independence)", 0.20, "energy", "Drill baby drill = bullish energy stocks"),
-    (r"(opec|oil cut|supply cut)", -0.25, "energy", "OPEC cuts = higher oil = mixed"),
-    (r"(gas price|petrol)", -0.15, "energy", "Gas prices rising = consumer pain"),
-    (r"(green energy|renewable|climate)", 0.10, "energy", "Green energy = positive for renewables"),
-    (r"(defense|military spending|pentagon)", 0.10, "defense", "Defense spending = bullish defense stocks"),
-    (r"(war|military action|strike|bomb)", -0.50, "conflict", "Military action = geopolitical risk, bearish"),
-    (r"(nuclear (weapon|program|threat))", -0.45, "conflict", "Nuclear threat = high geopolitical risk"),
-    (r"(sanction|embargo)", -0.20, "conflict", "Sanctions = trade disruption risk"),
-    (r"(peace (deal|agreement|negotiation))", 0.40, "conflict", "Peace progress = risk down, bullish"),
-    (r"ceasefire", 0.35, "conflict", "Ceasefire = de-escalation, mildly bullish"),
-    (r"(troop|deploy|escalat)", -0.35, "conflict", "Troop deployment = escalation risk"),
-    (r"iran", -0.25, "geopolitics", "Iran mention = geopolitical risk"),
-    (r"(iran deal|jcpoa)", 0.30, "geopolitics", "Iran deal diplomacy = de-escalation"),
-    (r"iran.*(nuclear|weapon|missile)", -0.50, "geopolitics", "Iran nuclear threat = high risk"),
-    (r"(maximum pressure|snapback|iran sanction)", -0.25, "geopolitics", "Iran pressure = tension"),
-    (r"(stock market|dow|s&p|nasdaq)", 0.10, "markets", "Stock market mention — bullish claims"),
-    (r"(new high|record high|all.?time high)", 0.50, "markets", "Record highs = bullish confidence"),
-    (r"(market (crash|plunge|tumble|sell.?off))", -0.70, "markets", "Market crash = very bearish"),
-    (r"(rally|surge|soar|boom)", 0.40, "markets", "Market rally = bullish"),
-    (r"(volatility|uncertainty|turbulence)", -0.25, "markets", "Volatility/uncertainty = mildly bearish"),
-    (r"(bitcoin|crypto|blockchain)", 0.20, "crypto", "Crypto mention = positive (Trump pro-crypto)"),
-    (r"(digital asset|web3|defi)", 0.25, "crypto", "Digital asset mention = positive signal"),
-    (r"(cbdc|central bank digital currency)", -0.10, "crypto", "CBDC = mixed for decentralized crypto"),
-    (r"(crypto (reserve|regulation|bill|policy))", 0.30, "crypto", "Crypto policy progress = bullish"),
-    (r"china", -0.20, "geopolitics", "China mention = trade tension, mildly bearish"),
-    (r"(china.*(tariff|trade|sanction))", -0.40, "geopolitics", "China tariff/sanction = trade war escalation"),
-    (r"(china.*(deal|agreement|cooperation))", 0.20, "geopolitics", "China deal = de-escalation, mildly bullish"),
-    (r"(taiwan|south china sea)", -0.35, "geopolitics", "Taiwan/SCS = geopolitical flashpoint"),
-    (r"tax cut(s)?", 0.40, "fiscal", "Tax cuts = bullish for equities"),
-    (r"tax (increase|hike|raise)", -0.45, "fiscal", "Tax hikes = bearish for equities"),
-    (r"(corporate|business) tax", 0.30, "fiscal", "Corporate tax = positive if cuts"),
-    (r"(deficit|national debt|fiscal)", -0.30, "fiscal", "Deficit/debt = fiscal risk, bearish"),
-    (r"(government shutdown|debt ceiling)", -0.40, "fiscal", "Govt shutdown = uncertainty, bearish"),
-    (r"infrastructure", 0.20, "fiscal", "Infrastructure spending = mildly bullish"),
-    (r"(election|vote|ballot)", -0.10, "politics", "Election mention = political uncertainty"),
-    (r"(landslide|win|victory)", 0.25, "politics", "Electoral win = stability, mildly bullish"),
-    (r"(impeach|indict|investigat|prosecute)", -0.35, "politics", "Legal trouble = political risk, bearish"),
-    (r"(fake news|witch hunt|hoax)", -0.20, "politics", "Attack rhetoric = combative"),
-    (r"(rigged|fraud|corrupt)", -0.35, "politics", "Corruption claims = instability, bearish"),
-    (r"(nvda|nvidia)", 0.15, "stocks", "NVIDIA = AI leader, mildly positive"),
-    (r"(apple|aapl)", 0.10, "stocks", "Apple = market bellwether"),
-    (r"(googl|google)", 0.10, "stocks", "Google = tech bellwether"),
-    (r"(meta|facebook)", 0.10, "stocks", "Meta = tech bellwether"),
-    (r"(amzn|amazon)", 0.10, "stocks", "Amazon = consumer/cloud bellwether"),
-    (r"(msft|microsoft)", 0.15, "stocks", "Microsoft = AI leader"),
-    (r"(pltr|palantir)", 0.20, "stocks", "Palantir = defense/AI correlation"),
-    (r"(ba|boeing)", -0.10, "stocks", "Boeing = mixed"),
-    (r"(tsla|tesla)", 0.15, "stocks", "Tesla = Trump/Musk alignment"),
-    (r"(djia|trump media|djt)", 0.20, "stocks", "Trump Media = correlation"),
-    (r"(border|immigration|deport)", -0.15, "policy", "Immigration policy = political uncertainty"),
-    (r"(wall|border security)", 0.10, "policy", "Border wall = base signal"),
-    (r"(great (again|job|economy|day|honor))" , 0.30, "general", "Positive rhetoric"),
-    (r"(disaster|catastrophe|terrible|worst|horrible)", -0.45, "general", "Negative rhetoric = bearish"),
-    (r"(wonderful|beautiful|fantastic|incredible|unprecedented)", 0.20, "general", "Trump positive adjectives"),
-    (r"(sad|pathetic|disgrace|weak|dumb|stupid)", -0.30, "general", "Trump negative adjectives"),
-    (r"(we will win|we are winning|we won)", 0.25, "general", "Confidence signal"),
-    (r"(they are killing us|they are destroying)", -0.40, "general", "Victim rhetoric = negative outlook"),
+# ── Multi-Category Market Lexicon ───────────────────────────────────
+# Each entry: (regex, {asset_class: impact}, category, description)
+# asset_class: us_equities | fx | crypto | geo_risk
+# impact: -1.0 (max bearish) to +1.0 (max bullish) per asset class
+# 0.0 = neutral / no opinion on that asset
+MARKET_LEXICON = [
+    # ════════════════════════════════════════════════════════════════
+    # TRADE / TARIFF
+    # ════════════════════════════════════════════════════════════════
+    (r"tariff(s)?", {"us_equities": -0.40, "fx": -0.10, "crypto": 0.0, "geo_risk": 0.35}, "trade", "Tariffs = trade war risk, bearish equities"),
+    (r"tariff (man|wom)", {"us_equities": -0.50, "fx": -0.15, "crypto": 0.0, "geo_risk": 0.40}, "trade", "Tariff Man persona = aggressive stance"),
+    (r"trade (war|dispute|tension)", {"us_equities": -0.50, "fx": -0.15, "crypto": -0.10, "geo_risk": 0.50}, "trade", "Trade war = bearish all risk assets"),
+    (r"trade (deal|agreement|negotiation)", {"us_equities": 0.30, "fx": 0.10, "crypto": 0.10, "geo_risk": -0.30}, "trade", "Trade deal = bullish risk assets"),
+    (r"reciprocal", {"us_equities": -0.25, "fx": -0.05, "crypto": 0.0, "geo_risk": 0.25}, "trade", "Reciprocal tariffs = retaliation risk"),
+    (r"(unfair|unjust) trade", {"us_equities": -0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.20}, "trade", "Claims unfair trade = escalation risk"),
+
+    # ════════════════════════════════════════════════════════════════
+    # FED / INTEREST RATES
+    # ════════════════════════════════════════════════════════════════
+    (r"(rate cut|lower(ing)? (interest )?rate|cut (interest )?rates)", {"us_equities": 0.40, "fx": -0.25, "crypto": 0.25, "geo_risk": -0.10}, "monetary", "Rate cuts = bullish equities/crypto, bearish USD"),
+    (r"(rate hike|raise (interest )?rate)", {"us_equities": -0.45, "fx": 0.30, "crypto": -0.30, "geo_risk": 0.10}, "monetary", "Rate hikes = bearish risk, bullish USD"),
+    (r"(fed|federal reserve)", {"us_equities": 0.0, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "monetary", "Fed mention — neutral by itself"),
+    (r"interest rate(s)?", {"us_equities": 0.0, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.05}, "monetary", "Interest rate mention — context needed"),
+    (r"quantitative easing", {"us_equities": 0.30, "fx": -0.20, "crypto": 0.30, "geo_risk": -0.10}, "monetary", "QE = bullish liquidity across risk assets"),
+    (r"tighten(ing)?", {"us_equities": -0.30, "fx": 0.20, "crypto": -0.20, "geo_risk": 0.05}, "monetary", "Tightening = bearish risk, bullish USD"),
+
+    # ════════════════════════════════════════════════════════════════
+    # INFLATION / MACRO
+    # ════════════════════════════════════════════════════════════════
+    (r"inflation", {"us_equities": -0.30, "fx": -0.10, "crypto": 0.0, "geo_risk": 0.15}, "macro", "Inflation = stagflation risk, bearish equities"),
+    (r"(disinflation|deflation)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": -0.05}, "macro", "Disinflation = mildly positive"),
+    (r"(hyperinflation|runaway inflation)", {"us_equities": -0.60, "fx": -0.40, "crypto": 0.15, "geo_risk": 0.40}, "macro", "Hyperinflation = very bearish trad-fi, crypto hedge"),
+    (r"(cpi|consumer price)", {"us_equities": -0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.05}, "macro", "CPI data mention — mildly bearish if high"),
+    (r"recession", {"us_equities": -0.60, "fx": -0.20, "crypto": -0.25, "geo_risk": 0.35}, "macro", "Recession mention = bearish all risk assets"),
+    (r"(economic (slowdown|downturn|weakness))", {"us_equities": -0.45, "fx": -0.15, "crypto": -0.15, "geo_risk": 0.25}, "macro", "Economic weakness = bearish"),
+    (r"(depression|great depression)", {"us_equities": -0.80, "fx": -0.30, "crypto": -0.30, "geo_risk": 0.50}, "macro", "Depression comparison = extreme bearish"),
+    (r"(soft landing|economic resilience|robust)", {"us_equities": 0.35, "fx": 0.10, "crypto": 0.20, "geo_risk": -0.15}, "macro", "Soft landing = bullish risk assets"),
+
+    # ════════════════════════════════════════════════════════════════
+    # DOLLAR / FX
+    # ════════════════════════════════════════════════════════════════
+    (r"(strong|powerful) dollar", {"us_equities": -0.15, "fx": 0.35, "crypto": -0.15, "geo_risk": 0.0}, "fx", "Strong USD = mixed (good for imports, but hurts exports)"),
+    (r"(weak|weakening) dollar", {"us_equities": 0.15, "fx": -0.30, "crypto": 0.20, "geo_risk": 0.0}, "fx", "Weak USD = inflationary, bullish gold/crypto"),
+    (r"(devalue|devaluation)", {"us_equities": -0.30, "fx": -0.40, "crypto": 0.10, "geo_risk": 0.30}, "fx", "Devaluation = bearish, capital outflow risk"),
+    (r"(reserve currency|petrodollar)", {"us_equities": 0.15, "fx": 0.40, "crypto": 0.0, "geo_risk": -0.20}, "fx", "Reserve currency status = bullish USD"),
+    (r"de-dollarization", {"us_equities": -0.20, "fx": -0.50, "crypto": 0.25, "geo_risk": 0.35}, "fx", "De-dollarization = bearish USD, bullish crypto"),
+
+    # ════════════════════════════════════════════════════════════════
+    # OIL / ENERGY
+    # ════════════════════════════════════════════════════════════════
+    (r"(oil (price|supply|production))", {"us_equities": -0.05, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.05}, "energy", "Oil mention — mildly bearish if higher prices"),
+    (r"(drill|fracking|energy independence|energy dominance)", {"us_equities": 0.10, "fx": 0.15, "crypto": 0.0, "geo_risk": -0.05}, "energy", "Drill = positive energy sector, USD"),
+    (r"(opec|oil cut|supply cut|production cut)", {"us_equities": -0.10, "fx": -0.05, "crypto": 0.0, "geo_risk": 0.15}, "energy", "OPEC cuts = higher oil, mixed for economy"),
+    (r"(gas price|petrol)", {"us_equities": -0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "energy", "Gas prices = consumer headwind"),
+
+    # ════════════════════════════════════════════════════════════════
+    # DEFENSE / GEOPOLITICS
+    # ════════════════════════════════════════════════════════════════
+    (r"(defense|military spending|pentagon)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.05}, "defense", "Defense spending = bullish defense/industrial stocks"),
+    (r"(war|military action|strike|bomb)", {"us_equities": -0.30, "fx": 0.10, "crypto": -0.15, "geo_risk": 0.70}, "conflict", "Military action = geopolitical risk spike, sell risk"),
+    (r"(nuclear (weapon|program|threat|capability))", {"us_equities": -0.20, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.65}, "conflict", "Nuclear threat = high geopolitical risk"),
+    (r"(sanction|embargo)", {"us_equities": -0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.30}, "conflict", "Sanctions = trade disruption, geopolitical tension"),
+    (r"(peace (deal|agreement|negotiation|process))", {"us_equities": 0.25, "fx": 0.10, "crypto": 0.10, "geo_risk": -0.50}, "conflict", "Peace progress = de-escalation, bullish"),
+    (r"ceasefire", {"us_equities": 0.20, "fx": 0.05, "crypto": 0.10, "geo_risk": -0.45}, "conflict", "Ceasefire = de-escalation, mildly bullish"),
+    (r"(troop|deploy|escalat)", {"us_equities": -0.25, "fx": 0.0, "crypto": -0.10, "geo_risk": 0.60}, "conflict", "Troop deployment = escalation risk"),
+
+    # ════════════════════════════════════════════════════════════════
+    # IRAN
+    # ════════════════════════════════════════════════════════════════
+    (r"iran", {"us_equities": -0.10, "fx": 0.05, "crypto": 0.0, "geo_risk": 0.35}, "geopolitics", "Iran mention = geopolitical risk"),
+    (r"(iran deal|jcpoa)", {"us_equities": 0.25, "fx": 0.10, "crypto": 0.10, "geo_risk": -0.40}, "geopolitics", "Iran deal = de-escalation, bullish"),
+    (r"iran.*(nuclear|weapon|missile|threat)", {"us_equities": -0.25, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.65}, "geopolitics", "Iran nuclear = serious geopolitical risk"),
+    (r"(maximum pressure|snapback|iran sanction)", {"us_equities": -0.10, "fx": 0.05, "crypto": 0.0, "geo_risk": 0.30}, "geopolitics", "Iran pressure = tension"),
+
+    # ════════════════════════════════════════════════════════════════
+    # STOCK MARKET
+    # ════════════════════════════════════════════════════════════════
+    (r"(stock market|dow|s&amp;p|nasdaq|s&p)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.05, "geo_risk": 0.0}, "markets", "Stock market mention — bullish if claiming success"),
+    (r"(new high|record high|all.?time high)", {"us_equities": 0.60, "fx": 0.10, "crypto": 0.20, "geo_risk": -0.15}, "markets", "Record highs = strong bullish signal"),
+    (r"(market (crash|plunge|tumble|sell.?off|bloodbath))", {"us_equities": -0.70, "fx": 0.15, "crypto": -0.40, "geo_risk": 0.30}, "markets", "Market crash = very bearish risk assets"),
+    (r"(rally|surge|soar|boom|roaring)", {"us_equities": 0.45, "fx": 0.0, "crypto": 0.20, "geo_risk": 0.0}, "markets", "Market rally = bullish"),
+    (r"(volatility|uncertainty|turbulence|jitters)", {"us_equities": -0.25, "fx": 0.05, "crypto": -0.15, "geo_risk": 0.20}, "markets", "Volatility/unexpected = mildly bearish"),
+
+    # ════════════════════════════════════════════════════════════════
+    # CRYPTO
+    # ════════════════════════════════════════════════════════════════
+    (r"(bitcoin|crypto|blockchain)", {"us_equities": 0.05, "fx": 0.0, "crypto": 0.40, "geo_risk": 0.0}, "crypto", "Crypto mention = positive (Trump pro-crypto stance)"),
+    (r"(digital asset|web3|defi)", {"us_equities": 0.0, "fx": 0.0, "crypto": 0.35, "geo_risk": 0.0}, "crypto", "Digital asset mention = pro-crypto signal"),
+    (r"(cbdc|central bank digital currency)", {"us_equities": 0.0, "fx": 0.0, "crypto": -0.15, "geo_risk": 0.0}, "crypto", "CBDC = bearish for decentralized crypto"),
+    (r"(crypto (reserve|regulation|bill|policy|framework))", {"us_equities": 0.10, "fx": 0.0, "crypto": 0.50, "geo_risk": 0.0}, "crypto", "Crypto policy progress = very bullish crypto"),
+
+    # ════════════════════════════════════════════════════════════════
+    # CHINA
+    # ════════════════════════════════════════════════════════════════
+    (r"china", {"us_equities": -0.15, "fx": -0.05, "crypto": 0.0, "geo_risk": 0.25}, "geopolitics", "China mention = trade tension, mildly bearish"),
+    (r"(china.*(tariff|trade|sanction|barrier))", {"us_equities": -0.40, "fx": -0.10, "crypto": -0.10, "geo_risk": 0.40}, "geopolitics", "China tariff/sanction = trade war escalation"),
+    (r"(china.*(deal|agreement|cooperation|partner))", {"us_equities": 0.25, "fx": 0.10, "crypto": 0.10, "geo_risk": -0.30}, "geopolitics", "China deal = de-escalation, mildly bullish"),
+    (r"(taiwan|south china sea)", {"us_equities": -0.20, "fx": 0.0, "crypto": -0.10, "geo_risk": 0.55}, "geopolitics", "Taiwan/SCS = geopolitical flashpoint"),
+
+    (r"tax cut(s)?", {"us_equities": 0.50, "fx": 0.10, "crypto": 0.15, "geo_risk": 0.0}, "fiscal", "Tax cuts = bullish equities"),
+    (r"tax (increase|hike|raise)", {"us_equities": -0.50, "fx": -0.10, "crypto": -0.10, "geo_risk": 0.05}, "fiscal", "Tax hikes = bearish equities"),
+    (r"(corporate|business) tax", {"us_equities": 0.30, "fx": 0.05, "crypto": 0.10, "geo_risk": 0.0}, "fiscal", "Corporate tax cuts = bullish"),
+    (r"(deficit|national debt|fiscal)", {"us_equities": -0.25, "fx": -0.10, "crypto": 0.0, "geo_risk": 0.20}, "fiscal", "Deficit/debt = fiscal risk, bearish"),
+    (r"(government shutdown|debt ceiling)", {"us_equities": -0.45, "fx": -0.10, "crypto": -0.15, "geo_risk": 0.35}, "fiscal", "Govt shutdown = uncertainty, bearish"),
+    (r"infrastructure", {"us_equities": 0.20, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "fiscal", "Infrastructure spending = mildly bullish"),
+
+    # ════════════════════════════════════════════════════════════════
+    # COMPANY-SPECIFIC
+    # ════════════════════════════════════════════════════════════════
+    (r"(nvda|nvidia)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "NVIDIA = AI leader, mildly positive"),
+    (r"(apple|aapl)", {"us_equities": 0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Apple = market bellwether"),
+    (r"(googl|google)", {"us_equities": 0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Google = tech bellwether"),
+    (r"(meta|facebook)", {"us_equities": 0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Meta = tech bellwether"),
+    (r"(amzn|amazon)", {"us_equities": 0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Amazon = bellwether"),
+    (r"(msft|microsoft)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Microsoft = AI leader"),
+    (r"(pltr|palantir)", {"us_equities": 0.20, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Palantir = defense/AI"),
+    (r"(ba|boeing)", {"us_equities": -0.10, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Boeing = mixed"),
+    (r"(tsla|tesla)", {"us_equities": 0.15, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Tesla = Trump/Musk alignment"),
+    (r"(djia|trump media|djt|truth social)", {"us_equities": 0.20, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}, "stocks", "Trump Media = correlation"),
+
+    # ════════════════════════════════════════════════════════════════
+    # IMMIGRATION (minimal market impact)
+    # ════════════════════════════════════════════════════════════════
+    (r"(border|immigration|deport)", {"us_equities": -0.05, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.10}, "policy", "Immigration = political uncertainty"),
+
+    # ════════════════════════════════════════════════════════════════
+    # ELECTION / POLITICS (low/no market signal — excluded)
+    # NOTHING — all political rhetoric (win, victory, witch hunt,
+    # fake news, great, horrible, etc.) is excluded by design.
+    # Pure market signal only.
+    # ════════════════════════════════════════════════════════════════
 ]
 
 def analyze_sentiment(text: str) -> dict:
     """
-    Hybrid financial/political sentiment analysis:
-    1. Check keyword lexicon first (domain-specific financial/political terms)
-    2. Fallback to TextBlob for general English sentiment
-    
-    Returns polarity, subjectivity, label, matched terms, method, and confidence.
+    Multi-category market sentiment analysis.
+    Scores each post against 4 dimensions:
+      - us_equities: impact on US stock market
+      - fx: impact on USD
+      - crypto: impact on crypto markets
+      - geo_risk: geopolitical risk level (>0 = higher risk, no bullish/bearish opposite)
+    Falls back to TextBlob only when no market terms matched.
     """
     if not text or len(text) < 10:
         return {
-            "polarity": 0.0, "subjectivity": 0.0, "label": "neutral",
-            "method": "none", "matches": [], "confidence": 0
+            "polarity": 0.0, "label": "neutral",
+            "method": "none", "matches": [], "confidence": 0,
+            "us_equities": 0.0, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0,
         }
+
     txt_lower = text.lower()
-    matched_terms = []
-    total_impact = 0.0
-    for pattern, impact, category, explanation in FINANCIAL_LEXICON:
+    matches = []
+    scores = {"us_equities": 0.0, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}
+    impact_counts = {"us_equities": 0, "fx": 0, "crypto": 0, "geo_risk": 0}
+
+    for pattern, impacts, category, explanation in MARKET_LEXICON:
         if re.search(pattern, txt_lower):
-            matched_terms.append({
-                "term": pattern.strip("()").replace("\\","").split("|")[0].rstrip("?s"),
-                "impact": impact,
-                "category": category,
-                "explanation": explanation,
+            # Build clean term name
+            raw = pattern.strip("()").replace("\\","").split("|")[0].rstrip("?s")
+            term = raw[:25]
+            matches.append({
+                "term": term, "category": category,
+                "impacts": impacts, "explanation": explanation
             })
-            total_impact += impact
-    if matched_terms:
-        n = len(matched_terms)
-        avg_impact = total_impact / n
-        confidence = min(1.0, (n * abs(avg_impact)) / 0.5)
-        pol = max(-1.0, min(1.0, avg_impact))
-        subj = min(1.0, 0.3 + confidence * 0.4)
+            for asset_class, impact in impacts.items():
+                scores[asset_class] += impact
+                if impact != 0:
+                    impact_counts[asset_class] += 1
+
+    # Average scores across matched categories
+    for k in scores:
+        if impact_counts[k] > 0:
+            scores[k] = round(scores[k] / max(1, impact_counts[k] * 0.5), 3)
+            # 0.5 dampening: stronger when multiple matches confirm direction
+            scores[k] = max(-1.0, min(1.0, scores[k] * (1 - 0.3 / max(1, impact_counts[k]))))
+            scores[k] = round(max(-1.0, min(1.0, scores[k])), 3)
+
+    if matches:
+        # Overall polarity = weighted avg of us_equities + crypto
+        pol = round((scores["us_equities"] * 2 + scores["crypto"] * 1) / 3, 3)
+        confidence = min(1.0, len(matches) * 0.12)
+        method = "lexicon"
     else:
+        # No market terms — fallback to TextBlob. Label only, no multi-category.
         blob = TextBlob(text[:2000])
         pol = blob.sentiment.polarity
-        subj = blob.sentiment.subjectivity
         confidence = min(1.0, len(text) / 500)
-        matched_terms = []
+        method = "textblob"
+        scores = {"us_equities": 0.0, "fx": 0.0, "crypto": 0.0, "geo_risk": 0.0}
+
     if pol <= -0.5:
         label = "very_negative"
     elif pol <= -0.1:
@@ -238,14 +303,19 @@ def analyze_sentiment(text: str) -> dict:
         label = "positive"
     else:
         label = "neutral"
+
     return {
         "polarity": round(pol, 3),
-        "subjectivity": round(subj, 3),
         "label": label,
-        "method": "lexicon" if matched_terms else "textblob",
-        "matches": matched_terms[:10],
+        "method": method,
+        "matches": matches[:8],
         "confidence": round(confidence, 2),
+        "us_equities": scores["us_equities"],
+        "fx": scores["fx"],
+        "crypto": scores["crypto"],
+        "geo_risk": scores["geo_risk"],
     }
+
 
 def sentiment_emoji(label: str) -> str:
     return {
@@ -486,10 +556,26 @@ def main():
         if should_alert:
             src = post["source"]
             ts = post["timestamp"][:19] if post["timestamp"] else ""
+            sent = post.get("sentiment", {})
             sent_str = sentiment_emoji(label) + f" {polarity:+.2f}"
+            # Build market signal line if lexicon method
+            sig = ""
+            if sent and sent.get("method") == "lexicon":
+                parts = []
+                eq = sent.get("us_equities", 0)
+                fx = sent.get("fx", 0)
+                cr = sent.get("crypto", 0)
+                gr = sent.get("geo_risk", 0)
+                if eq: parts.append(f"🇺🇸{eq:+.2f}")
+                if fx: parts.append(f"💵{fx:+.2f}")
+                if cr: parts.append(f"₿{cr:+.2f}")
+                if gr: parts.append(f"⚠️{gr:.2f}")
+                if parts:
+                    sig = " | ".join(parts) + "\n"
             msg = (
                 f"🔴 <b>Trump Alert</b> | {src} {sent_str}\n"
                 f"📌 {', '.join(alert_reason[:4])}\n"
+                f"{sig}"
                 f"🕐 {ts} HKT\n\n"
                 f"{txt[:400]}"
             )
