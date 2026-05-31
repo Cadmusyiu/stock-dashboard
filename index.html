@@ -1005,7 +1005,7 @@ window.renderSocialFeed = function(data, content, tsEl){
     var now = Date.now();
     if (_last13fLoad && now - _last13fLoad < 600000) return;
     _last13fLoad = now;
-    fetch('data/fund_manager_holdings.json?_=' + now)
+    fetch('data/fund_manager_holdings.json?cb=' + now)
       .then(function(r){ return r.json(); })
       .then(function(data){
         if (!data || !data.managers) {
@@ -1042,7 +1042,7 @@ window.renderSocialFeed = function(data, content, tsEl){
     var now = Date.now();
     if (_lastTrumpImpactLoad && now - _lastTrumpImpactLoad < 600000) return;
     _lastTrumpImpactLoad = now;
-    fetch('data/trump_impact_scores.json?_=' + now)
+    fetch('data/trump_impact_scores.json?cb=' + now)
       .then(function(r){ return r.json(); })
       .then(function(data){
         if (!data || !data.cumulative || !data.cumulative.tickers) {
@@ -1080,7 +1080,7 @@ window.renderSocialFeed = function(data, content, tsEl){
     var now = Date.now();
     if (_lastRotationLoad && now - _lastRotationLoad < 600000) return;
     _lastRotationLoad = now;
-    fetch('data/sector_rotation.json?_=' + now)
+    fetch('data/sector_rotation.json?cb=' + now)
       .then(function(r){ return r.json(); })
       .then(function(data){
         if (!data || !data.sectors) {
