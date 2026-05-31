@@ -1674,26 +1674,7 @@ window.showLanding = function(){
     $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
     $('updateTs').style.display='block';
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
-    // 🆕 Fund Manager 13F Holdings
-    try {
-      fetch('data/fund_manager_holdings.json?'+Date.now()).then(function(r){return r.json()}).then(function(fmData){
-        var grid=$('fundManager13fGrid');
-        if(!grid)return;
-        var managers=fmData.managers||{};
-        grid.innerHTML=Object.keys(managers).map(function(key){
-          var m=managers[key];
-          var h=m.holdings||[];
-          var topStr=h.slice(0,5).map(function(x){return x.ticker+' $'+((x.value_mn||0)/1000).toFixed(1)+'B'}).join(', ');
-          var bg=m.name.indexOf('Buffett')>-1?'rgba(0,255,136,0.08)':m.name.indexOf('Bridgewater')>-1?'rgba(255,165,2,0.08)':m.name.indexOf('Citadel')>-1?'rgba(79,195,247,0.08)':'rgba(99,110,114,0.08)';
-          return '<div style="background:'+bg+';border-radius:6px;padding:8px 10px;"><div style="font-size:11px;font-weight:600;">'+m.name+'</div><div style="font-size:9px;color:var(--text-muted);">'+m.quarter+' · '+h.length+' holdings</div><div style="font-size:9px;color:var(--text-secondary);margin-top:3px;">'+topStr+'</div></div>';
-        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No 13F data loaded</div>';
-      }).catch(function(){console.log('13F data not available yet')});
-    } catch(e){}
-
-    // 🆕 Trump Impact Scores (loaded by loadTrumpImpactScores)
-    // 🆕 Sector Rotation (loaded by loadSectorRotation)
-
-    // Load 13F, Trump Impact, and Sector Rotation data
+    // 🆕 Load 13F, Trump Impact, and Sector Rotation data
     window.loadFundManager13f();
     window.loadTrumpImpactScores();
     window.loadSectorRotation();
@@ -1714,11 +1695,7 @@ function boot(){
     var n=0;
     window.showLanding();
     if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
-    setTimeout(function(){
-      window.loadFundManager13f();
-      window.loadTrumpImpactScores();
-      window.loadSectorRotation();
-    },2000);
+
     setInterval(loadPrices,120000);
   }catch(e){console.error('Boot error:',e)}
 }
