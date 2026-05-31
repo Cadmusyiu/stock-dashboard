@@ -1,0 +1,440 @@
+{
+  "generated": "2026-05-31T17:34:55.132134+08:00",
+  "data_timestamp": "2026-05-31 17:34",
+  "sectors": {
+    "XLK": {
+      "name": "Technology",
+      "color": "#4fc3f7",
+      "price": 191.02,
+      "returns": {
+        "1w": 6.9540860831475815,
+        "1m": 20.055309873484674,
+        "3m": 37.83332573629104
+      },
+      "relative_vs_spy": {
+        "1w": 5.1,
+        "1m": 13.75,
+        "3m": 27.26
+      },
+      "capital_flow": {
+        "21d": 1906071.28,
+        "63d": 2890897.58
+      },
+      "momentum_score": 12.13,
+      "ytd_return": 33.79
+    },
+    "XLF": {
+      "name": "Financials",
+      "color": "#ffc312",
+      "price": 51.58,
+      "returns": {
+        "1w": -0.28996271507633065,
+        "1m": -0.6548465906803247,
+        "3m": 0.8071948669951201
+      },
+      "relative_vs_spy": {
+        "1w": -2.14,
+        "1m": -6.96,
+        "3m": -9.77
+      },
+      "capital_flow": {
+        "21d": -238982.65,
+        "63d": -234253.49
+      },
+      "momentum_score": -5.11,
+      "ytd_return": -1.63
+    },
+    "XLE": {
+      "name": "Energy",
+      "color": "#ff6b6b",
+      "price": 56.29,
+      "returns": {
+        "1w": -4.802976663768921,
+        "1m": -4.6417040833999,
+        "3m": 1.3193618345591407
+      },
+      "relative_vs_spy": {
+        "1w": -6.66,
+        "1m": -10.95,
+        "3m": -9.26
+      },
+      "capital_flow": {
+        "21d": -3932811.36,
+        "63d": -5758400.93
+      },
+      "momentum_score": -8.47,
+      "ytd_return": 25.14
+    },
+    "XLV": {
+      "name": "Healthcare",
+      "color": "#fd79a8",
+      "price": 149.47,
+      "returns": {
+        "1w": 0.890993843132426,
+        "1m": 4.641560524216981,
+        "3m": -6.3143112829399435
+      },
+      "relative_vs_spy": {
+        "1w": -0.96,
+        "1m": -1.67,
+        "3m": -16.89
+      },
+      "capital_flow": {
+        "21d": 576342.4,
+        "63d": -945729.45
+      },
+      "momentum_score": -4.36,
+      "ytd_return": -2.94
+    },
+    "XLY": {
+      "name": "Consumer Discretionary",
+      "color": "#a29bfe",
+      "price": 120.87,
+      "returns": {
+        "1w": 1.8281430953077882,
+        "1m": 3.4491668392705233,
+        "3m": 3.6392364280692924
+      },
+      "relative_vs_spy": {
+        "1w": -0.02,
+        "1m": -2.86,
+        "3m": -6.94
+      },
+      "capital_flow": {
+        "21d": 465740.0,
+        "63d": 580027.23
+      },
+      "momentum_score": -2.26,
+      "ytd_return": 2.58
+    },
+    "XLP": {
+      "name": "Consumer Staples",
+      "color": "#00b894",
+      "price": 82.91,
+      "returns": {
+        "1w": -2.067091807584265,
+        "1m": -0.012053192301786364,
+        "3m": -7.369536154689882
+      },
+      "relative_vs_spy": {
+        "1w": -3.92,
+        "1m": -6.32,
+        "3m": -17.95
+      },
+      "capital_flow": {
+        "21d": 83561.42,
+        "63d": -2034376.11
+      },
+      "momentum_score": -7.45,
+      "ytd_return": 6.0
+    },
+    "XLI": {
+      "name": "Industrials",
+      "color": "#e17055",
+      "price": 173.13,
+      "returns": {
+        "1w": 1.5246620079324646,
+        "1m": 1.8831356116967068,
+        "3m": -1.9891127884913207
+      },
+      "relative_vs_spy": {
+        "1w": -0.33,
+        "1m": -4.43,
+        "3m": -12.57
+      },
+      "capital_flow": {
+        "21d": 302489.66,
+        "63d": -609314.28
+      },
+      "momentum_score": -4.01,
+      "ytd_return": 15.04
+    },
+    "XLRE": {
+      "name": "Real Estate",
+      "color": "#0984e3",
+      "price": 43.99,
+      "returns": {
+        "1w": -1.1460636438948346,
+        "1m": 0.8020217546139241,
+        "3m": 1.0165943917059828
+      },
+      "relative_vs_spy": {
+        "1w": -3.0,
+        "1m": -5.51,
+        "3m": -9.56
+      },
+      "capital_flow": {
+        "21d": 61487.77,
+        "63d": -190289.9
+      },
+      "momentum_score": -5.06,
+      "ytd_return": 8.96
+    },
+    "XLU": {
+      "name": "Utilities",
+      "color": "#636e72",
+      "price": 44.42,
+      "returns": {
+        "1w": -1.2888929578993014,
+        "1m": -2.758323397138207,
+        "3m": -6.284188914150146
+      },
+      "relative_vs_spy": {
+        "1w": -3.14,
+        "1m": -9.07,
+        "3m": -16.86
+      },
+      "capital_flow": {
+        "21d": -669166.68,
+        "63d": -2261223.29
+      },
+      "momentum_score": -7.66,
+      "ytd_return": 1.83
+    },
+    "XLB": {
+      "name": "Materials",
+      "color": "#76b900",
+      "price": 51.15,
+      "returns": {
+        "1w": 2.2590984761573507,
+        "1m": 0.3728462417970091,
+        "3m": -3.8055194581122165
+      },
+      "relative_vs_spy": {
+        "1w": 0.41,
+        "1m": -5.94,
+        "3m": -14.38
+      },
+      "capital_flow": {
+        "21d": 57454.57,
+        "63d": -1108184.07
+      },
+      "momentum_score": -4.45,
+      "ytd_return": 15.82
+    }
+  },
+  "macro": {
+    "QQQ": {
+      "name": "NASDAQ 100 (Tech-heavy)",
+      "price": 738.31,
+      "returns": {
+        "1w": 3.3309523264447582,
+        "1m": 11.599677945612585,
+        "3m": 21.727833963903098
+      },
+      "relative_vs_spy": {
+        "1w": 1.48,
+        "1m": 5.29,
+        "3m": 11.15
+      },
+      "capital_flow": {
+        "21d": 3856073.62,
+        "63d": 7460778.88
+      }
+    },
+    "IWM": {
+      "name": "Russell 2000 (Small Cap)",
+      "price": 290.43,
+      "returns": {
+        "1w": 2.8107199249143733,
+        "1m": 6.744342476157028,
+        "3m": 11.298958573202356
+      },
+      "relative_vs_spy": {
+        "1w": 0.96,
+        "1m": 0.43,
+        "3m": 0.72
+      },
+      "capital_flow": {
+        "21d": 1445519.52,
+        "63d": 2069292.45
+      }
+    },
+    "DIA": {
+      "name": "Dow 30 (Blue Chips)",
+      "price": 510.78,
+      "returns": {
+        "1w": 1.5245202144765102,
+        "1m": 4.582160339027075,
+        "3m": 4.640607440774369
+      },
+      "relative_vs_spy": {
+        "1w": -0.33,
+        "1m": -1.73,
+        "3m": -5.94
+      },
+      "capital_flow": {
+        "21d": 267651.64,
+        "63d": 321196.15
+      }
+    },
+    "TLT": {
+      "name": "20+ Year Treasury (Rates)",
+      "price": 85.76,
+      "returns": {
+        "1w": 1.8285453493306125,
+        "1m": 0.43953720773468596,
+        "3m": -4.527658117213173
+      },
+      "relative_vs_spy": {
+        "1w": -0.02,
+        "1m": -5.87,
+        "3m": -15.1
+      },
+      "capital_flow": {
+        "21d": -136576.92,
+        "63d": -2994868.92
+      }
+    },
+    "GLD": {
+      "name": "Gold (Safe Haven)",
+      "price": 417.12,
+      "returns": {
+        "1w": 0.03117697926979801,
+        "1m": -0.06947810123799636,
+        "3m": -13.773644420219632
+      },
+      "relative_vs_spy": {
+        "1w": -1.82,
+        "1m": -6.38,
+        "3m": -24.35
+      },
+      "capital_flow": {
+        "21d": -15979.16,
+        "63d": -3616911.1
+      }
+    }
+  },
+  "ranked": [
+    {
+      "ticker": "XLK",
+      "name": "Technology",
+      "momentum": 12.13
+    },
+    {
+      "ticker": "XLY",
+      "name": "Consumer Discretionary",
+      "momentum": -2.26
+    },
+    {
+      "ticker": "XLI",
+      "name": "Industrials",
+      "momentum": -4.01
+    },
+    {
+      "ticker": "XLV",
+      "name": "Healthcare",
+      "momentum": -4.36
+    },
+    {
+      "ticker": "XLB",
+      "name": "Materials",
+      "momentum": -4.45
+    },
+    {
+      "ticker": "XLRE",
+      "name": "Real Estate",
+      "momentum": -5.06
+    },
+    {
+      "ticker": "XLF",
+      "name": "Financials",
+      "momentum": -5.11
+    },
+    {
+      "ticker": "XLP",
+      "name": "Consumer Staples",
+      "momentum": -7.45
+    },
+    {
+      "ticker": "XLU",
+      "name": "Utilities",
+      "momentum": -7.66
+    },
+    {
+      "ticker": "XLE",
+      "name": "Energy",
+      "momentum": -8.47
+    }
+  ],
+  "benchmark": {
+    "ticker": "SPY",
+    "returns": {
+      "1w": 1.852651107872938,
+      "1m": 6.309896610438015,
+      "3m": 10.576823308500426
+    },
+    "capital_flow": {
+      "21d": 2718759.44,
+      "63d": 4843669.68
+    }
+  },
+  "rotation_signal": {
+    "top_sectors": [
+      {
+        "ticker": "XLK",
+        "name": "Technology",
+        "momentum": 12.13,
+        "return_1w": 6.9540860831475815,
+        "return_1m": 20.055309873484674,
+        "return_3m": 37.83332573629104,
+        "flow_21d": 1906071.28
+      },
+      {
+        "ticker": "XLY",
+        "name": "Consumer Discretionary",
+        "momentum": -2.26,
+        "return_1w": 1.8281430953077882,
+        "return_1m": 3.4491668392705233,
+        "return_3m": 3.6392364280692924,
+        "flow_21d": 465740.0
+      },
+      {
+        "ticker": "XLI",
+        "name": "Industrials",
+        "momentum": -4.01,
+        "return_1w": 1.5246620079324646,
+        "return_1m": 1.8831356116967068,
+        "return_3m": -1.9891127884913207,
+        "flow_21d": 302489.66
+      }
+    ],
+    "bottom_sectors": [
+      {
+        "ticker": "XLE",
+        "name": "Energy",
+        "momentum": -8.47,
+        "return_1w": -4.802976663768921,
+        "return_1m": -4.6417040833999,
+        "return_3m": 1.3193618345591407,
+        "flow_21d": -3932811.36
+      },
+      {
+        "ticker": "XLU",
+        "name": "Utilities",
+        "momentum": -7.66,
+        "return_1w": -1.2888929578993014,
+        "return_1m": -2.758323397138207,
+        "return_3m": -6.284188914150146,
+        "flow_21d": -669166.68
+      },
+      {
+        "ticker": "XLP",
+        "name": "Consumer Staples",
+        "momentum": -7.45,
+        "return_1w": -2.067091807584265,
+        "return_1m": -0.012053192301786364,
+        "return_3m": -7.369536154689882,
+        "flow_21d": 83561.42
+      }
+    ],
+    "spread_top_bottom": 19.58
+  },
+  "rotation_direction": {
+    "regime": "Risk-On (Growth)",
+    "description": "Growth/tech leading → bullish risk appetite",
+    "risk_on_momentum": 1.59,
+    "risk_off_momentum": -6.49,
+    "cyclical_momentum": -5.64
+  }
+}

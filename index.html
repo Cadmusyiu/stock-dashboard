@@ -79,6 +79,30 @@
   <div id="topMoversContent" style="font-size:11px;"><div style="color:var(--text-muted);">Loading...</div></div>
 </div>
 
+<!-- 🆕 Fund Manager 13F Section -->
+<div class="glass fade-in fade-in-5" style="padding:14px 16px;margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:8px;">🏦 Fund Manager 13F Holdings (SEC EDGAR)</div>
+  <div id="fundManager13fGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;">
+    <div style="color:var(--text-muted);font-size:11px;">Loading 13F data...</div>
+  </div>
+</div>
+
+<!-- 🆕 Trump Impact Score Section -->
+<div class="glass fade-in fade-in-5" style="padding:14px 16px;margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:8px;">🔴 Trump Social Impact Scores</div>
+  <div id="trumpImpactGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;">
+    <div style="color:var(--text-muted);font-size:11px;">Loading Trump impact data...</div>
+  </div>
+</div>
+
+<!-- 🆕 Sector Rotation Section -->
+<div class="glass fade-in fade-in-5" style="padding:14px 16px;margin-bottom:16px;">
+  <div class="chart-header" style="margin-bottom:8px;">🔄 Sector Rotation</div>
+  <div id="sectorRotationGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;">
+    <div style="color:var(--text-muted);font-size:11px;">Loading sector rotation data...</div>
+  </div>
+</div>
+
 <!-- 🆕 Landing Timestamp -->
 <div class="landing-timestamp" id="landingTimestamp"></div>
 <div class="dashboard-footer fade-in fade-in-6">
@@ -1528,6 +1552,55 @@ window.showLanding = function(){
     $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
     $('updateTs').style.display='block';
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
+    // 🆕 Fund Manager 13F Holdings
+    try {
+      fetch('data/fund_manager_holdings.json?'+Date.now()).then(function(r){return r.json()}).then(function(fmData){
+        var grid=$('fundManager13fGrid');
+        if(!grid)return;
+        var managers=fmData.managers||{};
+        grid.innerHTML=Object.keys(managers).map(function(key){
+          var m=managers[key];
+          var h=m.holdings||[];
+          var topStr=h.slice(0,5).map(function(x){return x.ticker+' $'+((x.value_mn||0)/1000).toFixed(1)+'B'}).join(', ');
+          var bg=m.name.indexOf('Buffett')>-1?'rgba(0,255,136,0.08)':m.name.indexOf('Bridgewater')>-1?'rgba(255,165,2,0.08)':m.name.indexOf('Citadel')>-1?'rgba(79,195,247,0.08)':'rgba(99,110,114,0.08)';
+          return '<div style="background:'+bg+';border-radius:6px;padding:8px 10px;"><div style="font-size:11px;font-weight:600;">'+m.name+'</div><div style="font-size:9px;color:var(--text-muted);">'+m.quarter+' · '+h.length+' holdings</div><div style="font-size:9px;color:var(--text-secondary);margin-top:3px;">'+topStr+'</div></div>';
+        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No 13F data loaded</div>';
+      }).catch(function(){console.log('13F data not available yet')});
+    } catch(e){}
+
+    // 🆕 Trump Impact Scores
+    try {
+      fetch('data/trump_impact_scores.json?'+Date.now()).then(function(r){return r.json()}).then(function(trData){
+        var grid=$('trumpImpactGrid');
+        if(!grid)return;
+        var cum=trData.cumulative||{};
+        var items=Object.keys(cum).sort(function(a,b){return Math.abs(cum[b]._24h||0)-Math.abs(cum[a]._24h||0)}).slice(0,12);
+        grid.innerHTML=items.map(function(ticker){
+          var sc=cum[ticker];
+          var s24=sc._24h||0;
+          var bg=s24>0?'rgba(46,213,115,'+Math.min(s24/15,0.5)+')':'rgba(255,71,87,'+Math.min(Math.abs(s24)/15,0.5)+')';
+          return '<div style="background:'+bg+';border-radius:4px;padding:6px 8px;text-align:center;"><div style="font-size:10px;font-weight:600;">'+ticker+'</div><div style="font-size:10px;"'+(s24>=0?'':'')+' style="font-size:10px;">'+(s24>=0?'+':'')+s24.toFixed(2)+'</div><div style="font-size:8px;color:var(--text-muted);">7d: '+(sc._7d>=0?'+':'')+(sc._7d||0).toFixed(2)+'</div></div>';
+        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No Trump impact data</div>';
+      }).catch(function(){});
+    } catch(e){}
+
+    // 🆕 Sector Rotation
+    try {
+      fetch('data/sector_rotation.json?'+Date.now()).then(function(r){return r.json()}).then(function(srData){
+        var grid=$('sectorRotationGrid');
+        if(!grid)return;
+        var sectors=srData.sectors||{};
+        var macro=srData.macro||{};
+        var all=Object.assign({}, sectors, macro);
+        grid.innerHTML=Object.keys(all).sort(function(a,b){return Math.abs((all[b]._1m||0))-Math.abs((all[a]._1m||0))}).map(function(ticker){
+          var s=all[ticker];
+          var pw=s._1w||0, pm=s._1m||0;
+          var bg=pm>=0?'rgba(46,213,115,'+Math.min(pm/15,0.5)+')':'rgba(255,71,87,'+Math.min(Math.abs(pm)/15,0.5)+')';
+          return '<div style="background:'+bg+';border-radius:4px;padding:6px 8px;text-align:center;"><div style="font-size:10px;font-weight:600;">'+ticker+'</div><div style="font-size:9px;">1w: '+(pw>=0?'+':'')+pw.toFixed(1)+'%</div><div style="font-size:9px;">1m: '+(pm>=0?'+':'')+pm.toFixed(1)+'%</div></div>';
+        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No sector rotation data</div>';
+      }).catch(function(){});
+    } catch(e){}
+
     var lt=$('landingTimestamp');
     if(lt)lt.textContent='Last updated: '+now;
   }).catch(function(e){

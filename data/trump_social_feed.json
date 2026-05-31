@@ -1,6 +1,1127 @@
 {
   "posts": [
     {
+      "id": "eba7d696021eb1137b5f685e1c481f9b",
+      "source": "Truth Social",
+      "title": "Dhillon wants judge who allegedly attended a Fani Willis event off Georgia election integrity case:",
+      "text": "Dhillon wants judge who allegedly attended a Fani Willis event off Georgia election integrity case: https:// justthenews.com/government/cou rts-law/dhillon-moves-recuse-atlanta-judge-over-alleged-attendance-democratic-event",
+      "url": "https://truthsocial.com/@realDonaldTrump/116667457759700602",
+      "timestamp": "Sun, 31 May 2026 05:08:48 +0000",
+      "detected_at": "2026-05-31T14:10:01.601767+08:00",
+      "sentiment": {
+        "polarity": 0.05,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.45,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "ce4737ca64b253c726fd1a9b34ae87c3",
+      "source": "Truth Social",
+      "title": "Cotton over chemicals: How Trump’s USDA is Making America’s Fabric Great Again:",
+      "text": "Cotton over chemicals: How Trump’s USDA is Making America’s Fabric Great Again: https:// justthenews.com/government/whi te-house/cotton-over-chemicals-how-trumps-usda-making-americas-fabric-great-again",
+      "url": "https://truthsocial.com/@realDonaldTrump/116667455698157827",
+      "timestamp": "Sun, 31 May 2026 05:08:16 +0000",
+      "detected_at": "2026-05-31T14:10:01.602634+08:00",
+      "sentiment": {
+        "polarity": 0.8,
+        "label": "very_positive",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.4,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "231b5618b433f628c8cc68e53a7ca3de",
+      "source": "Truth Social",
+      "title": "The results of my Physical Examination, taken at Walter Reed Military Medical Center, and just released, were extremely good. Unlike other U.S. Presidents, none of whom have ever taken an approved, high difficulty, Cognitive Test, I scored a perfect 30 out of 30, considered “extreme intelligence.” Are the Dumocrats really surprised? In fact, this is my fourth such test, all PERFECT or, 120 correct answers out of 120 questions asked! It is very rare that anyone gets a Perfect Score, especially when achieved four times in a row. All people running for President and Vice President should be forced to take high difficulty Cognitive Tests. Congress, and the Dumocrats, should demand it! President DONALD J. TRUMP",
+      "text": "The results of my Physical Examination, taken at Walter Reed Military Medical Center, and just released, were extremely good. Unlike other U.S. Presidents, none of whom have ever taken an approved, high difficulty, Cognitive Test, I scored a perfect 30 out of 30, considered “extreme intelligence.” Are the Dumocrats really surprised? In fact, this is my fourth such test, all PERFECT or, 120 correct answers out of 120 questions asked! It is very rare that anyone gets a Perfect Score, especially when achieved four times in a row. All people running for President and Vice President should be forced to take high difficulty Cognitive Tests. Congress, and the Dumocrats, should demand it! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116667326723211656",
+      "timestamp": "Sun, 31 May 2026 04:35:28 +0000",
+      "detected_at": "2026-05-31T13:10:02.205543+08:00",
+      "sentiment": {
+        "polarity": 0.211,
+        "label": "positive",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 1.0,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "ce046382237b061cd269194f03b192e7",
+      "source": "Truth Social",
+      "title": "",
+      "text": "RT: https://truthsocial.com/users/realDonaldTrump/statuses/116667034702707989",
+      "url": "https://truthsocial.com/@realDonaldTrump/116667035328008255",
+      "timestamp": "Sun, 31 May 2026 03:21:22 +0000",
+      "detected_at": "2026-05-31T12:09:22.362846+08:00",
+      "sentiment": {
+        "polarity": 0.0,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.15,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "0fbe5e19dd6653ee7509d65a1245dbf9",
+      "source": "Truth Social",
+      "title": "Watch my interview with my fantastic daughter-in-law, Lara Trump, tonight at 9:00 - FoxNews. President DJT",
+      "text": "Watch my interview with my fantastic daughter-in-law, Lara Trump, tonight at 9:00 - FoxNews. President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116666242491370108",
+      "timestamp": "Sat, 30 May 2026 23:59:44 +0000",
+      "detected_at": "2026-05-31T08:07:11.701860+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "437040ecc58cb3480d9ab2b1c4cab920",
+      "source": "Truth Social",
+      "title": "Watch Mark Levin tonight at 8:00. A BIG SHOW!",
+      "text": "Watch Mark Levin tonight at 8:00. A BIG SHOW!",
+      "url": "https://truthsocial.com/@realDonaldTrump/116666229070254122",
+      "timestamp": "Sat, 30 May 2026 23:56:20 +0000",
+      "detected_at": "2026-05-31T08:07:11.736203+08:00",
+      "sentiment": {
+        "polarity": 0.0,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.09,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "2c21ac01f1ef29a017c82ebcb333dddf",
+      "source": "Truth Social",
+      "title": "We should have a giant MAKE AMERICA GREAT AGAIN RALLY, for 250, instead of having overpriced singers, who nobody wants to hear, whose music is boring, and yet who do nothing but complain. Cancel it, just like I canceled my involvement with the failing and unsafe to be in Kennedy Center, because a Highly Conflicted, Crooked Federal Judge, said that I should not be allowed to spend my time and money in order to MAKE THE CENTER GREAT AGAIN, actually, far greater than it ever was before! It would have also been nice to see a Republican/Democrat union bring it back to life. The Kennedy Center is broken, unsafe, and $busted, and has been for many years! Judge Cooper also stated that the highly prestigious Board of the Center was not authorized to add on the name “TRUMP” despite the fact that hundreds of millions of dollars of my time and money will be necessary for its successful reincarnation. So now, the Kennedy Center will collapse, both structurally and financially. Judge Cooper and his wife, Amy Jeffress (obfuscation anyone?), should be ashamed of themselves. Judge Cooper, like numerous other Crooked Judges on my cases, should be IMPEACHED. MAKE AMERICA GREAT AGAIN! President DONALD J. TRUMP",
+      "text": "We should have a giant MAKE AMERICA GREAT AGAIN RALLY, for 250, instead of having overpriced singers, who nobody wants to hear, whose music is boring, and yet who do nothing but complain. Cancel it, just like I canceled my involvement with the failing and unsafe to be in Kennedy Center, because a Highly Conflicted, Crooked Federal Judge, said that I should not be allowed to spend my time and money in order to MAKE THE CENTER GREAT AGAIN, actually, far greater than it ever was before! It would have also been nice to see a Republican/Democrat union bring it back to life. The Kennedy Center is broken, unsafe, and $busted, and has been for many years! Judge Cooper also stated that the highly prestigious Board of the Center was not authorized to add on the name “TRUMP” despite the fact that hundreds of millions of dollars of my time and money will be necessary for its successful reincarnation. So now, the Kennedy Center will collapse, both structurally and financially. Judge Cooper and his ",
+      "url": "https://truthsocial.com/@realDonaldTrump/116666021445682015",
+      "timestamp": "Sat, 30 May 2026 23:03:32 +0000",
+      "detected_at": "2026-05-31T07:07:55.601684+08:00",
+      "sentiment": {
+        "polarity": 0.245,
+        "label": "positive",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "fed",
+            "category": "monetary",
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Fed mention — neutral by itself"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.36,
+        "us_equities": 0.297,
+        "fx": 0.0,
+        "crypto": 0.14,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "ffd18206bf95ccc2bad2ed81e033c531",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpSee, they have a Ballroom — It’s called The Great Hall of China! It’s very large and beautiful. Why do people fight me for having something even better? The Dumocrats are CRAZY! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump See, they have a Ballroom — It’s called The Great Hall of China! It’s very large and beautiful. Why do people fight me for having something even better? The Dumocrats are CRAZY! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665969343279897",
+      "timestamp": "Sat, 30 May 2026 22:50:16 +0000",
+      "detected_at": "2026-05-31T07:07:55.602627+08:00",
+      "sentiment": {
+        "polarity": -0.141,
+        "label": "negative",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "china",
+            "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.15,
+              "fx": -0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.25
+            },
+            "explanation": "China mention = trade tension, mildly bearish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.24,
+        "us_equities": -0.212,
+        "fx": -0.035,
+        "crypto": 0.0,
+        "geo_risk": 0.175
+      }
+    },
+    {
+      "id": "96cbe0eb4e1d92336e33521adeb2a014",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpThe DronePort on the roof of the White House Ballroom! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump The DronePort on the roof of the White House Ballroom! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665967507122618",
+      "timestamp": "Sat, 30 May 2026 22:49:48 +0000",
+      "detected_at": "2026-05-31T07:07:55.603134+08:00",
+      "sentiment": {
+        "polarity": -0.047,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "2d2112131d945b172fbd23ac4c6802c7",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpThank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "text": "RT @ realDonaldTrump Thank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665966249458240",
+      "timestamp": "Sat, 30 May 2026 22:49:29 +0000",
+      "detected_at": "2026-05-31T07:07:55.603932+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "77d223be4ec24138e17f2757f2946bfe",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpThe Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump The Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665965710026985",
+      "timestamp": "Sat, 30 May 2026 22:49:21 +0000",
+      "detected_at": "2026-05-31T07:07:55.604614+08:00",
+      "sentiment": {
+        "polarity": -0.047,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "4828eb7a62574919733be2373d403be7",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpI understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERICA IS BACK Rally on Wednesday, Washington, D.C., same time, same location. Only Great Patriots invited — It will be a Wild and Beautiful Celebration of America! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump I understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERI",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665964839850005",
+      "timestamp": "Sat, 30 May 2026 22:49:08 +0000",
+      "detected_at": "2026-05-31T07:07:55.605613+08:00",
+      "sentiment": {
+        "polarity": 0.034,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.36,
+        "us_equities": 0.03,
+        "fx": 0.07,
+        "crypto": 0.043,
+        "geo_risk": 0.49
+      }
+    },
+    {
+      "id": "8027985ee3884ce7b982af0010ca3b39",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpCan you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now that won’t happen anymore because a Judge, whose wife is an anti Trump Hater, and he is too, decided, unprecedentedly, to not allow a desperately needed Building Renovation to go forward. On top of that, he said, “Rip his name off the Building, he’s got 20 days to do so,” even though a large Board of some of the most distinguished people in the Country voted unanimously to put the name up. I didn’t do it, the Board did because they thought it would be good for this dying Institution, which was doing Record Low Business and, especially after COVID, only getting worse — True for other such Institutions throughout the Country, but The Trump Kennedy Center was going to be a special one. It would have fully recovered, when none others will. It would have been a New Standard of Excellence, one of my many Gifts to Washington, D.C. The new Building would have been incomparable, beautiful marble, magnificent chandeliers, the finest carpets, rugs, and furniture, designed at the highest level but, perhaps most importantly, replaced steel on many beams, columns, and girders, making the Building structurally sound again. People shouldn’t be allowed to go into that Building until this is fixed, and yet the Trump Hating Judge wants to keep it open because his wife probably told him to do so! Cooper’s wife, Amy Jeffress, who doesn’t use the “Cooper” name because they, as a couple, don’t want people to know that she has a Conflict of Interest with an important Judge, is a Radical Left Democrat, who worked as a Federal Prosecutor and Counselor to Obama Attorney General, Eric Holder, worked behind the scenes for the January 6th Unselect Committee of Political Hacks and Thugs, Dirty Cop FBI attorney Lisa Page in the Hillary Clinton Email Scandal, RUSSIA RUSSIA RUSSIA Hoax, and her Millions of Dollars Settlement, even though she was “guilty as hell,” and is currently representing Sleepy Joe Biden on the release of his audio tapes, and more. She also works for the same Legal Firm that represented E. Jean Carroll who received a decision against me, now under appeal, that was shocking to the entire World. Amy is totally wired into the Left System, from her husband down, and it is impossible for me to be treated fairly. He has a total Conflict of Interest, and should be brought up on charges for not revealing these facts. That is why The Kennedy Center will soon be closed, probably never to open again. That is why, at a different level, and with different players, our Country lost the TARIFF Case, and is forced to pay back 149 Billion Dollars in money received from people who hate everything we stand for. They are laughing all the way to the Bank at how stupid we are (One half sentence clause from the Supreme Court would have saved us this incalculable amount of money!), and that is probably why our Country will lose the Birthright Citizenship Case (No other Country in the World has this — It is totally unaffordable!), because our Court System is RIGGED, no different than our Political System is RIGGED, and the people of our Country know it, and that is why I got overwhelmingly elected President, in Record Numbers, and will FIGHT, FIGHT, FIGHT! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump Can you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665964219866619",
+      "timestamp": "Sat, 30 May 2026 22:48:58 +0000",
+      "detected_at": "2026-05-31T07:07:55.607954+08:00",
+      "sentiment": {
+        "polarity": -0.03,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "tariff(s)",
+            "category": "trade",
+            "impacts": {
+              "us_equities": -0.4,
+              "fx": -0.1,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
+            "explanation": "Tariffs = trade war risk, bearish equities"
+          },
+          {
+            "term": "fed",
+            "category": "monetary",
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Fed mention — neutral by itself"
+          },
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "stock market",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.72,
+        "us_equities": -0.075,
+        "fx": 0.0,
+        "crypto": 0.06,
+        "geo_risk": 0.892
+      }
+    },
+    {
+      "id": "94b36a5eaca78cb669068dadf149326d",
+      "source": "Truth Social",
+      "title": "See, they have a Ballroom — It’s called The Great Hall of China! It’s very large and beautiful. Why do people fight me for having something even better? The Dumocrats are CRAZY! President DONALD J. TRUMP",
+      "text": "See, they have a Ballroom — It’s called The Great Hall of China! It’s very large and beautiful. Why do people fight me for having something even better? The Dumocrats are CRAZY! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665961327760060",
+      "timestamp": "Sat, 30 May 2026 22:48:14 +0000",
+      "detected_at": "2026-05-31T07:07:55.608259+08:00",
+      "sentiment": {
+        "polarity": -0.141,
+        "label": "negative",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "china",
+            "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.15,
+              "fx": -0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.25
+            },
+            "explanation": "China mention = trade tension, mildly bearish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.24,
+        "us_equities": -0.212,
+        "fx": -0.035,
+        "crypto": 0.0,
+        "geo_risk": 0.175
+      }
+    },
+    {
+      "id": "4ae2d70afab5545b2a6ab5e6ae27ad4a",
+      "source": "Truth Social",
+      "title": "With King Charles at the White House! President DONALD J. TRUMP",
+      "text": "With King Charles at the White House! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665810813312667",
+      "timestamp": "Sat, 30 May 2026 22:09:58 +0000",
+      "detected_at": "2026-05-31T07:07:55.640259+08:00",
+      "sentiment": {
+        "polarity": 0.0,
+        "label": "neutral",
+        "method": "textblob",
+        "matches": [],
+        "confidence": 0.13,
+        "us_equities": 0.0,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "603526234a2fd3b74389c26f23e94650",
+      "source": "Truth Social",
+      "title": "The DronePort on the roof of the White House Ballroom! President DONALD J. TRUMP",
+      "text": "The DronePort on the roof of the White House Ballroom! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665527815377503",
+      "timestamp": "Sat, 30 May 2026 20:57:59 +0000",
+      "detected_at": "2026-05-31T05:07:21.188604+08:00",
+      "sentiment": {
+        "polarity": -0.047,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "67632f52ce844a4b489c69a3c9bc46aa",
+      "source": "Truth Social",
+      "title": "Someone should explain to the Pope that the Mayor of Chicago is useless, and that Iran cannot have a Nuclear Weapon! President DONALD J. TRUMP",
+      "text": "Someone should explain to the Pope that the Mayor of Chicago is useless, and that Iran cannot have a Nuclear Weapon! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665431926784379",
+      "timestamp": "Sat, 30 May 2026 20:33:36 +0000",
+      "detected_at": "2026-05-31T05:07:21.189082+08:00",
+      "sentiment": {
+        "polarity": -0.22,
+        "label": "negative",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "nuclear (weapon",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
+            "explanation": "Nuclear threat = high geopolitical risk"
+          },
+          {
+            "term": "iran",
+            "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.05,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
+            "explanation": "Iran mention = geopolitical risk"
+          },
+          {
+            "term": "iran.*(nuclear",
+            "category": "geopolitics",
+            "impacts": {
+              "us_equities": -0.25,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.65
+            },
+            "explanation": "Iran nuclear = serious geopolitical risk"
+          }
+        ],
+        "confidence": 0.36,
+        "us_equities": -0.33,
+        "fx": 0.035,
+        "crypto": 0.0,
+        "geo_risk": 0.99
+      }
+    },
+    {
+      "id": "9bb8b2b7d62171d39a8e5b45c0be28c3",
+      "source": "Truth Social",
+      "title": "Watch Lara Trump tonight on FoxNews at 9 P.M. EST. She interviews me for the entire Show! President DJT",
+      "text": "Watch Lara Trump tonight on FoxNews at 9 P.M. EST. She interviews me for the entire Show! President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116665133051752156",
+      "timestamp": "Sat, 30 May 2026 19:17:36 +0000",
+      "detected_at": "2026-05-31T04:08:02.512426+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "f1c82ac27484e9ab91cce9c4eba341e8",
+      "source": "Truth Social",
+      "title": "Tom Brady is a great player, and great guy!President DJT",
+      "text": "Tom Brady is a great player, and great guy!President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664576257157897",
+      "timestamp": "Sat, 30 May 2026 16:56:00 +0000",
+      "detected_at": "2026-05-31T01:05:50.636949+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "b61e6052ec30a54eb161f952bfec7c79",
+      "source": "Truth Social",
+      "title": "PRESIDENT DONALD J. TRUMP vs. Kathy Hochul, New York’s failed Governor who, if people are smart, will vote for Bruce Blakeman — He will, MAKE NEW YORK GREAT AGAIN! President DJT",
+      "text": "PRESIDENT DONALD J. TRUMP vs. Kathy Hochul, New York’s failed Governor who, if people are smart, will vote for Bruce Blakeman — He will, MAKE NEW YORK GREAT AGAIN! President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664536700150219",
+      "timestamp": "Sat, 30 May 2026 16:45:56 +0000",
+      "detected_at": "2026-05-31T01:05:50.637340+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "ee13e3c3247a41b9cc6be412e03c379a",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpThank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "text": "RT @ realDonaldTrump Thank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664421746768505",
+      "timestamp": "Sat, 30 May 2026 16:16:42 +0000",
+      "detected_at": "2026-05-31T01:05:50.637904+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "1d1f620dcc2469a9aa5ddb617f7b8c3e",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpThe Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump The Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664421288947619",
+      "timestamp": "Sat, 30 May 2026 16:16:35 +0000",
+      "detected_at": "2026-05-31T01:05:50.638450+08:00",
+      "sentiment": {
+        "polarity": -0.047,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "b9ae6832e6efcf43f1cc46e4dd384b1b",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpI understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERICA IS BACK Rally on Wednesday, Washington, D.C., same time, same location. Only Great Patriots invited — It will be a Wild and Beautiful Celebration of America! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump I understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERI",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664420324023523",
+      "timestamp": "Sat, 30 May 2026 16:16:20 +0000",
+      "detected_at": "2026-05-31T01:05:50.639487+08:00",
+      "sentiment": {
+        "polarity": 0.034,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.36,
+        "us_equities": 0.03,
+        "fx": 0.07,
+        "crypto": 0.043,
+        "geo_risk": 0.49
+      }
+    },
+    {
+      "id": "378a6960c5738b8dca7cc607284273d3",
+      "source": "Truth Social",
+      "title": "RT @realDonaldTrumpCan you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now that won’t happen anymore because a Judge, whose wife is an anti Trump Hater, and he is too, decided, unprecedentedly, to not allow a desperately needed Building Renovation to go forward. On top of that, he said, “Rip his name off the Building, he’s got 20 days to do so,” even though a large Board of some of the most distinguished people in the Country voted unanimously to put the name up. I didn’t do it, the Board did because they thought it would be good for this dying Institution, which was doing Record Low Business and, especially after COVID, only getting worse — True for other such Institutions throughout the Country, but The Trump Kennedy Center was going to be a special one. It would have fully recovered, when none others will. It would have been a New Standard of Excellence, one of my many Gifts to Washington, D.C. The new Building would have been incomparable, beautiful marble, magnificent chandeliers, the finest carpets, rugs, and furniture, designed at the highest level but, perhaps most importantly, replaced steel on many beams, columns, and girders, making the Building structurally sound again. People shouldn’t be allowed to go into that Building until this is fixed, and yet the Trump Hating Judge wants to keep it open because his wife probably told him to do so! Cooper’s wife, Amy Jeffress, who doesn’t use the “Cooper” name because they, as a couple, don’t want people to know that she has a Conflict of Interest with an important Judge, is a Radical Left Democrat, who worked as a Federal Prosecutor and Counselor to Obama Attorney General, Eric Holder, worked behind the scenes for the January 6th Unselect Committee of Political Hacks and Thugs, Dirty Cop FBI attorney Lisa Page in the Hillary Clinton Email Scandal, RUSSIA RUSSIA RUSSIA Hoax, and her Millions of Dollars Settlement, even though she was “guilty as hell,” and is currently representing Sleepy Joe Biden on the release of his audio tapes, and more. She also works for the same Legal Firm that represented E. Jean Carroll who received a decision against me, now under appeal, that was shocking to the entire World. Amy is totally wired into the Left System, from her husband down, and it is impossible for me to be treated fairly. He has a total Conflict of Interest, and should be brought up on charges for not revealing these facts. That is why The Kennedy Center will soon be closed, probably never to open again. That is why, at a different level, and with different players, our Country lost the TARIFF Case, and is forced to pay back 149 Billion Dollars in money received from people who hate everything we stand for. They are laughing all the way to the Bank at how stupid we are (One half sentence clause from the Supreme Court would have saved us this incalculable amount of money!), and that is probably why our Country will lose the Birthright Citizenship Case (No other Country in the World has this — It is totally unaffordable!), because our Court System is RIGGED, no different than our Political System is RIGGED, and the people of our Country know it, and that is why I got overwhelmingly elected President, in Record Numbers, and will FIGHT, FIGHT, FIGHT! President DONALD J. TRUMP",
+      "text": "RT @ realDonaldTrump Can you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664420134580839",
+      "timestamp": "Sat, 30 May 2026 16:16:17 +0000",
+      "detected_at": "2026-05-31T01:05:50.641758+08:00",
+      "sentiment": {
+        "polarity": -0.03,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "tariff(s)",
+            "category": "trade",
+            "impacts": {
+              "us_equities": -0.4,
+              "fx": -0.1,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
+            "explanation": "Tariffs = trade war risk, bearish equities"
+          },
+          {
+            "term": "fed",
+            "category": "monetary",
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Fed mention — neutral by itself"
+          },
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "stock market",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.72,
+        "us_equities": -0.075,
+        "fx": 0.0,
+        "crypto": 0.06,
+        "geo_risk": 0.892
+      }
+    },
+    {
+      "id": "6808374fa929cd4186cb02cf9ee6c2dd",
+      "source": "Truth Social",
+      "title": "Thank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "text": "Thank you Jaxson! It was great being with you. I know you’re taking some heat from the Radical Left Lunatics who are jealous of you, me, and everyone who surrounds us but, I also know that your Jersey also went to Number One, and you’re making Millions of Dollars so, YOU ARE A WINNER — THEY ARE ALL LOSERS. I’ll see you in the White House! President DJT",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664418957601249",
+      "timestamp": "Sat, 30 May 2026 16:15:59 +0000",
+      "detected_at": "2026-05-31T01:05:50.642057+08:00",
+      "sentiment": {
+        "polarity": 0.093,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "djia",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": 0.2,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Trump Media = correlation"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": 0.14,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "d44b9592f5f7d22fa5b0e62372205a62",
+      "source": "Truth Social",
+      "title": "The Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "text": "The Reflecting Pool, built between The Lincoln Memorial and The Washington Monument, which was destroyed by Barack Hussein Obama and Sleepy Joe Biden after spending Hundreds of Millions of Dollars trying to fix it (It only got worse!), is moving along nicely, and we should easily make the July 4th date. It will be SPECTACULAR, and good, without leaks, for 100 years, at a fraction of the cost! President DONALD J. TRUMP",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664404638689204",
+      "timestamp": "Sat, 30 May 2026 16:12:21 +0000",
+      "detected_at": "2026-05-31T01:05:50.642561+08:00",
+      "sentiment": {
+        "polarity": -0.047,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.12,
+        "us_equities": -0.07,
+        "fx": 0.0,
+        "crypto": 0.0,
+        "geo_risk": 0.0
+      }
+    },
+    {
+      "id": "ee70489786c50fc82ae6e0382fb6f9bc",
+      "source": "Truth Social",
+      "title": "I understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERICA IS BACK Rally on Wednesday, Washington, D.C., same time, same location. Only Great Patriots invited — It will be a Wild and Beautiful Celebration of America! President DONALD J. TRUMP",
+      "text": "I understand Artists are getting “the yips” having to do with their performance on Wednesday, so I am thinking about bringing the Number One Attraction anywhere in the World, the man who gets much larger audiences than Elvis in his prime, and he does so without a guitar, the man who loves our Country more than anyone else, and the man who some say is the Greatest President in History (THE GOAT!), DONALD J. TRUMP, to take the place of these highly paid, Third Rate “Artists,” and give a major speech, rallying the Country forward like I have done ever since being President! Two years ago, the United States was DEAD. Now we have the “HOTTEST” Country anywhere in the World. I don’t want so-called “Artists” that get paid far too much money, who aren’t happy. I only want to be surrounded by Happy People, Smart People, Successful People, and People that know how to WIN. So, by copy of this TRUTH, I am ordering my Representatives to look at the feasibility of doing an AMERICA IS BACK Rally on W",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664367963376218",
+      "timestamp": "Sat, 30 May 2026 16:03:01 +0000",
+      "detected_at": "2026-05-31T00:05:53.597143+08:00",
+      "sentiment": {
+        "polarity": 0.034,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.36,
+        "us_equities": 0.03,
+        "fx": 0.07,
+        "crypto": 0.043,
+        "geo_risk": 0.49
+      }
+    },
+    {
+      "id": "3d7b91b37aeb663a634c6b889eacf737",
+      "source": "Truth Social",
+      "title": "Can you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now that won’t happen anymore because a Judge, whose wife is an anti Trump Hater, and he is too, decided, unprecedentedly, to not allow a desperately needed Building Renovation to go forward. On top of that, he said, “Rip his name off the Building, he’s got 20 days to do so,” even though a large Board of some of the most distinguished people in the Country voted unanimously to put the name up. I didn’t do it, the Board did because they thought it would be good for this dying Institution, which was doing Record Low Business and, especially after COVID, only getting worse — True for other such Institutions throughout the Country, but The Trump Kennedy Center was going to be a special one. It would have fully recovered, when none others will. It would have been a New Standard of Excellence, one of my many Gifts to Washington, D.C. The new Building would have been incomparable, beautiful marble, magnificent chandeliers, the finest carpets, rugs, and furniture, designed at the highest level but, perhaps most importantly, replaced steel on many beams, columns, and girders, making the Building structurally sound again. People shouldn’t be allowed to go into that Building until this is fixed, and yet the Trump Hating Judge wants to keep it open because his wife probably told him to do so! Cooper’s wife, Amy Jeffress, who doesn’t use the “Cooper” name because they, as a couple, don’t want people to know that she has a Conflict of Interest with an important Judge, is a Radical Left Democrat, who worked as a Federal Prosecutor and Counselor to Obama Attorney General, Eric Holder, worked behind the scenes for the January 6th Unselect Committee of Political Hacks and Thugs, Dirty Cop FBI attorney Lisa Page in the Hillary Clinton Email Scandal, RUSSIA RUSSIA RUSSIA Hoax, and her Millions of Dollars Settlement, even though she was “guilty as hell,” and is currently representing Sleepy Joe Biden on the release of his audio tapes, and more. She also works for the same Legal Firm that represented E. Jean Carroll who received a decision against me, now under appeal, that was shocking to the entire World. Amy is totally wired into the Left System, from her husband down, and it is impossible for me to be treated fairly. He has a total Conflict of Interest, and should be brought up on charges for not revealing these facts. That is why The Kennedy Center will soon be closed, probably never to open again. That is why, at a different level, and with different players, our Country lost the TARIFF Case, and is forced to pay back 149 Billion Dollars in money received from people who hate everything we stand for. They are laughing all the way to the Bank at how stupid we are (One half sentence clause from the Supreme Court would have saved us this incalculable amount of money!), and that is probably why our Country will lose the Birthright Citizenship Case (No other Country in the World has this — It is totally unaffordable!), because our Court System is RIGGED, no different than our Political System is RIGGED, and the people of our Country know it, and that is why I got overwhelmingly elected President, in Record Numbers, and will FIGHT, FIGHT, FIGHT! President DONALD J. TRUMP",
+      "text": "Can you imagine? A Barack Hussein Obama Judge named Christopher Cooper has stopped a magnificent structural and aesthetic rebuilding of The Trump Kennedy Center where Millions of Dollars of material, marble, furniture, steel, air conditioning, heating, and so much else was ordered, or soon to be ordered, with the end result being a structure that would no longer be in a potential state of collapse, rusted, rotted, and rat and bug infested, to one that would be the Finest anywhere in the World. It was necessary to close the Center in order to get this work done. It is not possible to have a major and very dangerous Construction job, including the replacement of structural beams, with audiences innocently going in to watch a Play. The marble is in terrible shape, the pipes are gone, the air conditioning and heating systems are 65 years old, and no longer functioning. It was all being torn out to be replaced by brand new Carrier Equipment, at the highest standard. Now that won’t happen an",
+      "url": "https://truthsocial.com/@realDonaldTrump/116664181157116570",
+      "timestamp": "Sat, 30 May 2026 15:15:31 +0000",
+      "detected_at": "2026-05-31T00:05:53.599352+08:00",
+      "sentiment": {
+        "polarity": -0.03,
+        "label": "neutral",
+        "method": "lexicon",
+        "matches": [
+          {
+            "term": "tariff(s)",
+            "category": "trade",
+            "impacts": {
+              "us_equities": -0.4,
+              "fx": -0.1,
+              "crypto": 0.0,
+              "geo_risk": 0.35
+            },
+            "explanation": "Tariffs = trade war risk, bearish equities"
+          },
+          {
+            "term": "fed",
+            "category": "monetary",
+            "impacts": {
+              "us_equities": 0.0,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Fed mention — neutral by itself"
+          },
+          {
+            "term": "war",
+            "category": "conflict",
+            "impacts": {
+              "us_equities": -0.3,
+              "fx": 0.1,
+              "crypto": -0.15,
+              "geo_risk": 0.7
+            },
+            "explanation": "Military action = geopolitical risk spike, sell risk"
+          },
+          {
+            "term": "stock market",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.15,
+              "fx": 0.0,
+              "crypto": 0.05,
+              "geo_risk": 0.0
+            },
+            "explanation": "Stock market mention — bullish if claiming success"
+          },
+          {
+            "term": "rally",
+            "category": "markets",
+            "impacts": {
+              "us_equities": 0.45,
+              "fx": 0.0,
+              "crypto": 0.2,
+              "geo_risk": 0.0
+            },
+            "explanation": "Market rally = bullish"
+          },
+          {
+            "term": "ba",
+            "category": "stocks",
+            "impacts": {
+              "us_equities": -0.1,
+              "fx": 0.0,
+              "crypto": 0.0,
+              "geo_risk": 0.0
+            },
+            "explanation": "Boeing = mixed"
+          }
+        ],
+        "confidence": 0.72,
+        "us_equities": -0.075,
+        "fx": 0.0,
+        "crypto": 0.06,
+        "geo_risk": 0.892
+      }
+    },
+    {
       "id": "fb06d8c14330b258d6a1e0e838ea5a03",
       "source": "Truth Social",
       "title": "",
@@ -2356,14 +3477,14 @@
     }
   ],
   "metrics": {
-    "24h_post_count": 68,
-    "24h_avg_polarity": 0.018,
+    "24h_post_count": 96,
+    "24h_avg_polarity": 0.026,
     "24h_sentiment_breakdown": {
       "very_negative": 0,
-      "negative": 8,
-      "neutral": 52,
-      "positive": 7,
-      "very_positive": 1
+      "negative": 11,
+      "neutral": 74,
+      "positive": 9,
+      "very_positive": 2
     },
     "most_negative": {
       "text": "RT @ realDonaldTrump Iran must agree that they will never have a Nuclear Weapon or Bomb. The Hormuz Strait must be immediately open, no tolls, for unrestricted shipping traffic, in both directions. Al",
@@ -2371,10 +3492,10 @@
       "source": "Truth Social"
     },
     "most_positive": {
-      "text": "https:// truthsocial.com/users/Imalucky angel/statuses/116634885298397647 . Texas, Vote for Ken Paxton, our Country’s BEST Attorney General!",
-      "polarity": 0.531,
+      "text": "Cotton over chemicals: How Trump’s USDA is Making America’s Fabric Great Again: https:// justthenews.com/government/whi te-house/cotton-over-chemicals-how-trumps-usda-making-americas-fabric-great-agai",
+      "polarity": 0.8,
       "source": "Truth Social"
     }
   },
-  "updated_at": "2026-05-30T22:46:28.827760+08:00"
+  "updated_at": "2026-05-31T17:05:57.172291+08:00"
 }

@@ -1,0 +1,32 @@
+{
+  "generated": "2026-05-31T17:34:50.591250+08:00",
+  "benchmark": "SPY (S&P 500 ETF)",
+  "allocation": "equal_weight across top 10 holdings",
+  "performances": [
+    {
+      "manager": "Berkshire Hathaway (Buffett)",
+      "status": "error: division by zero",
+      "performance": {}
+    },
+    {
+      "manager": "Bridgewater Associates (Dalio)",
+      "status": "error: division by zero",
+      "performance": {}
+    },
+    {
+      "manager": "Citadel Advisors (Griffin)",
+      "status": "error: division by zero",
+      "performance": {}
+    },
+    {
+      "manager": "Two Sigma Investments",
+      "status": "error: division by zero",
+      "performance": {}
+    },
+    {
+      "manager": "Renaissance Technologies",
+      "status": "error: division by zero",
+      "performance": {}
+    }
+  ]
+}

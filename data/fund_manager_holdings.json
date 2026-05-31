@@ -1,0 +1,485 @@
+{
+  "generated": "2026-05-31T17:34:50.589443+08:00",
+  "managers": {
+    "berkshire_hathaway": {
+      "status": "ok",
+      "manager_key": "berkshire_hathaway",
+      "manager_name": "Berkshire Hathaway (Buffett)",
+      "short_name": "Buffett",
+      "cik": "0001067983",
+      "latest_quarter": {
+        "period": "2026-03-31",
+        "filing_date": "2026-05-15",
+        "holdings_count": 90,
+        "top_10": [
+          {
+            "ticker": "AXP",
+            "name": "AMERICAN EXPRESS CO",
+            "cusip": "025816109",
+            "shares": 149061045,
+            "value": 45087984892000,
+            "weight": 17.14
+          },
+          {
+            "ticker": "KO",
+            "name": "COCA COLA CO",
+            "cusip": "191216100",
+            "shares": 282722729,
+            "value": 21501063540000,
+            "weight": 8.17
+          },
+          {
+            "ticker": "AAPL",
+            "name": "APPLE INC",
+            "cusip": "037833100",
+            "shares": 80664820,
+            "value": 20471924668000,
+            "weight": 7.78
+          },
+          {
+            "ticker": "OXY",
+            "name": "OCCIDENTAL PETE CORP",
+            "cusip": "674599105",
+            "shares": 264941431,
+            "value": 17221193015000,
+            "weight": 6.55
+          },
+          {
+            "ticker": "AAPL",
+            "name": "APPLE INC",
+            "cusip": "037833100",
+            "shares": 61542988,
+            "value": 15618994925000,
+            "weight": 5.94
+          },
+          {
+            "ticker": "UNKNOWN_060505",
+            "name": "BANK AMERICA CORP",
+            "cusip": "060505104",
+            "shares": 310800000,
+            "value": 15151500000000,
+            "weight": 5.76
+          },
+          {
+            "ticker": "CMCSA",
+            "name": "CHEVRON CORPORATION",
+            "cusip": "166764100",
+            "shares": 58251749,
+            "value": 12052286868000,
+            "weight": 4.58
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "ALPHABET INC",
+            "cusip": "02079K305",
+            "shares": 41283098,
+            "value": 11871367661000,
+            "weight": 4.51
+          },
+          {
+            "ticker": "UNKNOWN_H1467J",
+            "name": "CHUBB LTD SWITZ",
+            "cusip": "H1467J104",
+            "shares": 34249183,
+            "value": 11162836215000,
+            "weight": 4.24
+          },
+          {
+            "ticker": "AAPL",
+            "name": "APPLE INC",
+            "cusip": "037833100",
+            "shares": 34724000,
+            "value": 8812603960000,
+            "weight": 3.35
+          }
+        ],
+        "total_value": 263095703570000
+      },
+      "filing_history": 3
+    },
+    "bridgewater": {
+      "status": "ok",
+      "manager_key": "bridgewater",
+      "manager_name": "Bridgewater Associates (Dalio)",
+      "short_name": "Bridgewater",
+      "cik": "0001350694",
+      "latest_quarter": {
+        "period": "2026-03-31",
+        "filing_date": "2026-05-15",
+        "holdings_count": 200,
+        "top_10": [
+          {
+            "ticker": "AMZN",
+            "name": "AMAZON COM INC",
+            "cusip": "023135106",
+            "shares": 4388711,
+            "value": 914036840000,
+            "weight": 17.76
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "ALPHABET INC",
+            "cusip": "02079K305",
+            "shares": 1997674,
+            "value": 574451135000,
+            "weight": 11.16
+          },
+          {
+            "ticker": "AVGO",
+            "name": "BROADCOM INC",
+            "cusip": "11135F101",
+            "shares": 1835380,
+            "value": 568068464000,
+            "weight": 11.04
+          },
+          {
+            "ticker": "UNKNOWN_007903",
+            "name": "ADVANCED MICRO DEVICES INC",
+            "cusip": "007903107",
+            "shares": 1292767,
+            "value": 262987591000,
+            "weight": 5.11
+          },
+          {
+            "ticker": "UNKNOWN_038222",
+            "name": "APPLIED MATLS INC",
+            "cusip": "038222105",
+            "shares": 559918,
+            "value": 191374373000,
+            "weight": 3.72
+          },
+          {
+            "ticker": "UNKNOWN_040413",
+            "name": "ARISTA NETWORKS INC",
+            "cusip": "040413205",
+            "shares": 1330091,
+            "value": 163308573000,
+            "weight": 3.17
+          },
+          {
+            "ticker": "UNKNOWN_15101Q",
+            "name": "CELESTICA INC",
+            "cusip": "15101Q207",
+            "shares": 525621,
+            "value": 148056923000,
+            "weight": 2.88
+          },
+          {
+            "ticker": "AAPL",
+            "name": "APPLE INC",
+            "cusip": "037833100",
+            "shares": 563492,
+            "value": 143008635000,
+            "weight": 2.78
+          },
+          {
+            "ticker": "UNKNOWN_06849F",
+            "name": "BARRICK MNG CORP",
+            "cusip": "06849F108",
+            "shares": 3079243,
+            "value": 125599704000,
+            "weight": 2.44
+          },
+          {
+            "ticker": "UNKNOWN_N07059",
+            "name": "ASML HLDG NV",
+            "cusip": "N07059210",
+            "shares": 92196,
+            "value": 121775243000,
+            "weight": 2.37
+          }
+        ],
+        "total_value": 5147334938000
+      },
+      "filing_history": 3
+    },
+    "citadel": {
+      "status": "ok",
+      "manager_key": "citadel",
+      "manager_name": "Citadel Advisors (Griffin)",
+      "short_name": "Citadel",
+      "cik": "0001423053",
+      "latest_quarter": {
+        "period": "2026-03-31",
+        "filing_date": "2026-05-15",
+        "holdings_count": 200,
+        "top_10": [
+          {
+            "ticker": "ABBV",
+            "name": "ABBVIE INC",
+            "cusip": "00287Y109",
+            "shares": 2217000,
+            "value": 482175330000,
+            "weight": 16.5
+          },
+          {
+            "ticker": "UNKNOWN_G1151C",
+            "name": "ACCENTURE PLC IRELAND",
+            "cusip": "G1151C101",
+            "shares": 1493600,
+            "value": 296165944000,
+            "weight": 10.14
+          },
+          {
+            "ticker": "ABBV",
+            "name": "ABBVIE INC",
+            "cusip": "00287Y109",
+            "shares": 1030200,
+            "value": 224058198000,
+            "weight": 7.67
+          },
+          {
+            "ticker": "ABBV",
+            "name": "3M CO",
+            "cusip": "88579Y101",
+            "shares": 1150195,
+            "value": 167042820000,
+            "weight": 5.72
+          },
+          {
+            "ticker": "UNKNOWN_002824",
+            "name": "ABBOTT LABORATORIES",
+            "cusip": "002824100",
+            "shares": 1567900,
+            "value": 160976293000,
+            "weight": 5.51
+          },
+          {
+            "ticker": "UNKNOWN_G1151C",
+            "name": "ACCENTURE PLC IRELAND",
+            "cusip": "G1151C101",
+            "shares": 767000,
+            "value": 152088430000,
+            "weight": 5.2
+          },
+          {
+            "ticker": "UNKNOWN_002824",
+            "name": "ABBOTT LABORATORIES",
+            "cusip": "002824100",
+            "shares": 1245954,
+            "value": 127922097000,
+            "weight": 4.38
+          },
+          {
+            "ticker": "ABBV",
+            "name": "ABBVIE INC",
+            "cusip": "00287Y109",
+            "shares": 490285,
+            "value": 106632085000,
+            "weight": 3.65
+          },
+          {
+            "ticker": "UNKNOWN_88339Y",
+            "name": "2023 ETF SERIES TRUST",
+            "cusip": "88339Y102",
+            "shares": 2668731,
+            "value": 81182797000,
+            "weight": 2.78
+          },
+          {
+            "ticker": "UNKNOWN_G1151C",
+            "name": "ACCENTURE PLC IRELAND",
+            "cusip": "G1151C101",
+            "shares": 369410,
+            "value": 73250309000,
+            "weight": 2.51
+          }
+        ],
+        "total_value": 2922016914000
+      },
+      "filing_history": 3
+    },
+    "two_sigma": {
+      "status": "ok",
+      "manager_key": "two_sigma",
+      "manager_name": "Two Sigma Investments",
+      "short_name": "Two Sigma",
+      "cik": "0001179392",
+      "latest_quarter": {
+        "period": "2026-03-31",
+        "filing_date": "2026-05-15",
+        "holdings_count": 200,
+        "top_10": [
+          {
+            "ticker": "GOOGL",
+            "name": "ALPHABET INC",
+            "cusip": "02079K305",
+            "shares": 4431628,
+            "value": 1274358948000,
+            "weight": 17.04
+          },
+          {
+            "ticker": "ADBE",
+            "name": "ADOBE INC",
+            "cusip": "00724F101",
+            "shares": 3129038,
+            "value": 760606557000,
+            "weight": 10.17
+          },
+          {
+            "ticker": "UNKNOWN_02043Q",
+            "name": "ALNYLAM PHARMACEUTICALS INC",
+            "cusip": "02043Q107",
+            "shares": 1992577,
+            "value": 659283952000,
+            "weight": 8.81
+          },
+          {
+            "ticker": "UNKNOWN_002824",
+            "name": "ABBOTT LABORATORIES",
+            "cusip": "002824100",
+            "shares": 6388828,
+            "value": 655940971000,
+            "weight": 8.77
+          },
+          {
+            "ticker": "UNKNOWN_N00985",
+            "name": "AERCAP HOLDINGS NV",
+            "cusip": "N00985106",
+            "shares": 3535599,
+            "value": 485013471000,
+            "weight": 6.48
+          },
+          {
+            "ticker": "ABNB",
+            "name": "AIRBNB INC",
+            "cusip": "009066101",
+            "shares": 3458771,
+            "value": 436773602000,
+            "weight": 5.84
+          },
+          {
+            "ticker": "UNKNOWN_012653",
+            "name": "ALBEMARLE CORP",
+            "cusip": "012653101",
+            "shares": 2320881,
+            "value": 416667766000,
+            "weight": 5.57
+          },
+          {
+            "ticker": "UNKNOWN_008492",
+            "name": "AGREE RLTY CORP",
+            "cusip": "008492100",
+            "shares": 4041693,
+            "value": 304662818000,
+            "weight": 4.07
+          },
+          {
+            "ticker": "UNKNOWN_007903",
+            "name": "ADVANCED MICRO DEVICES INC",
+            "cusip": "007903107",
+            "shares": 1372004,
+            "value": 279106774000,
+            "weight": 3.73
+          },
+          {
+            "ticker": "UNKNOWN_00971T",
+            "name": "AKAMAI TECHNOLOGIES INC",
+            "cusip": "00971T101",
+            "shares": 1811599,
+            "value": 208062145000,
+            "weight": 2.78
+          }
+        ],
+        "total_value": 7480527119000
+      },
+      "filing_history": 3
+    },
+    "renaissance": {
+      "status": "ok",
+      "manager_key": "renaissance",
+      "manager_name": "Renaissance Technologies",
+      "short_name": "Renaissance",
+      "cik": "0001037389",
+      "latest_quarter": {
+        "period": "2026-03-31",
+        "filing_date": "2026-05-14",
+        "holdings_count": 200,
+        "top_10": [
+          {
+            "ticker": "UNKNOWN_01973R",
+            "name": "ALLISON TRANSMISSION HLDGS I",
+            "cusip": "01973R101",
+            "shares": 2260397,
+            "value": 264602073000,
+            "weight": 6.68
+          },
+          {
+            "ticker": "ABNB",
+            "name": "AIRBNB INC",
+            "cusip": "009066101",
+            "shares": 1830841,
+            "value": 231198601000,
+            "weight": 5.84
+          },
+          {
+            "ticker": "UNKNOWN_011532",
+            "name": "ALAMOS GOLD INC",
+            "cusip": "011532108",
+            "shares": 5118171,
+            "value": 227400338000,
+            "weight": 5.74
+          },
+          {
+            "ticker": "ADBE",
+            "name": "ADOBE INC",
+            "cusip": "00724F101",
+            "shares": 925270,
+            "value": 224914836000,
+            "weight": 5.68
+          },
+          {
+            "ticker": "UNKNOWN_G01767",
+            "name": "ALKERMES PLC",
+            "cusip": "G01767105",
+            "shares": 6160428,
+            "value": 217832734000,
+            "weight": 5.5
+          },
+          {
+            "ticker": "AXP",
+            "name": "AMERICAN EXPRESS CO",
+            "cusip": "025816109",
+            "shares": 550880,
+            "value": 166630182000,
+            "weight": 4.21
+          },
+          {
+            "ticker": "GOOGL",
+            "name": "ALPHABET INC",
+            "cusip": "02079K305",
+            "shares": 542471,
+            "value": 155991409000,
+            "weight": 3.94
+          },
+          {
+            "ticker": "UNKNOWN_012653",
+            "name": "ALBEMARLE CORP",
+            "cusip": "012653101",
+            "shares": 730745,
+            "value": 131190650000,
+            "weight": 3.31
+          },
+          {
+            "ticker": "UNKNOWN_002824",
+            "name": "ABBOTT LABORATORIES",
+            "cusip": "002824100",
+            "shares": 1238666,
+            "value": 127173838000,
+            "weight": 3.21
+          },
+          {
+            "ticker": "META",
+            "name": "ALPHA METALLURGICAL RESOUR I",
+            "cusip": "020764106",
+            "shares": 592815,
+            "value": 121687135000,
+            "weight": 3.07
+          }
+        ],
+        "total_value": 3960157037000
+      },
+      "filing_history": 3
+    }
+  }
+}
