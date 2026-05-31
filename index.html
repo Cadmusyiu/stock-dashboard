@@ -997,6 +997,128 @@ window.renderSocialFeed = function(data, content, tsEl){
       '</div>'
   }
 
+  // ── Trump Impact Scoring ────────────────
+  var _last13fLoad = 0;
+  window.loadFundManager13f = function() {
+    var grid = $('fundManager13fGrid');
+    if (!grid) return;
+    var now = Date.now();
+    if (_last13fLoad && now - _last13fLoad < 600000) return;
+    _last13fLoad = now;
+    fetch('data/fund_manager_holdings.json?_=' + now)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.managers) {
+          grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">No 13F data available</div>';
+          return;
+        }
+        var html = '';
+        var mgrKeys = Object.keys(data.managers);
+        mgrKeys.forEach(function(k) {
+          var mgr = data.managers[k];
+          var q = mgr.latest_quarter || {};
+          var top10 = q.top_10 || [];
+          var totalVal = 0;
+          top10.forEach(function(h){ totalVal += h.value || 0; });
+          var bgColor = {berkshire_hathaway:'#00ff88',bridgewater:'#ffa502',citadel:'#4fc3f7',two_sigma:'#a29bfe',renaissance:'#ff4757'}[k] || '#636e72';
+          html += '<div class="glass manager-snap-card" style="padding:10px;border-left:3px solid '+bgColor+';">' +
+            '<div style="font-size:11px;font-weight:600;">' + (mgr.short_name || mgr.manager_name || k) + '</div>' +
+            '<div style="font-size:9px;color:var(--text-muted);">📅 ' + (q.period || '?') + ' · ' + (q.holdings_count || 0) + ' positions</div>' +
+            '<div style="font-size:9px;color:var(--text-secondary);margin:4px 0;">💵 ' + fmtAUM(totalVal) + '</div>' +
+            '<div style="font-size:9px;color:var(--text-muted);">Top: ' + top10.slice(0,4).map(function(h){return h.ticker;}).join(' · ') + '</div>' +
+            '</div>';
+        });
+        grid.innerHTML = html || '<div style="color:var(--text-muted);font-size:11px;">No 13F data</div>';
+      })
+      .catch(function(e){
+        grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">⚠️ 13F data unavailable: '+e.message+'</div>';
+      });
+  };
+
+  var _lastTrumpImpactLoad = 0;
+  window.loadTrumpImpactScores = function() {
+    var grid = $('trumpImpactGrid');
+    if (!grid) return;
+    var now = Date.now();
+    if (_lastTrumpImpactLoad && now - _lastTrumpImpactLoad < 600000) return;
+    _lastTrumpImpactLoad = now;
+    fetch('data/trump_impact_scores.json?_=' + now)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.cumulative || !data.cumulative.tickers) {
+          grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">No impact data</div>';
+          return;
+        }
+        var tickers = data.cumulative.tickers;
+        var sorted = Object.keys(tickers).sort(function(a,b){
+          return Math.abs(tickers[b]['24h'] || 0) - Math.abs(tickers[a]['24h'] || 0);
+        });
+        var html = '';
+        sorted.slice(0,12).forEach(function(t){
+          var info = tickers[t];
+          var score = info['24h'] || 0;
+          var count = info.count_24h || 0;
+          var col = score > 0 ? '#7cff00' : score < 0 ? '#ff4757' : 'var(--text-muted)';
+          var dir = score > 0 ? '📈' : score < 0 ? '📉' : '⚪';
+          html += '<div class="glass" style="padding:8px;text-align:center;">' +
+            '<div style="font-size:13px;font-weight:700;color:'+col+';">' + dir + ' ' + t + '</div>' +
+            '<div style="font-size:10px;color:'+col+';">' + (score >= 0 ? '+':'') + score.toFixed(1) + '</div>' +
+            '<div style="font-size:8px;color:var(--text-muted);">' + count + ' posts</div>' +
+            '</div>';
+        });
+        grid.innerHTML = html || '<div style="color:var(--text-muted);font-size:11px;">No impact scores</div>';
+      })
+      .catch(function(e){
+        grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">⚠️ Impact data unavailable: '+e.message+'</div>';
+      });
+  };
+
+  var _lastRotationLoad = 0;
+  window.loadSectorRotation = function() {
+    var grid = $('sectorRotationGrid');
+    if (!grid) return;
+    var now = Date.now();
+    if (_lastRotationLoad && now - _lastRotationLoad < 600000) return;
+    _lastRotationLoad = now;
+    fetch('data/sector_rotation.json?_=' + now)
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data || !data.sectors) {
+          grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">No sector rotation data</div>';
+          return;
+        }
+        var sectors = data.sectors;
+        var sorted = Object.keys(sectors).sort(function(a,b){
+          return (sectors[b].momentum_score || 0) - (sectors[a].momentum_score || 0);
+        });
+        var dir = data.rotation_direction || {};
+        var regimeLabel = dir.regime || dir.label || '';
+        var regimeColor = '';
+        if (regimeLabel.indexOf('Risk-On') !== -1) regimeColor = '#7cff00';
+        else if (regimeLabel.indexOf('Risk-Off') !== -1) regimeColor = '#ff4757';
+        else regimeColor = '#ffc312';
+        var html = '<div style="grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-bottom:4px;">' +
+          '<span style="font-size:10px;font-weight:600;">Regime: <span style="color:'+regimeColor+'">' + escapeHtml(regimeLabel) + '</span></span>' +
+          '<span style="font-size:9px;color:var(--text-muted);">Top: ' + (data.rotation_signal?.top_sectors?.[0]?.name || '') + '</span>' +
+          '</div>';
+        sorted.forEach(function(ticker){
+          var s = sectors[ticker];
+          var mom = s.momentum_score || 0;
+          var bg = mom > 5 ? 'rgba(46,213,115,'+Math.min(mom/30,0.4)+')' : mom < -5 ? 'rgba(255,71,87,'+Math.min(Math.abs(mom)/30,0.4)+')' : 'rgba(255,255,255,0.04)';
+          var capFlow = s.capital_flow ? (s.capital_flow['21d'] || 0).toFixed(0) : '—';
+          html += '<div class="sector-cell" style="background:'+bg+';padding:5px;border-radius:4px;text-align:center;font-size:10px;">' +
+            '<div style="font-weight:600;">' + (s.name || ticker) + '</div>' +
+            '<div style="font-size:9px;color:'+(mom>=0?'var(--green)':'var(--red)')+'">' + (mom >= 0 ? '+':'') + mom.toFixed(1) + '</div>' +
+            '<div style="font-size:8px;color:var(--text-muted);">Flow: ' + capFlow + '</div>' +
+            '</div>';
+        });
+        grid.innerHTML = html;
+      })
+      .catch(function(e){
+        grid.innerHTML = '<div style="color:var(--text-muted);font-size:11px;">⚠️ Sector data unavailable: '+e.message+'</div>';
+      });
+  };
+
   // ── Posts ─────────────────────────────────────────
   var posts = data.posts || data;
   posts.slice(0, 20).forEach(function(post, i){
@@ -1568,38 +1690,13 @@ window.showLanding = function(){
       }).catch(function(){console.log('13F data not available yet')});
     } catch(e){}
 
-    // 🆕 Trump Impact Scores
-    try {
-      fetch('data/trump_impact_scores.json?'+Date.now()).then(function(r){return r.json()}).then(function(trData){
-        var grid=$('trumpImpactGrid');
-        if(!grid)return;
-        var cum=trData.cumulative||{};
-        var items=Object.keys(cum).sort(function(a,b){return Math.abs(cum[b]._24h||0)-Math.abs(cum[a]._24h||0)}).slice(0,12);
-        grid.innerHTML=items.map(function(ticker){
-          var sc=cum[ticker];
-          var s24=sc._24h||0;
-          var bg=s24>0?'rgba(46,213,115,'+Math.min(s24/15,0.5)+')':'rgba(255,71,87,'+Math.min(Math.abs(s24)/15,0.5)+')';
-          return '<div style="background:'+bg+';border-radius:4px;padding:6px 8px;text-align:center;"><div style="font-size:10px;font-weight:600;">'+ticker+'</div><div style="font-size:10px;"'+(s24>=0?'':'')+' style="font-size:10px;">'+(s24>=0?'+':'')+s24.toFixed(2)+'</div><div style="font-size:8px;color:var(--text-muted);">7d: '+(sc._7d>=0?'+':'')+(sc._7d||0).toFixed(2)+'</div></div>';
-        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No Trump impact data</div>';
-      }).catch(function(){});
-    } catch(e){}
+    // 🆕 Trump Impact Scores (loaded by loadTrumpImpactScores)
+    // 🆕 Sector Rotation (loaded by loadSectorRotation)
 
-    // 🆕 Sector Rotation
-    try {
-      fetch('data/sector_rotation.json?'+Date.now()).then(function(r){return r.json()}).then(function(srData){
-        var grid=$('sectorRotationGrid');
-        if(!grid)return;
-        var sectors=srData.sectors||{};
-        var macro=srData.macro||{};
-        var all=Object.assign({}, sectors, macro);
-        grid.innerHTML=Object.keys(all).sort(function(a,b){return Math.abs((all[b]._1m||0))-Math.abs((all[a]._1m||0))}).map(function(ticker){
-          var s=all[ticker];
-          var pw=s._1w||0, pm=s._1m||0;
-          var bg=pm>=0?'rgba(46,213,115,'+Math.min(pm/15,0.5)+')':'rgba(255,71,87,'+Math.min(Math.abs(pm)/15,0.5)+')';
-          return '<div style="background:'+bg+';border-radius:4px;padding:6px 8px;text-align:center;"><div style="font-size:10px;font-weight:600;">'+ticker+'</div><div style="font-size:9px;">1w: '+(pw>=0?'+':'')+pw.toFixed(1)+'%</div><div style="font-size:9px;">1m: '+(pm>=0?'+':'')+pm.toFixed(1)+'%</div></div>';
-        }).join('')||'<div style="color:var(--text-muted);font-size:11px;">No sector rotation data</div>';
-      }).catch(function(){});
-    } catch(e){}
+    // Load 13F, Trump Impact, and Sector Rotation data
+    window.loadFundManager13f();
+    window.loadTrumpImpactScores();
+    window.loadSectorRotation();
 
     var lt=$('landingTimestamp');
     if(lt)lt.textContent='Last updated: '+now;
@@ -1617,7 +1714,11 @@ function boot(){
     var n=0;
     window.showLanding();
     if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
-    setTimeout(buildAumChart,1000);
+    setTimeout(function(){
+      window.loadFundManager13f();
+      window.loadTrumpImpactScores();
+      window.loadSectorRotation();
+    },2000);
     setInterval(loadPrices,120000);
   }catch(e){console.error('Boot error:',e)}
 }

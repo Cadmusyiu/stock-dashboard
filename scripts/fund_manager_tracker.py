@@ -728,17 +728,19 @@ def simulate_portfolio(holdings: list, manager_name: str) -> dict:
         monthly_dates = []
 
         for date in close_data.index:
-            weights = []
             prices = []
             for t in top_tickers:
                 if t in close_data.columns:
-                    price = close_data[t].iloc[close_data.index.get_loc(date)]
-                    if price is not None and not isinstance(price, (int, float)):
-                        price = float(price)
+                    pv = close_data.loc[date, t]
+                    if hasattr(pv, 'item'):
+                        pv = pv.item()
+                    pv = float(pv)
                 else:
-                    price = None
+                    pv = None
+                if pv is not None:
+                    prices.append(pv)
 
-            if all(p is not None and p > 0 for p in prices):
+            if len(prices) == len(top_tickers) and all(p > 0 for p in prices):
                 val = sum(equal_weight * p for p in prices)
                 if portfolio_value is None:
                     portfolio_value = val
