@@ -1689,12 +1689,16 @@ function boot(){
     if(wth)wth.textContent='▼';
     var n=0;
     window.showLanding();
-    // Fire 3 data sections immediately (deferred 1 tick to ensure functions are defined)
-    setTimeout(function(){
-      window.loadFundManager13f && window.loadFundManager13f();
-      window.loadTrumpImpactScores && window.loadTrumpImpactScores();
-      window.loadSectorRotation && window.loadSectorRotation();
-    }, 1);
+    // Fire 3 data sections (retry until functions available)
+    (function initDataSections(){
+      if(window.loadFundManager13f && window.loadTrumpImpactScores && window.loadSectorRotation) {
+        window.loadFundManager13f();
+        window.loadTrumpImpactScores();
+        window.loadSectorRotation();
+      } else {
+        setTimeout(initDataSections, 50);
+      }
+    })();
     if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
 
     setInterval(loadPrices,120000);
