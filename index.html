@@ -1694,6 +1694,10 @@ function boot(){
     if(wth)wth.textContent='▼';
     var n=0;
     window.showLanding();
+    // Fire 3 data sections immediately, NOT waiting for loadPrices()
+    window.loadFundManager13f();
+    window.loadTrumpImpactScores();
+    window.loadSectorRotation();
     if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
 
     setInterval(loadPrices,120000);
