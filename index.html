@@ -1674,11 +1674,6 @@ window.showLanding = function(){
     $('updateTs').textContent='🔄 Updated '+now+' • '+allTk.length+' tickers';
     $('updateTs').style.display='block';
     $('tableBody').innerHTML='<tr><td colspan="6"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;padding:4px;">'+cards+'</div></td></tr>';
-    // 🆕 Load 13F, Trump Impact, and Sector Rotation data
-    window.loadFundManager13f();
-    window.loadTrumpImpactScores();
-    window.loadSectorRotation();
-
     var lt=$('landingTimestamp');
     if(lt)lt.textContent='Last updated: '+now;
   }).catch(function(e){
