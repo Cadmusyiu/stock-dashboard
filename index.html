@@ -1689,16 +1689,67 @@ function boot(){
     if(wth)wth.textContent='▼';
     var n=0;
     window.showLanding();
-    // Fire 3 data sections (retry until functions available)
-    (function initDataSections(){
-      if(window.loadFundManager13f && window.loadTrumpImpactScores && window.loadSectorRotation) {
-        window.loadFundManager13f();
-        window.loadTrumpImpactScores();
-        window.loadSectorRotation();
-      } else {
-        setTimeout(initDataSections, 50);
-      }
-    })();
+    // Ensure 3 loaders exist (they'll be defined inside renderSocialFeed on Trump tab click)
+    // For Home page boot: define inline fallback loaders that fetch their data directly
+    window.loadFundManager13f = window.loadFundManager13f || function(){
+      var grid = document.getElementById('fundManager13fGrid');
+      if (!grid) return;
+      if (window.__13fFired) return; window.__13fFired = true;
+      fetch('data/fund_manager_holdings.json?_='+Date.now())
+        .then(function(r){return r.json()})
+        .then(function(data){
+          if (!data||!data.managers){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No 13F data</div>';return}
+          var html='';
+          Object.keys(data.managers).forEach(function(k){
+            var mgr=data.managers[k],q=mgr.latest_quarter||{},top10=q.top_10||[];
+            var tv=0;top10.forEach(function(h){tv+=h.value||0});
+            html+='<div class="glass manager-snap-card" style="padding:10px;border-left:3px solid '+(k==='berkshire_hathaway'?'#00ff88':k==='bridgewater'?'#ffa502':k==='citadel'?'#4fc3f7':'#636e72')+';"><div style="font-size:11px;font-weight:600;">'+(mgr.short_name||mgr.manager_name||k)+'</div><div style="font-size:9px;color:var(--text-muted);">📅 '+(q.period||'?')+' · '+(q.holdings_count||0)+' positions</div><div style="font-size:9px;color:var(--text-secondary);margin:4px 0;">💵 $'+(tv>=1e9?(tv/1e9).toFixed(1)+'B':tv>=1e6?(tv/1e6).toFixed(1)+'M':'0')+'</div><div style="font-size:9px;color:var(--text-muted);">Top: '+top10.slice(0,4).map(function(h){return h.ticker}).join(' · ')+'</div></div>'
+          });
+          grid.innerHTML=html||'<div style="color:var(--text-muted);font-size:11px;">No 13F data</div>'
+        })
+        .catch(function(e){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">⚠️ Error: '+e.message+'</div>'})
+    };
+    window.loadTrumpImpactScores = window.loadTrumpImpactScores || function(){
+      var grid = document.getElementById('trumpImpactGrid');
+      if (!grid) return;
+      if (window.__trumpImpactFired) return; window.__trumpImpactFired = true;
+      fetch('data/trump_impact_scores.json?_='+Date.now())
+        .then(function(r){return r.json()})
+        .then(function(data){
+          if (!data||!data.cumulative||!data.cumulative.tickers){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No impact data</div>';return}
+          var tk=data.cumulative.tickers;
+          var sorted=Object.keys(tk).sort(function(a,b){return Math.abs(tk[b]['24h']||0)-Math.abs(tk[a]['24h']||0)});
+          var html='';
+          sorted.slice(0,12).forEach(function(t){
+            var s=tk[t]['24h']||0,c=tk[t].count_24h||0;
+            var col=s>0?'#7cff00':s<0?'#ff4757':'var(--text-muted)';
+            html+='<div class="glass" style="padding:8px;text-align:center;"><div style="font-size:13px;font-weight:700;color:'+col+';">'+(s>0?'📈':'📉')+' '+t+'</div><div style="font-size:10px;color:'+col+';">'+(s>=0?'+':'')+s.toFixed(3)+'</div><div style="font-size:8px;color:var(--text-muted);">'+c+' posts</div></div>'
+          });
+          grid.innerHTML=html
+        })
+        .catch(function(e){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">⚠️ Error: '+e.message+'</div>'})
+    };
+    window.loadSectorRotation = window.loadSectorRotation || function(){
+      var grid = document.getElementById('sectorRotationGrid');
+      if (!grid) return;
+      if (window.__rotationFired) return; window.__rotationFired = true;
+      fetch('data/sector_rotation.json?_='+Date.now())
+        .then(function(r){return r.json()})
+        .then(function(data){
+          if (!data||!data.sectors){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No sector data</div>';return}
+          var sec=data.sectors;
+          var html='';
+          Object.keys(sec).forEach(function(k){
+            var s=sec[k];
+            html+='<div class="glass" style="padding:8px;text-align:center;"><div style="font-size:12px;font-weight:600;">'+k+'</div><div style="font-size:10px;color:'+(s.change>0?'#7cff00':'#ff4757')+';">'+(s.change>=0?'+':'')+s.change.toFixed(2)+'%</div><div style="font-size:8px;color:var(--text-muted);">'+(s.momentum||'')+'</div></div>'
+          });
+          grid.innerHTML=html
+        })
+        .catch(function(e){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">⚠️ Error: '+e.message+'</div>'})
+    };
+    window.loadFundManager13f();
+    window.loadTrumpImpactScores();
+    window.loadSectorRotation();
     if(window.Chart){buildAumChart();}else{var n2=0;(function w(){if(window.Chart){buildAumChart();}else if(n2++<100){setTimeout(w,200)}})()}
 
     setInterval(loadPrices,120000);
