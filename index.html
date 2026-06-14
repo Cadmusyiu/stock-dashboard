@@ -1736,12 +1736,11 @@ function boot(){
       fetch('data/sector_rotation.json?_='+Date.now())
         .then(function(r){return r.json()})
         .then(function(data){
-          if (!data||!data.sectors){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No sector data</div>';return}
-          var sec=data.sectors;
+          if (!data||!data.ranked){grid.innerHTML='<div style="color:var(--text-muted);font-size:11px;">No sector data</div>';return}
+          var sorted = data.ranked.slice(0,12);
           var html='';
-          Object.keys(sec).forEach(function(k){
-            var s=sec[k];
-            html+='<div class="glass" style="padding:8px;text-align:center;"><div style="font-size:12px;font-weight:600;">'+k+'</div><div style="font-size:10px;color:'+(s.change>0?'#7cff00':'#ff4757')+';">'+(s.change>=0?'+':'')+s.change.toFixed(2)+'%</div><div style="font-size:8px;color:var(--text-muted);">'+(s.momentum||'')+'</div></div>'
+          sorted.forEach(function(s){
+            html+='<div class="glass" style="padding:8px;text-align:center;"><div style="font-size:10px;color:var(--text-muted);">'+s.ticker+'</div><div style="font-size:12px;font-weight:600;">'+s.name+'</div><div style="font-size:11px;color:'+(s.momentum>0?'#7cff00':'#ff4757')+';">'+(s.momentum>=0?'+':'')+s.momentum.toFixed(2)+'%</div></div>'
           });
           grid.innerHTML=html
         })
